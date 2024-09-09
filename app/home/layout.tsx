@@ -1,4 +1,4 @@
-import SideNav from '@/app/ui/home/sidenav';
+//import SideNav from '@/app/ui/home/sidenav';
 import TopNav from '@/app/ui/home/topnav';
  
 export default function Layout({ children }: { children: React.ReactNode }) {
