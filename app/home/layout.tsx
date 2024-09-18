@@ -1,5 +1,7 @@
 //import SideNav from '@/app/ui/home/sidenav';
 import TopNav from '@/app/ui/home/topnav';
+import SearchBar from '@/app/ui/home/search-bar';
+import AcmeLogo from '../ui/acme-logo';
  
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -8,6 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <TopNav />
       </div>
       <div className="flex-grow p-6 md:overflow-y-auto md:p-4 md:mx-80">{children}</div>
+      <SearchBar />
     </div>
   );
 }

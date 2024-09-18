@@ -7,13 +7,10 @@ import {
   // Map of links to display in the side navigation.
   // Depending on the size of the application, this would be stored in a database.
   const links = [
-    { name: 'Home', href: '/home', icon: HomeIcon },
-    {
-      name: 'Invoices',
-      href: '/home/invoices',
-      icon: DocumentDuplicateIcon,
-    },
-    { name: 'Customers', href: '/home/customers', icon: UserGroupIcon },
+    { name: '메인메뉴', href: '/home', icon: HomeIcon },
+    { name: '즐겨찾기', href: '/home/invoices', icon: DocumentDuplicateIcon },
+    { name: '할인정보', href: '/home/customers', icon: UserGroupIcon },
+    { name: '할인정보', href: '/home/customers', icon: UserGroupIcon },
   ];
   
   export default function NavLinks2() {

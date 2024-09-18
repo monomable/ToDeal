@@ -16,3 +16,10 @@ input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+/*
+.suggestion-area__thumbnail{
+  object-fit: cover;
+  width: 27px;
+  height: 27px;
+}*/
