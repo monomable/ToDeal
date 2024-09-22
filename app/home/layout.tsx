@@ -1,16 +1,14 @@
 //import SideNav from '@/app/ui/home/sidenav';
 import TopNav from '@/app/ui/home/topnav';
-import SearchBar from '@/app/ui/home/search-bar';
 import AcmeLogo from '../ui/acme-logo';
  
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-screen flex-col md:overflow-hidden">
-      <div className="w-full flex-none md:w-64">
+    <div className="flex h-screen flex-col md:w-10/12 md:p-4 md:mx-auto md:border md:overflow-hidden"> {/* md:w-?/? 비율 설정해서 좌우 크기 조정 */}
+      <div className="w-full flex-none">
         <TopNav />
       </div>
       <div className="flex-grow p-6 md:overflow-y-auto md:p-4 md:mx-80">{children}</div>
-      <SearchBar />
     </div>
   );
 }
