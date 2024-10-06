@@ -2,12 +2,12 @@
 //import { BuildingLibraryIcon } from "@heroicons/react/24/outline";
 import { ubuntu } from '@/app/ui/fonts';
 
-export default function AcmeLogo() {
+export default function DealLogo() {
   return (
     <div
       className={`${ubuntu.className} flex flex-col items-start leading-none text-black`}
     >
-      <p className="text-[80px]">:Deal</p>
+      <p className="text-[60px]">:Deal</p>
     </div>
   );
 }

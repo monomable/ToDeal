@@ -1,6 +1,6 @@
 //import SideNav from '@/app/ui/home/sidenav';
 import TopNav from '@/app/ui/home/topnav';
-import AcmeLogo from '../ui/acme-logo';
+import DealLogo from '../ui/deal-logo';
  
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
