@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import NavLinks2 from '@/app/ui/home/nav-links2';
-import DealLogo from '@/app/ui/deal-logo';
+import NavLinks2 from '@/src/app/ui/home/nav-links2';
+import DealLogo from '@/src/app/ui/deal-logo';
 import { PowerIcon } from '@heroicons/react/24/outline';
 import SearchBar from './search-bar';
-import SearchPage from '@/app/home/search/page';
+import SearchPage from '@/src/app/home/search/page';
 
 export default function TopNav() {
   return (

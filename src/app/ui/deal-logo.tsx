@@ -1,6 +1,6 @@
 //import { GlobeAltIcon } from '@heroicons/react/24/outline';
 //import { BuildingLibraryIcon } from "@heroicons/react/24/outline";
-import { ubuntu } from '@/app/ui/fonts';
+import { ubuntu } from '@/src/app/ui/fonts';
 
 export default function DealLogo() {
   return (

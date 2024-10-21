@@ -10,7 +10,7 @@ import {
     { name: '메인메뉴', href: '/home', icon: HomeIcon },
     { name: '즐겨찾기', href: '/home/invoices', icon: DocumentDuplicateIcon },
     { name: '검색바', href: '/home/search', icon: UserGroupIcon },
-    { name: '할인정보', href: '/home/customers', icon: UserGroupIcon },
+    { name: '할인정보', href: '/home/list', icon: UserGroupIcon },
   ];
   
   export default function NavLinks2() {
