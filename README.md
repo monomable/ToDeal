@@ -3,11 +3,13 @@
 ### 사용한 프레임워크
 
 FrontEnd
-    Next.js
+- Next.js
+
 BackEnd
-    express
-DB
-    MariaDB
+- express
+
+DB</br>
+- MariaDB
 
 
 ## 실행 방법
