@@ -43,7 +43,6 @@ export default function Users() {
         <table className="table table-zebra">
         <thead className="text-sm text-gray-700 uppercase bg-gray-50">
             <tr>
-            <th className="py-3 px-6">#</th>
             <th className="py-3 px-6">게시글ID</th>
             <th className="py-3 px-6">제목</th>
             <th className="py-3 px-6">내용</th>
@@ -53,19 +52,14 @@ export default function Users() {
         <tbody>
             {userData.map((rs, index) => (
             <tr key={rs.id} className="bg-white border-b">
-                <td className="py-3 px-6">{index + 1}</td>
                 <td className="py-3 px-6">{rs.board_id}</td>
                 <td className="py-3 px-6">{rs.title}</td>
                 <td className="py-3 px-6">{rs.content}</td>
                 <td className="flex justify-center gap-1 py-3">
-                    <Link
-                    href={`/user/view/${rs._id}`} 
-                    className="btn btn-info">
+                    <Link href={`/user/view/${rs._id}`} className="btn btn-info">
                     조회
                     </Link>
-                    <Link
-                    href={`/user/edit/${rs._id}`} 
-                    className="btn btn-primary">
+                    <Link href={`/user/edit/${rs._id}`} className="btn btn-primary">
                     수정
                     </Link>
                     <button onClick={()=>handleDelete(rs._id)} className="btn btn-secondary">삭제</button>

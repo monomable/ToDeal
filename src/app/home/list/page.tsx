@@ -3,7 +3,7 @@ import TableData from "@/src/app/ui/home/list/tabledata";
 import { Suspense } from "react";
 import { Spinner } from "@/src/app/ui/home/list/spinner";
   
-export default function Home() {
+export default function Page() {
     return (
     <div className="">
       <div className="flex items-center justify-between gap-1 mb-5">
