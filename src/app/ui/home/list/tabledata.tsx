@@ -42,7 +42,7 @@ export default function Users() {
     }
   return (
         <table className="table table-zebra">
-        <thead className="text-sm text-gray-700 uppercase bg-gray-50">
+        <thead className="text-sm text-gray-700 uppercase bg-gray-100">
             <tr>
             <th className="py-3 px-6">게시글ID</th>
             <th className="py-3 px-64">제목</th>
@@ -52,11 +52,14 @@ export default function Users() {
         </thead>
         <tbody>
             {userData.map((rs, index) => (
-            <tr key={rs.id} className="bg-white border-b">
-                <td className="py-3 px-6">{rs.board_id}</td>
-                <Link href={`/post/view/${rs.board_id}`}>
-                    <td className="py-3 px-6">{rs.title}</td>
-                </Link>
+            <tr key={rs.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <td className="py-3 px-6">
+                    <Link className="block" href={`/post/view/${rs.board_id}`}>{rs.board_id}</Link>
+                </td>
+                <td className="py-3 px-6">
+                    <Link className="block" href={`/post/view/${rs.board_id}`}>{rs.title}</Link>
+                </td>
+                
                 {/* <td className="py-3 px-6">{rs.content}</td> 
                 <td className="flex justify-center gap-1 py-3">
                     <Link href={`/post/view/${rs.board_id}`} className="btn btn-info">

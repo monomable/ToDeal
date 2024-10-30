@@ -8,11 +8,11 @@ export default function Page() {
     return (
     <div className="">
       <div className="flex items-center justify-between gap-1 mb-4">
-        <h1 className="text-4xl font-bold">DB 리스트업</h1>
+        <h1 className="text-4xl font-bold">메인메뉴</h1>
       </div>    
         <div className="">
           <div className="mb-2 w-full text-right">
-            <Link href="/user/create" // 버튼 링크 연결
+            <Link href="/post/create" // 버튼 링크 연결
               className="white-btn">
               글쓰기
             </Link>

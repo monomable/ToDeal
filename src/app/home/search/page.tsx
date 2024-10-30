@@ -12,7 +12,7 @@ const SearchPage = ({
     //console.log("query", query);
     return (
         <div>
-            <h1>Search Bar : </h1>
+            <h1>검색 : </h1>
             <SearchBar />
             <SearchList query={query} />
         </div>
