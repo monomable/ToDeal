@@ -1,3 +1,5 @@
+import "../../"
+
 type Props = {
     params: {
       id: string;
@@ -7,7 +9,7 @@ type Props = {
   export default function Post({params}: Props) {
     return (
       <>
-      <div>{params.id}포스트</div>
+      <div className="title-box">{params.id}포스트</div>
       </>
     )
   }
