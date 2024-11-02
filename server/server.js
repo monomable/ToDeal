@@ -105,7 +105,6 @@ nextApp
         body.writer,
         body.title,
         body.content,
-        //body.regdata,
       ], function(err) {
         if (err) {
           throw err;
@@ -116,15 +115,15 @@ nextApp
     }) 
 
     // Delete API
-    app.get('/post/delete/:id', function (req, res) {
-      conn.query('delete from Post where board_id=?', [req.params.id], function () {
+    app.get('/api/post/delete/:id', function (req, res) {
+      connection.query('delete from Post where board_id=?', [req.params.id], function () {
         res.redirect('/home') // delete 완료후 /home으로 리다이렉트
       })
     })
 
     // Edit API
     app.get('/post/edit/:id', function (req, res) { // id값에 맞춰 edit할 값들 가져오기
-      conn.query('select * from Post where board_id=?', [req.params.id], function (err, results) {
+      connection.query('select * from Post where board_id=?', [req.params.id], function (err, results) {
         if (err) {
           throw err
         } else {
@@ -138,7 +137,7 @@ nextApp
     app.post('/post/edit/:id', function (req, res) { // 변경된 데이터 post
       const body = req.body
     
-      conn.query('update Post SET writer=?, title=?, content=?, regdate=? where board_id=?',[
+      connection.query('update Post SET writer=?, title=?, content=?, regdate=? where board_id=?',[
         body.writer, 
         body.title, 
         body.content, 
