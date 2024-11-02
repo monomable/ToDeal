@@ -55,6 +55,9 @@ nextApp
       .catch(err => res.json(err))
       */
     });
+
+    /* CRUD api 구현 공간 */
+    
     app.get('/api/list', (req, res) => {
       connection.query('SELECT * FROM Post', function (err, result, fields) {
         if (err) throw err;
@@ -86,6 +89,63 @@ nextApp
           return res.status(404).send('해당 글을 찾을 수 없습니다. ');
         }
         res.send(postview);
+      })
+    })
+
+    // Create API
+    app.get('/post/create', function (req, res) {
+      res.render('insert.html') // create 창 실행
+    })
+    
+    app.post('/post/create', function (req, res) { // create창에서 값들을 가져옴
+      const body = req.body
+
+      // body에서 name이 writer, title, content, regdata인 input값들을 가져옴
+      connection.query('insert into Post (writer, title, content, regdate) values (?, ?, ?, ?);', [
+        body.writer,
+        body.title,
+        body.content,
+        body.regdata,
+      ], function(err) {
+        if (err) {
+          throw err;
+        } else {
+          res.redirect('/home') // create 완료후 /home으로 리다이렉트
+        }
+      })
+    }) 
+
+    // Delete API
+    app.get('/post/delete/:id', function (req, res) {
+      conn.query('delete from Post where board_id=?', [req.params.id], function () {
+        res.redirect('/home') // delete 완료후 /home으로 리다이렉트
+      })
+    })
+
+    // Edit API
+    app.get('/post/edit/:id', function (req, res) { // id값에 맞춰 edit할 값들 가져오기
+      conn.query('select * from Post where board_id=?', [req.params.id], function (err, results) {
+        if (err) {
+          throw err
+        } else {
+          res.render('edit.html', { //edit 창 실행
+            content: results[0]
+          })
+        }
+      })
+    })
+    
+    app.post('/post/edit/:id', function (req, res) { // 변경된 데이터 post
+      const body = req.body
+    
+      conn.query('update Post SET writer=?, title=?, content=?, regdate=? where board_id=?',[
+        body.writer, 
+        body.title, 
+        body.content, 
+        body.regdate, 
+        req.params.id
+      ], function () {
+        res.redirect('/home') // /home으로 리다이렉트
       })
     })
 
