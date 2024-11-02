@@ -12,8 +12,7 @@ export default function Page() {
       </div>    
         <div className="">
           <div className="mb-2 w-full text-right">
-            <Link href="/post/create" // 버튼 링크 연결
-              className="white-btn">
+            <Link href="/post/create" className="white-btn"> {/* 버튼 링크 연결 */}
               글쓰기
             </Link>
           </div>

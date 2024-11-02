@@ -93,19 +93,19 @@ nextApp
     })
 
     // Create API
-    app.get('/post/create', function (req, res) {
-      res.render('insert.html') // create 창 실행
+    app.get('/api/post/create', function (req, res) {
+      //res.render('insert.html') // create 창 실행
     })
     
-    app.post('/post/create', function (req, res) { // create창에서 값들을 가져옴
+    app.post('/api/post/create', function (req, res) { // create창에서 값들을 가져옴
       const body = req.body
 
       // body에서 name이 writer, title, content, regdata인 input값들을 가져옴
-      connection.query('insert into Post (writer, title, content, regdate) values (?, ?, ?, ?);', [
+      connection.query('insert into Post (writer, title, content) values (?, ?, ?);', [
         body.writer,
         body.title,
         body.content,
-        body.regdata,
+        //body.regdata,
       ], function(err) {
         if (err) {
           throw err;

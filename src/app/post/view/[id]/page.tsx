@@ -1,4 +1,4 @@
-import "../../"
+import "../../../globals.css"
 
 type Props = {
     params: {
