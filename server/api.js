@@ -1,5 +1,6 @@
 const post = require("./models/model.js")
 
+// 아직 사용되고 있지 않음
 exports.findAll=(req,res)=>{
     Postpone.getAll((err,data)=>{
         if(err)

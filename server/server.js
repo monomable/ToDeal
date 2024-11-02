@@ -5,7 +5,7 @@ dotenv.config({ path: '.env' }); // 환경변수 사용
 const path = require('path');
 
 const dealsRouter = require('./routes/deals');// deals 라우트 가져오기
-//const postModel = require('./models/model');
+const postModel = require('./models/model');
 
 /** Create Express */
 const app = express();
@@ -61,6 +61,33 @@ nextApp
         res.send(result);
       })
     });
+
+    /*
+    app.get('/api/post/:id', (req, res) =>{
+      const id = req.params.id
+      postModel.findById(req.params.id, result)
+      .then(data => {
+        if(!data) {
+          console.log('missing find id');
+        }
+        res.send(result)
+      })
+      .catch(err =>{
+        console.log('error');
+      })
+    })
+    */
+    
+    app.get('/api/post/:id', (req, res, next) =>{
+      connection.query('SELECT * FROM Post', (err, rows) =>{
+        if (err) throw err;
+        const postview = rows.find(post => post.idx === parseInt(req.params.id));
+        if(!postview) {
+          return res.status(404).send('해당 글을 찾을 수 없습니다. ');
+        }
+        res.send(postview);
+      })
+    })
 
     app.get('*', (req, res) => {
       return handle(req, res);
