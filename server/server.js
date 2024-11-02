@@ -93,9 +93,11 @@ nextApp
     })
 
     // Create API
+    
+    /* 필요 없음
     app.get('/api/post/create', function (req, res) {
       //res.render('insert.html') // create 창 실행
-    })
+    })*/
     
     app.post('/api/post/create', function (req, res) { // create창에서 값들을 가져옴
       const body = req.body
@@ -122,26 +124,23 @@ nextApp
     })
 
     // Edit API
-    app.get('/post/edit/:id', function (req, res) { // id값에 맞춰 edit할 값들 가져오기
+    app.get('/api/post/edit/:id', function (req, res) { // id값에 맞춰 edit할 값들 가져오기
       connection.query('select * from Post where board_id=?', [req.params.id], function (err, results) {
         if (err) {
           throw err
         } else {
-          res.render('edit.html', { //edit 창 실행
-            content: results[0]
-          })
+          res.send(results)
         }
       })
     })
     
-    app.post('/post/edit/:id', function (req, res) { // 변경된 데이터 post
+    app.post('/api/post/edit/:id', function (req, res) { // 변경된 데이터 post
       const body = req.body
     
-      connection.query('update Post SET writer=?, title=?, content=?, regdate=? where board_id=?',[
+      connection.query('update Post SET writer=?, title=?, content=? where board_id=?',[
         body.writer, 
         body.title, 
-        body.content, 
-        body.regdate, 
+        body.content,
         req.params.id
       ], function () {
         res.redirect('/home') // /home으로 리다이렉트
