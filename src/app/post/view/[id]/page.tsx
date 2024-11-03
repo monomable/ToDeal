@@ -53,6 +53,9 @@ type Props = {
               <Link href={`/post/edit/${params.id}`} className="white-btn">
               수정
               </Link>
+              <Link href={process.env.NEXT_PUBLIC_BASE_URL+"/api/post/delete/"+params.id} className="white-btn">
+              삭제
+              </Link>
             </div>
           </div>
         ))}
