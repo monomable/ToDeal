@@ -9,12 +9,11 @@ interface post {
   id : number;
   _id : number;
   board_id : string
+  writer : string
   title : string
   content : string
   regdate : string
 }
-
-
 
 type Props = {
     params: {
@@ -47,6 +46,7 @@ type Props = {
           <div key={rs.id}>
             <div className="title-box">포스트{rs.board_id}</div>
             <div className="title-box">작성일{rs.regdate}</div>
+            <div className="title-box">작성자{rs.writer}</div>
             <div className="title-box">제목:{rs.title}</div>
             <div className="title-box">내용:{rs.content}</div>
             <div className="my-5">
