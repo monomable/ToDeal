@@ -27,7 +27,7 @@ const SearchBar = () => {
             </label>
             <input
                 className="peer block w-1/2 rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-                placeholder="아이템 검색"
+                placeholder="검색어를 입력해 주세요."
                 defaultValue={searchParams.get('query')?.toString()}
                 onChange={(e) => {
                     handleSearch(e.target.value);
