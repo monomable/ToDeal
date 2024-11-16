@@ -6,20 +6,48 @@ import "../globals.css";
 
 export default function Page() {
     return (
-    <div className="">
-      <div className="flex items-center justify-between gap-1 mb-4">
-        <h1 className="text-4xl font-bold">메인메뉴</h1>
-      </div>    
-        <div className="">
-          <div className="mb-2 w-full text-right">
-            <Link href="/post/create" className="white-btn"> {/* 버튼 링크 연결 */}
-              글쓰기
-            </Link>
+    <div className="space-y-10 md:space-y-4">
+      <div className="max-w-screen-md p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <h4 className="mb-2 text-2xl font-bold tracking-tight text-gray-900dark:text-white">Best 핫딜</h4>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div>
+              <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg" alt=""/>
           </div>
-          <Suspense fallback={<Spinner />}>
-            <TableData/>
-          </Suspense>
-      </div>  
+          <div>
+              <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt=""/>
+          </div>
+          <div>
+              <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt=""/>
+          </div>
+          <div>
+              <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt=""/>
+          </div>
+          <div>
+              <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt=""/>
+          </div>
+          <div>
+              <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt=""/>
+          </div>
+      </div>
+
+    </div>
+    <div className="max-w-screen-md p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+
+      <div className="flex items-center justify-between gap-1 mb-4">
+      <h4 className="mb-2 text-2xl font-bold tracking-tight text-gray-900dark:text-white">최신 핫딜</h4>
+        </div>    
+          <div className="">
+            <div className="mb-2 w-full text-right">
+              <Link href="/post/create" className="white-btn"> {/* 버튼 링크 연결 */}
+                글쓰기
+              </Link>
+            </div>
+            <Suspense fallback={<Spinner />}>
+              <TableData/>
+            </Suspense>
+        </div>  
+      </div>
     </div>
     );
   }

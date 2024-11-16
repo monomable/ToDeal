@@ -8,7 +8,7 @@ import SearchPage from '@/src/app/home/search/page';
 export default function TopNav() {
   return (
     <div className="flex h-full flex-col px-3 py-4 md:flex-row md:px-2 md:space-x-2">
-      <Link className="mb-2 flex h-20 items-end justify-start rounded-md bg-[#CDE8E5] p-4 md:h-40" href="/">
+      <Link className="mb-2 flex h-20 items-end justify-start rounded-md p-4 md:h-40" href="/">
         <div className="w-32 text-white md:w-60">
           <DealLogo />
         </div>
