@@ -4,8 +4,8 @@ var router = express.Router();
 var template = require('./template.js');
 var db = require('./userDB.js');
 
-// 로그인 화면
-router.get('/login', function (request, response) {
+// 로그인 화면 대체 완료
+/*router.get('/login', function (request, response) {
     var title = '로그인';
     var html = template.HTML(title,`
             <h2>로그인</h2>
@@ -17,7 +17,7 @@ router.get('/login', function (request, response) {
             <p>계정이 없으신가요?  <a href="/auth/register">회원가입</a></p> 
         `, '');
     response.send(html);
-});
+}); */
 
 // 로그인 프로세스
 router.post('/login_process', function (request, response) {
@@ -39,13 +39,13 @@ router.post('/login_process', function (request, response) {
                 response.redirect(`/home`);
             } else {              
                 response.send(`<script type="text/javascript">alert("로그인 정보가 일치하지 않습니다."); 
-                document.location.href="/auth/login";</script>`);    
+                document.location.href="/";</script>`);    
             }            
         });
 
     } else {
         response.send(`<script type="text/javascript">alert("아이디와 비밀번호를 입력하세요!"); 
-        document.location.href="/auth/login";</script>`);    
+        document.location.href="/";</script>`);    
     }
 });
 
@@ -57,8 +57,8 @@ router.get('/logout', function (request, response) {
 });
 
 
-// 회원가입 화면
-router.get('/register', function(request, response) {
+// 회원가입 화면 대체 완료
+/*router.get('/register', function(request, response) {
     var title = '회원가입';    
     var html = template.HTML(title, `
     <h2>회원가입</h2>
@@ -72,7 +72,7 @@ router.get('/register', function(request, response) {
     <p><a href="/auth/login">로그인화면으로 돌아가기</a></p>
     `, '');
     response.send(html);
-});
+});*/
  
 // 회원가입 프로세스
 router.post('/register_process', function(request, response) {    
@@ -93,17 +93,17 @@ router.post('/register_process', function(request, response) {
                 });
             } else if (password != password2) {                     // 비밀번호가 올바르게 입력되지 않은 경우
                 response.send(`<script type="text/javascript">alert("입력된 비밀번호가 서로 다릅니다."); 
-                document.location.href="/auth/register";</script>`);    
+                document.location.href="/login/signup";</script>`);    
             }
             else {                                                  // DB에 같은 이름의 회원아이디가 있는 경우
                 response.send(`<script type="text/javascript">alert("이미 존재하는 아이디 입니다."); 
-                document.location.href="/auth/register";</script>`);    
+                document.location.href="/login/signup";</script>`);    
             }            
         });
 
     } else {        // 입력되지 않은 정보가 있는 경우
         response.send(`<script type="text/javascript">alert("입력되지 않은 정보가 있습니다."); 
-        document.location.href="/auth/register";</script>`);
+        document.location.href="/login/signup";</script>`);
     }
 });
 
