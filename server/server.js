@@ -1,11 +1,25 @@
 // server.js || Mysql 과 Express 프레임워크 연결
 const express = require('express');
+/*
+// 로그인 인증관련 부분
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const FileStore = require('session-file-store')(session)
+*/
 const dotenv = require('dotenv'); // 서버 포트 사용을 위한 모듈 임포팅
 dotenv.config({ path: '.env' }); // 환경변수 사용
 const path = require('path');
 
 const dealsRouter = require('./routes/deals');// deals 라우트 가져오기
 const postModel = require('./models/model');
+
+// 로그인인증 기능 변수 세팅
+var authRouter = require('./login/auth.js');
+/**
+ * 로그인 세션인증 관련 변수 세팅
+var authCheck = require('./login/authCheck.js');
+var template = require('./login/template.js');
+*/
 
 /** Create Express */
 const app = express();
@@ -21,6 +35,18 @@ const port = process.env.SERVER_PORT;
 // 라우트 설정
 //const postRouter = require('./routes/postRouter');
 app.use('/deals', dealsRouter); // /deals 경로로 들어오는 요청은 dealsRouter가 처리
+
+/*
+// login기능을 위한 세션세팅 (인증관련)
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({
+  secret: '~~~',	// 원하는 문자 입력
+  resave: false,
+  saveUninitialized: true,
+  store:new FileStore(),
+}))
+*/
+
 
 /**
  * 개발환경이아니라면 dev 옵션을 false 로 설정하고
@@ -55,6 +81,9 @@ nextApp
       .catch(err => res.json(err))
       */
     });
+
+    // 로그인 인증 라우터
+    app.use('/auth', authRouter);
 
     /* CRUD api 구현 공간 */
     
