@@ -1,5 +1,6 @@
 "use client";
 
+import { useDebouncedCallback } from "use-debounce";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
@@ -8,16 +9,16 @@ const SearchBar = () => {
     const pathname = usePathname();
     const { replace } = useRouter();
 
-    const handleSearch = (searchTerm: string) => {
+    const handleSearch = useDebouncedCallback((term: string) => {
+        console.log(term);
         const params = new URLSearchParams(searchParams);
-        if(searchTerm) {
-            params.set("query", searchTerm);
-        }
-        else{
+        if (term) {
+            params.set("query", term);
+        } else {
             params.delete("query");
         }
         replace(`${pathname}?${params.toString()}`);
-    };
+    }, 300);
 
 
     return  (
@@ -28,11 +29,8 @@ const SearchBar = () => {
             <input
                 className="peer block w-full mx-2 rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                 placeholder="검색어를 입력해 주세요."
-                defaultValue={searchParams.get('query')?.toString()}
-                onChange={(e) => {
-                    handleSearch(e.target.value);
-                }}
-            />
+                onChange={(e) => handleSearch(e.target.value)}
+                defaultValue={searchParams.get("query")?.toString()}/>
             <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
         </div>
     )
