@@ -13,7 +13,7 @@ export default function TopNav() {
           <DealLogo />
         </div>
       </Link>
-      <div>
+      <div className='grid px-24'>
         <SearchPage />
         <div className="flex grow flex-row justify-between space-x-2 md:items-end md:p-2 md:flex-row">
           <NavLinks2 />

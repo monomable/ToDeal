@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className="w-full flex-none">
         <TopNav />
       </div>
-      <div className="flex-grow p-6 md:h-dvh md:p-4 md:mx-80">{children}</div>
+      <div className="flex-grow p-6 md:h-dvh md:p-4 md:mx-auto">{children}</div>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios' // https 비동기 통신 라이브러리
 import Link from "next/link";
 import "../../../globals.css"
+import elapsedTime from "@/src/app/ui/time";
 
 interface post {
   id : number;
@@ -40,15 +41,21 @@ type Props = {
       }
     }
 
+    //var postTime = elapsedTime(userData.regdate)
+
     return (
       <div>
         {userData.map((rs, index) => (
-          <div key={rs.id}>
-            <div className="title-box">포스트{rs.board_id}</div>
-            <div className="title-box">작성일{rs.regdate}</div>
-            <div className="title-box">작성자{rs.writer}</div>
-            <div className="title-box">제목:{rs.title}</div>
-            <div className="title-box">내용:{rs.content}</div>
+          <div key={rs.id} className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-4 dark:bg-gray-800 dark:border-gray-700">
+            <div className="text-2xl p-1">{rs.title}</div>
+
+            {/* <div className="title-box">포스트{rs.board_id}</div> */}
+            <div className="grid grid-flow-col">
+              <div className="title-box">{rs.writer}</div>
+              <div className="title-box text-right">{rs.regdate.split("T")[0]}</div>
+            </div>
+            
+            <div className="title-box">{rs.content}</div>
             <div className="my-5">
               <Link href={`/post/edit/${params.id}`} className="white-btn">
               수정
