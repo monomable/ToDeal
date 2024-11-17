@@ -1,5 +1,6 @@
 import SearchBar from "./SearchBar"
 import SearchList from "./SearchList";
+import SearchData from "@/src/app/ui/home/list/searchdata";
 
 const SearchPage = ({
         searchParams,
@@ -11,9 +12,12 @@ const SearchPage = ({
     const query = searchParams?.query || '';
     //console.log("query", query);
     return (
-        <div>
+        <div className="space-y-4">
             <SearchBar />
-            <SearchList query={query} />
+            {/* <SearchList query={query} /> */}
+            <div>{query}</div>
+
+            <SearchData/>
         </div>
     )
 }

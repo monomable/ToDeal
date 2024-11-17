@@ -2,8 +2,7 @@ import Link from 'next/link';
 import NavLinks2 from '@/src/app/ui/home/nav-links2';
 import DealLogo from '@/src/app/ui/deal-logo';
 import { PowerIcon } from '@heroicons/react/24/outline';
-import SearchBar from './search-bar';
-import SearchPage from '@/src/app/home/search/page';
+import SearchBar from '@/src/app/home/search/SearchBar';
 
 export default function TopNav() {
   return (
@@ -14,7 +13,7 @@ export default function TopNav() {
         </div>
       </Link>
       <div className='grid px-24'>
-        <SearchPage />
+        <SearchBar />
         <div className="flex grow flex-row justify-between space-x-2 md:items-end md:p-2 md:flex-row">
           <NavLinks2 />
         </div>
