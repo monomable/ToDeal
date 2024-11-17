@@ -21,7 +21,7 @@ export default function Users() {
   
     const fetchData = async () => {
         try {
-            const result = await axios(process.env.NEXT_PUBLIC_BASE_URL+"/api/list");
+            const result = await axios(process.env.NEXT_PUBLIC_BASE_URL+"/api/{query}");
             console.log(result.data);
             setUSerData(result.data);
         } catch (err) {
@@ -29,6 +29,17 @@ export default function Users() {
         }
     }
 
+    const handleSearch=async(query: string)=>{
+        try {
+            const result = await axios(process.env.NEXT_PUBLIC_BASE_URL+"/api/search"+query);
+            console.log(result.data);
+            setUSerData(result.data);
+        } catch (err) {
+            console.log("somthing Wrong");
+        }
+    }
+
+    // searchdata.tsx 전체 코드 사용 안함 >> searchlist로 대체 완료
   return (
         <table className="table table-zebra">
         <thead className="text-sm text-gray-700 uppercase bg-gray-100">
