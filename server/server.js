@@ -176,6 +176,23 @@ nextApp
       })
     })
 
+    
+    app.get('/*/search', (req, res) => {
+      //console.log(req.query.query);
+      // "search?query=" 뒤 url query값을 받아서 db에 검색 (검색값은 title 필드에 한해서 검색)
+      connection.query(`SELECT * FROM Post WHERE title LIKE ?`, '%' + req.query.query + '%', 
+        function(err, result) {
+        if (err) {
+          throw err;
+        } else {
+          console.log(result);
+          //res.send(result);  // db 검색 데이터 전달
+        }
+      })
+      return handle(req, res);
+    });
+    
+
     app.get('*', (req, res) => {
       return handle(req, res);
     });
