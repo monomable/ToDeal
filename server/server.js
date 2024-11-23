@@ -28,6 +28,7 @@ const app = express();
 const next = require('next');
 const { parse } = require('url');
 const connection = require('./connectDB'); //Mysql 연결 파일
+const hotdealConnection = require('./hotdealDB'); // hotdeal DB 연결 파일
 
 /** Next.js 설정 */
 const port = process.env.SERVER_PORT;
@@ -190,6 +191,14 @@ nextApp
         }
       })
       return handle(req, res);
+    });
+
+    // 이미지 데이터를 가져오는 API 추가
+    app.get('/api/images', (req, res) => {
+      hotdealConnection.query('SELECT image_base64 FROM quasar_hotdeals WHERE image_base64 IS NOT NULL LIMIT 6', function (err, result) {
+        if (err) throw err;
+        res.send(result);
+      })
     });
     
 
