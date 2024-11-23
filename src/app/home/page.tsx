@@ -24,9 +24,9 @@ export default function Page() {
         <h4 className="mb-2 text-2xl font-bold tracking-tight text-gray-900dark:text-white">Best 핫딜</h4>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {images.map((image, index) => (
-          <div key={index}>
+          <div key={index} className="aspect-square w-full relative">
             <img 
-            className="h-auto max-w-full rounded-lg"
+            className="absolute inset-0 w-full h-full object-cover rounded-lg"
             src={`data:image/jpeg;base64,${image}`}
             alt={`핫딜 이미지 ${index + 1}`}
             />
