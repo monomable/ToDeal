@@ -195,7 +195,7 @@ nextApp
 
     // 이미지 데이터를 가져오는 API 추가
     app.get('/api/images', (req, res) => {
-      hotdealConnection.query('SELECT image_base64 FROM quasar_hotdeals WHERE image_base64 IS NOT NULL LIMIT 6', function (err, result) {
+      hotdealConnection.query('SELECT image_base64, link FROM quasar_hotdeals WHERE image_base64 IS NOT NULL LIMIT 6', function (err, result) {
         if (err) throw err;
         res.send(result);
       })

@@ -7,14 +7,19 @@ import { Spinner } from "@/src/app/ui/home/list/spinner";
 import "../globals.css";
 import { useEffect, useState } from "react";
 
+interface HotDeal {
+  image_base64: string;
+  link: string;
+}
+
 export default function Page() {
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<HotDeal[]>([]);
 
   useEffect(() => {
     fetch('/api/images')
       .then(res => res.json())
       .then(data => {
-        setImages(data.map((item: { image_base64: string }) => item.image_base64));
+        setImages(data);
       });
   }, []);
 
@@ -23,13 +28,15 @@ export default function Page() {
       <div className="max-w-screen-md p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <h4 className="mb-2 text-2xl font-bold tracking-tight text-gray-900dark:text-white">Best 핫딜</h4>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        {images.map((image, index) => (
+        {images.map((deal, index) => (
           <div key={index} className="aspect-square w-full relative">
+            <a href={deal.link} target="_blank" rel="noopener noreferrer">
             <img 
-            className="absolute inset-0 w-full h-full object-cover rounded-lg"
-            src={`data:image/jpeg;base64,${image}`}
+            className="absolute inset-0 w-full h-full object-cover rounded-lg cursor-pointer"
+            src={`data:image/jpeg;base64,${deal.image_base64}`}
             alt={`핫딜 이미지 ${index + 1}`}
             />
+            </a>
           </div>
         ))
         /* 기존 이미지 코드
