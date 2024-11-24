@@ -89,28 +89,13 @@ nextApp
     /* CRUD api 구현 공간 */
     
     app.get('/api/list', (req, res) => {
-      connection.query('SELECT * FROM Post', function (err, result, fields) {
+      hotdealConnection.query('SELECT * FROM hotdeals ORDER BY id DESC LIMIT 15', function (err, result, fields) {
         if (err) throw err;
         res.send(result);
       })
     });
-
-    /*
-    app.get('/api/post/:id', (req, res) =>{
-      const id = req.params.id
-      postModel.findById(req.params.id, result)
-      .then(data => {
-        if(!data) {
-          console.log('missing find id');
-        }
-        res.send(result)
-      })
-      .catch(err =>{
-        console.log('error');
-      })
-    })
-    */
     
+    // ID Post View
     app.get('/api/post/:id', (req, res, next) =>{
       connection.query('SELECT * FROM Post', (err, rows) =>{
         if (err) throw err;
@@ -123,12 +108,6 @@ nextApp
     })
 
     // Create API
-    
-    /* 필요 없음
-    app.get('/api/post/create', function (req, res) {
-      //res.render('insert.html') // create 창 실행
-    })*/
-    
     app.post('/api/post/create', function (req, res) { // create창에서 값들을 가져옴
       const body = req.body
 
@@ -195,7 +174,7 @@ nextApp
 
     // 이미지 데이터를 가져오는 API 추가
     app.get('/api/images', (req, res) => {
-      hotdealConnection.query('SELECT image_base64, link FROM quasar_hotdeals WHERE image_base64 IS NOT NULL LIMIT 6', function (err, result) {
+      hotdealConnection.query('SELECT image_base64, link FROM hotdeals WHERE image_base64 IS NOT NULL LIMIT 6', function (err, result) {
         if (err) throw err;
         res.send(result);
       })

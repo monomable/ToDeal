@@ -3,13 +3,18 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios' // https 비동기 통신 라이브러리
 import Link from "next/link";
+import WebTag from "./webtag";
 
 interface table {
-    id : number;
-    _id : number;
+    id : number
+    _id : number
     board_id : string
     title : string
-    content : string
+    link : string
+    category : string
+    price : string
+    image_base64 : string
+    source_website : string
 }
  
 export default function Users() {
@@ -54,10 +59,13 @@ export default function Users() {
             {userData.map((rs, index) => (
             <tr key={rs.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td className="py-3 px-6">
-                    <Link className="block" href={`/post/view/${rs.board_id}`}>{rs.board_id}</Link>
+                    <Link className="block" href={`${rs.link}`}>{rs.id}</Link>
                 </td>
                 <td className="py-3 px-6">
-                    <Link className="block" href={`/post/view/${rs.board_id}`}>{rs.title}</Link>
+                    <Link className="block" href={`${rs.link}`}>
+                        {WebTag(rs.source_website)}
+                        {rs.title}
+                    </Link>
                 </td>
                 
                 {/* <td className="py-3 px-6">{rs.content}</td> 
