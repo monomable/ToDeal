@@ -17,7 +17,14 @@ const SearchBar = () => {
         } else {
             params.delete("query");
         }
-        replace(`${pathname}?${params.toString()}`);
+        
+        if(pathname == "/home"){
+            replace(`${pathname}/search?${params.toString()}`);
+        }
+        else{
+            replace(`${pathname}?${params.toString()}`);
+        }
+        
     }, 300);
 
 
