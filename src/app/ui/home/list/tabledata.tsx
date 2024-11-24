@@ -59,12 +59,18 @@ export default function Users() {
             {userData.map((rs, index) => (
             <tr key={rs.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td className="py-3 px-6">
-                    <Link className="block" href={`${rs.link}`}>{rs.id}</Link>
+                    <Link className="block aspect-square w-full relative" href={`${rs.link}`}>
+                        <img className="inset-0 w-full h-full object-cover rounded-lg cursor-pointer"
+                            src={`data:image/jpeg;base64,${rs.image_base64}`}
+                            alt={`핫딜 이미지 ${index + 1}`}/>
+                    </Link>
                 </td>
                 <td className="py-3 px-6">
+                    {rs.id}
                     <Link className="block" href={`${rs.link}`}>
                         {WebTag(rs.source_website)}
-                        {rs.title}
+                        {rs.title} <br/>
+                        <div className="text-red-700">{rs.price}</div>
                     </Link>
                 </td>
                 
