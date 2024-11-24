@@ -6,15 +6,15 @@ import SearchBar from '@/src/app/home/search/SearchBar';
 
 export default function TopNav() {
   return (
-    <div className="flex h-full flex-col px-3 py-4 md:flex-row md:px-2 md:space-x-2">
-      <Link className="mb-2 flex h-20 items-end justify-start rounded-md p-4 md:h-40" href="/">
+    <div className="flex h-full flex-col md:flex-row">
+      {/*<Link className="mb-2 flex h-20 items-end justify-start rounded-md p-4 md:h-40" href="/">
         <div className="w-32 text-white md:w-60">
           <DealLogo />
-        </div>
-      </Link>
-      <div className='grid px-24'>
-        <SearchBar />
-        <div className="flex grow flex-row justify-between space-x-2 md:items-end md:p-2 md:flex-row">
+        </div> 
+      </Link>*/}
+      <div>
+        <SearchBar/>
+        <div className="flex justify-between p-2 space-x-2">
           <NavLinks2 />
         </div>
       </div>

@@ -9,7 +9,7 @@ export default function Page() {
       <div className="flex items-center justify-between gap-1 mb-5">
         <h1 className="text-4xl font-bold">DB 리스트업</h1>
       </div>    
-        <div className="overflow-x-auto">
+        <div className="max-w-screen-md">
           <div className="mb-2 w-full text-left">
             <Link
               href="/user/create" // 버튼 링크 연결
