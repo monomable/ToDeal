@@ -1,6 +1,8 @@
 //import SideNav from '@/app/ui/home/sidenav';
 import TopNav from '@/src/app/ui/home/topnav';
 import DealLogo from '../ui/deal-logo';
+import SidePost from '../ui/home/side-post';
+import LoginInfo from '../ui/home/login-info';
 import Link from 'next/link';
  
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -11,6 +13,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Link className="" href="/">
           <DealLogo/>
         </Link>
+        <div className='py-16 space-y-4'>
+          <LoginInfo/>
+          <SidePost/>
+        </div>
       </div>
 
       <div className='flex flex-col md:p-4'>

@@ -26,7 +26,7 @@ export default function Page() {
     return (
     <div className="space-y-10 md:space-y-4 md:p-2">
       <div className="max-w-screen-md p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <h4 className="mb-2 text-2xl font-bold tracking-tight text-gray-900dark:text-white">Best 핫딜</h4>
+        <h4 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Best 핫딜</h4>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {/* Best 핫딜 */}
           {images.map((deal, index) => (
@@ -45,7 +45,7 @@ export default function Page() {
       <div className="max-w-screen-md p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
 
       <div className="max-w-screen-md items-center justify-between gap-1 mb-4">
-        <h4 className="mb-2 text-2xl font-bold tracking-tight text-gray-900dark:text-white">최신 핫딜</h4>
+        <h4 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">최신 핫딜</h4>
         </div>    
           <div className="">
             <div className="mb-2 w-full text-right">
