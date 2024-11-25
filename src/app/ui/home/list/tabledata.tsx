@@ -49,8 +49,8 @@ export default function Users() {
         <table className="table table-zebra">
         <thead className="text-sm text-gray-700 uppercase bg-gray-100">
             <tr>
-            <th className="py-3 px-6">게시글ID</th>
-            <th className="py-3 px-64">제목</th>
+            <th className="py-3 text-xs md:px-6 md:text-sm">이미지</th>
+            <th className="py-3 text-xs md:px-64 md:text-sm">제목</th>
             {/* <th className="py-3 px-6">내용</th> */}
             {/* <th className="py-3 px-6 text-center">액션</th> */}
             </tr>
@@ -58,7 +58,7 @@ export default function Users() {
         <tbody>
             {userData.map((rs, index) => (
             <tr key={rs.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="py-3 px-6">
+                <td className="md:py-3 md:px-6">
                     <a className="block aspect-square w-full relative" href={`${rs.link}`} rel="noopener noreferrer" target="_blank">
                         <img className="inset-0 w-full h-full object-cover rounded-lg cursor-pointer"
                             src={`data:image/jpeg;base64,${rs.image_base64}`}
