@@ -66,9 +66,8 @@ export default function Users() {
                     </a>
                 </td>
                 <td className="py-3 px-6">
-                    {rs.id}
                     <a className="block" href={`${rs.link}`} rel="noopener noreferrer" target="_blank">
-                        {WebTag(rs.source_website)}
+                        {WebTag(rs.source_website)}<br/>
                         {rs.title} <br/>
                         <div className="text-red-700">{rs.price}</div>
                     </a>
