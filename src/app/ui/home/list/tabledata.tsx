@@ -47,9 +47,9 @@ export default function Users() {
     }
   return (
         <table className="table table-zebra">
-        <thead className="text-sm text-gray-700 uppercase bg-gray-100">
+        <thead className="text-sm text-gray-700 bg-gray-100">
             <tr>
-            <th className="py-3 text-xs md:px-6 md:text-sm">이미지</th>
+            <th className="py-3 text-xs md:px-0 md:text-sm">이미지</th>
             <th className="py-3 text-xs md:px-64 md:text-sm">제목</th>
             {/* <th className="py-3 px-6">내용</th> */}
             {/* <th className="py-3 px-6 text-center">액션</th> */}
