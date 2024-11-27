@@ -15,9 +15,10 @@ const SearchPage = async ({
     //console.log("query", query);
     return (
         <div className="space-y-4">
-            <SearchBar />
+            {/* <SearchBar /> */}
             {/* <SearchList query={query} /> */}
-            <div>{query}</div>
+            <div>{ query === '' ? null : <p>{query}의 검색 결과</p> }</div>
+                    
 
             <Suspense key={query} fallback={<Spinner/>}>
                 <SearchList query={query}/>

@@ -4,14 +4,15 @@ import {
     DocumentDuplicateIcon,
     HeartIcon,
     MagnifyingGlassIcon,
-    FireIcon
+    FireIcon,
+    ChatBubbleBottomCenterTextIcon
   } from '@heroicons/react/24/outline';
   
   // Map of links to display in the side navigation.
   // Depending on the size of the application, this would be stored in a database.
   const links = [
     { name: '메인', href: '/home', icon: HomeIcon },
-    { name: '즐겨찾기', href: '/home/invoices', icon: HeartIcon },
+    { name: '실시간 의견', href: '/home/invoices', icon: ChatBubbleBottomCenterTextIcon },
     { name: '검색', href: '/home/search', icon: MagnifyingGlassIcon },
     { name: '최신핫딜', href: '/home/list', icon: FireIcon },
   ];

@@ -37,8 +37,6 @@ const SearchList = async ({query} : {query: string}) => {
             <tr>
             <th className="py-3 px-6">게시글ID</th>
             <th className="py-3 px-64">제목</th>
-            {/* <th className="py-3 px-6">내용</th> */}
-            {/* <th className="py-3 px-6 text-center">액션</th> */}
             </tr>
         </thead>
         <tbody>
@@ -50,17 +48,6 @@ const SearchList = async ({query} : {query: string}) => {
                 <td className="py-3 px-6">
                     <Link className="block" href={`/post/view/${rs.board_id}`}>{rs.title}</Link>
                 </td>
-                
-                {/* <td className="py-3 px-6">{rs.content}</td> 
-                <td className="flex justify-center gap-1 py-3">
-                    <Link href={`/post/view/${rs.board_id}`} className="btn btn-info">
-                    조회
-                    </Link>
-                    <Link href={`/post/edit/${rs.board_id}`} className="btn btn-primary">
-                    수정
-                    </Link>
-                    <button onClick={()=>handleDelete(rs._id)} className="btn btn-secondary">삭제</button>
-                </td>*/}
             </tr>
             ))}
         </tbody>
@@ -69,3 +56,14 @@ const SearchList = async ({query} : {query: string}) => {
 }
 
 export default SearchList
+
+{/* <td className="py-3 px-6">{rs.content}</td> 
+                <td className="flex justify-center gap-1 py-3">
+                    <Link href={`/post/view/${rs.board_id}`} className="btn btn-info">
+                    조회
+                    </Link>
+                    <Link href={`/post/edit/${rs.board_id}`} className="btn btn-primary">
+                    수정
+                    </Link>
+                    <button onClick={()=>handleDelete(rs._id)} className="btn btn-secondary">삭제</button>
+    </td>*/}
