@@ -1,9 +1,9 @@
 'use client';
 
 import Link from "next/link";
-import TableData from "@/src/app/ui/home/list/tabledata";
+import TableData from "@/ui/home/list/tabledata";
 import { Suspense } from "react";
-import { Spinner } from "@/src/app/ui/home/list/spinner";
+import { Spinner } from "@/ui/home/list/spinner";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Page() {

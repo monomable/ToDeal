@@ -1,6 +1,6 @@
 "use client";
 
-import DealLogo from '@/src/app/ui/deal-logo';
+import DealLogo from '@/ui/deal-logo';
 //import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 //import { lusitana } from '@/app/ui/fonts';
