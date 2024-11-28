@@ -45,13 +45,13 @@ type Props = {
     return (
       <div>
         {userData.map((rs, index) => (
-          <div key={rs.id} className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-4 dark:bg-gray-800 dark:border-gray-700">
-            <div className="text-2xl p-1">{rs.title}</div>
+          <div key={rs.board_id} className="w-full bg-white rounded-lg shadow dark:border mb-[700px] md:mt-0 sm:max-w-md md:m-2 md:p-4 dark:bg-gray-800 dark:border-gray-700">
+            <div className="text-xl p-1">{rs.title}</div>
 
             {/* <div className="title-box">포스트{rs.board_id}</div> */}
-            <div className="grid grid-flow-col">
-              <div className="title-box">{rs.writer}</div>
-              <div className="title-box text-right">{rs.regdate.split("T")[0]}</div>
+            <div className="grid grid-flow-col p-2">
+              <div className="">작성자 : {rs.writer}</div>
+              <div className="text-right">{rs.regdate.split("T")[0]}</div>
             </div>
             
             <div className="title-box">{rs.content}</div>

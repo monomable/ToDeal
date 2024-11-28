@@ -42,7 +42,7 @@ export default function Users() {
         setUSerData(newUserData);
     }
   return (
-        <table className="table table-zebra max-w-[730px]">
+        <table className="table table-zebra max-w-[730px] border-[1px]">
             <thead className="text-sm text-gray-700 uppercase bg-gray-100">
                 {/*<tr>
                     <th className="py-1 px-16">작성자</th>
@@ -52,7 +52,7 @@ export default function Users() {
             
                 {userData.map((rs, index) => (
                 <tbody key={rs.board_id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <tr className="">
+                    <tr className="" onClick={() => window.open(`/post/view/${rs.board_id}`, '_self')}>
                         <td className="py-3 px-6 font-bold">
                             <Link className="block" href={`/post/view/${rs.board_id}`}>{rs.title}</Link>
                         </td>
@@ -60,7 +60,7 @@ export default function Users() {
                             <Link className="block" href={`/post/view/${rs.board_id}`}>{rs.writer} : 작성자</Link>
                         </td>
                     </tr>
-                    <tr className="">
+                    <tr className="" onClick={() => window.open(`/post/view/${rs.board_id}`, '_self')}>
                         <td colSpan={2} className="py-3 px-6 w-[730px]">
                             <Link className="block" href={`/post/view/${rs.board_id}`}>{rs.content}</Link>
                         </td>
