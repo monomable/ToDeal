@@ -125,6 +125,13 @@ nextApp
     });
 
     app.get('/api/post/list', (req, res) => {
+      connection.query('SELECT * FROM Post ORDER BY board_id DESC LIMIT 15', function (err, result, fields) {
+        if (err) throw err;
+        res.send(result);
+      })
+    });
+
+    app.get('/api/post/sidelist', (req, res) => {
       connection.query('SELECT * FROM Post ORDER BY board_id DESC LIMIT 5', function (err, result, fields) {
         if (err) throw err;
         res.send(result);

@@ -12,7 +12,7 @@ import {
   // Depending on the size of the application, this would be stored in a database.
   const links = [
     { name: '메인', href: '/home', icon: HomeIcon },
-    { name: '실시간 의견', href: '/home/invoices', icon: ChatBubbleBottomCenterTextIcon },
+    { name: '실시간 의견', href: '/home/post', icon: ChatBubbleBottomCenterTextIcon },
     { name: '검색', href: '/home/search', icon: MagnifyingGlassIcon },
     { name: '최신핫딜', href: '/home/list', icon: FireIcon },
   ];
