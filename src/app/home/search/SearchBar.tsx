@@ -6,7 +6,6 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 const SearchBar = () => {
     const searchParams = useSearchParams();
-    const pathname = usePathname();
     const { replace } = useRouter();
 
     const handleSearch = useDebouncedCallback((term: string) => {
@@ -18,14 +17,7 @@ const SearchBar = () => {
             params.delete("query");
         }
 
-        replace(`${pathname}?${params.toString()}`);
-        {/*  홈에서 검색했을때 search 페이지로 이동하도록 || 근데 모든 페이지에서 검색하면 무조건 search 페이지로 이동해야함
-        if(pathname == "/home"){
-            replace(`${pathname}/search?${params.toString()}`);
-        }
-        else{
-            replace(`${pathname}?${params.toString()}`);
-        }*/}
+        replace(`/home/search?${params.toString()}`);
         
     }, 1000);
 

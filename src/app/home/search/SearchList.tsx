@@ -13,22 +13,22 @@ interface table {
     content : string
 }
 
-const SearchList = async ({query} : {query: string}) => {
+const SearchList = ({query} : {query: string}) => {
     const [userData, setUSerData] = useState<table[]>([]);
 
     useEffect(() => {
-        fetchData();
-    }, [])
-
-    const fetchData = async () => {
-        try {
-            const result = await axios(process.env.NEXT_PUBLIC_BASE_URL+"/api/search?query="+query);
-            console.log(result.data);
-            setUSerData(result.data);
-        } catch (err) {
-            console.log("somthing Wrong");
+        const fetchData = async () => {
+            try {
+                const result = await axios(process.env.NEXT_PUBLIC_BASE_URL+"/api/search?query="+query);
+                console.log(result.data);
+                setUSerData(result.data);
+            } catch (err) {
+                console.log("somthing Wrong");
+            }
         }
-    }
+
+        fetchData();
+    }, [query]);
 
 
     return (
@@ -41,7 +41,7 @@ const SearchList = async ({query} : {query: string}) => {
         </thead>
         <tbody>
             {userData.map((rs, index) => (
-            <tr key={rs.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <tr key={rs.board_id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td className="py-3 px-6">
                     <Link className="block" href={`/post/view/${rs.board_id}`}>{rs.board_id}</Link>
                 </td>
