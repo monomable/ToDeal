@@ -203,7 +203,7 @@ nextApp
     app.get('/api/search', (req, res) => {
       //console.log(req.query.query);
       // "search?query=" 뒤 url query값을 받아서 db에 검색 (검색값은 title 필드에 한해서 검색)
-      connection.query(`SELECT * FROM Post WHERE title LIKE ?`, '%' + req.query.query + '%', 
+      hotdealConnection.query(`SELECT * FROM hotdeals WHERE title LIKE ?`, '%' + req.query.query + '%', 
         function(err, result) {
         if (err) {
           throw err;
@@ -212,7 +212,7 @@ nextApp
           res.send(result);  // db 검색 데이터 전달
         }
       })
-      return handle(req, res);
+      //return handle(req, res);
     });
 
     // 이미지 데이터를 가져오는 API 추가  // 임시로 퀘이사존 리스트만 받아오도록 설정

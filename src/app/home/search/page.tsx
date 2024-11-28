@@ -20,7 +20,7 @@ const SearchPage = async ({
             <div>{ query === '' ? null : <p>{query}의 검색 결과</p> }</div>
                     
 
-            <Suspense key={query} fallback={<Spinner/>}>
+            <Suspense fallback={<Spinner/>}>
                 <SearchList query={query}/>
             </Suspense>
         </div>
