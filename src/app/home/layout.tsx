@@ -13,8 +13,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Link className="" href="/">
           <DealLogo/>
         </Link>
-        <div className='py-16 space-y-4'>
-          <LoginInfo/>
+        <div className='py-16 space-y-0'>
+          <div className='hidden'><LoginInfo/></div>
           <SidePost/>
         </div>
       </div>

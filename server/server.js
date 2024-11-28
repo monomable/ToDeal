@@ -94,6 +94,13 @@ nextApp
         res.send(result);
       })
     });
+
+    app.get('/api/post/list', (req, res) => {
+      connection.query('SELECT * FROM Post ORDER BY board_id DESC LIMIT 5', function (err, result, fields) {
+        if (err) throw err;
+        res.send(result);
+      })
+    });
     
     // ID Post View
     app.get('/api/post/:id', (req, res, next) =>{
@@ -106,7 +113,7 @@ nextApp
         res.send(postview);
       })
     })
-
+    
     // Create API
     app.post('/api/post/create', function (req, res) { // create창에서 값들을 가져옴
       const body = req.body

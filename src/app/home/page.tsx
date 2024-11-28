@@ -4,8 +4,8 @@ import Link from "next/link";
 import TableData from "@/ui/home/list/tabledata";
 import { Suspense } from "react";
 import { Spinner } from "@/ui/home/list/spinner";
-import "../globals.css";
 import { useEffect, useState } from "react";
+import "../globals.css";
 
 interface HotDeal {
   image_base64: string;
@@ -44,18 +44,18 @@ export default function Page() {
       </div>
       <div className="max-w-screen-md p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
 
-      <div className="max-w-screen-md items-center justify-between gap-1 mb-4">
-        <h4 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">최신 핫딜</h4>
+        <div className="max-w-screen-md items-center justify-between gap-1 mb-4">
+          <h4 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">최신 핫딜</h4>
         </div>    
-          <div className="">
-            <div className="mb-2 w-full text-right">
-              <Link href="/post/create" className="white-btn"> {/* 버튼 링크 연결 */}
-                글쓰기
-              </Link>
-            </div>
-            <Suspense fallback={<Spinner />}>
-              <TableData/>
-            </Suspense>
+        <div className="">
+          <div className="mb-2 w-full text-right hidden">
+            <Link href="/post/create" className="white-btn"> {/* 버튼 링크 연결 */}
+              글쓰기
+            </Link>
+          </div>
+          <Suspense fallback={<Spinner />}>
+            <TableData/>
+          </Suspense>
         </div>  
       </div>
     </div>
