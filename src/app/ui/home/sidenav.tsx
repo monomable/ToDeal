@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import NavLinks from '@/src/app/ui/home/nav-links';
-import DealLogo from '@/src/app/ui/deal-logo';
+import NavLinks from '@/ui/home/nav-links';
+import DealLogo from '@/ui/deal-logo';
 import { PowerIcon } from '@heroicons/react/24/outline';
 
 export default function SideNav() {

@@ -1,5 +1,5 @@
 //import SideNav from '@/app/ui/home/sidenav';
-import TopNav from '@/src/app/ui/home/topnav';
+import TopNav from '@/ui/home/topnav';
 import DealLogo from '../ui/deal-logo';
 import SidePost from '../ui/home/side-post';
 import LoginInfo from '../ui/home/login-info';

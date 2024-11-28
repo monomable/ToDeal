@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import SearchBar from "./SearchBar"
 import SearchList from "./SearchList";
-import SearchData from "@/src/app/ui/home/list/searchdata";
+import SearchData from "@/ui/home/list/searchdata";
 import { Spinner } from "../../ui/home/list/spinner";
 
 const SearchPage = async ({

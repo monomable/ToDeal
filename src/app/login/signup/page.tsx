@@ -1,4 +1,4 @@
-import DealLogo from '@/src/app/ui/deal-logo';
+import DealLogo from '@/ui/deal-logo';
 import Link from 'next/link';
 
  
