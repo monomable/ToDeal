@@ -215,9 +215,9 @@ nextApp
       return handle(req, res);
     });
 
-    // 이미지 데이터를 가져오는 API 추가
+    // 이미지 데이터를 가져오는 API 추가  // 임시로 퀘이사존 리스트만 받아오도록 설정
     app.get('/api/images', (req, res) => {
-      hotdealConnection.query('SELECT image_base64, link FROM hotdeals WHERE image_base64 IS NOT NULL LIMIT 6', function (err, result) {
+      hotdealConnection.query('SELECT image_base64, link FROM hotdeals WHERE source_website = "quasarzone" AND image_base64 IS NOT NULL ORDER BY id DESC LIMIT 6', function (err, result) {
         if (err) throw err;
         res.send(result);
       })
