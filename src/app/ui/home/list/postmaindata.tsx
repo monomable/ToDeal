@@ -49,10 +49,10 @@ export default function Users() {
                     <th className="py-1 px-16">제목</th>
                 </tr>*/}
             </thead>
-            <tbody>
+            
                 {userData.map((rs, index) => (
-                <div className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <tr key={rs.id} className="">
+                <tbody key={rs.board_id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <tr className="">
                         <td className="py-3 px-6 font-bold">
                             <Link className="block" href={`/post/view/${rs.board_id}`}>{rs.title}</Link>
                         </td>
@@ -65,9 +65,9 @@ export default function Users() {
                             <Link className="block" href={`/post/view/${rs.board_id}`}>{rs.content}</Link>
                         </td>
                     </tr>
-                </div>
+                </tbody>
                 ))}
-            </tbody>
+            
         </table>
   );
 }

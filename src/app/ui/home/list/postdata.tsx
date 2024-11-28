@@ -50,7 +50,7 @@ export default function Users() {
             </thead>
             <tbody>
                 {userData.map((rs, index) => (
-                <tr key={rs.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <tr key={rs.board_id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <td className="py-2 px-6">
                         <Link className="block" href={`/post/view/${rs.board_id}`}>
                             <p>{rs.title.length > 10 ? rs.title.substring(0,10) + "..." : rs.title}</p>
