@@ -22,7 +22,7 @@ export default function Page() {
     };
 
     return (
-    <div className="">
+    <div className="max-w-screen-md p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 md:m-2">
       <div className="flex items-center justify-between gap-1 mb-5">
         <h1 className="text-4xl font-bold">최신 핫딜</h1>
       </div>    

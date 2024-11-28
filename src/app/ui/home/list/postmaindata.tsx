@@ -42,23 +42,30 @@ export default function Users() {
         setUSerData(newUserData);
     }
   return (
-        <table className="table table-zebra">
+        <table className="table table-zebra max-w-[730px]">
             <thead className="text-sm text-gray-700 uppercase bg-gray-100">
-                <tr>
+                {/*<tr>
                     <th className="py-1 px-16">작성자</th>
                     <th className="py-1 px-16">제목</th>
-                </tr>
+                </tr>*/}
             </thead>
             <tbody>
                 {userData.map((rs, index) => (
-                <tr key={rs.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <td className="py-3 px-6">
-                        <Link className="block" href={`/post/view/${rs.board_id}`}>{rs.writer}</Link>
-                    </td>
-                    <td className="py-3 px-6">
-                        <Link className="block" href={`/post/view/${rs.board_id}`}>{rs.title}</Link>
-                    </td>
-                </tr>
+                <div className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <tr key={rs.id} className="">
+                        <td className="py-3 px-6 font-bold">
+                            <Link className="block" href={`/post/view/${rs.board_id}`}>{rs.title}</Link>
+                        </td>
+                        <td className="py-3 px-6 text-sm md:w-80 justify-items-end text-right">
+                            <Link className="block" href={`/post/view/${rs.board_id}`}>{rs.writer} : 작성자</Link>
+                        </td>
+                    </tr>
+                    <tr className="">
+                        <td colSpan={2} className="py-3 px-6 w-[730px]">
+                            <Link className="block" href={`/post/view/${rs.board_id}`}>{rs.content}</Link>
+                        </td>
+                    </tr>
+                </div>
                 ))}
             </tbody>
         </table>

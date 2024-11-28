@@ -5,7 +5,7 @@ import { notoSansKR } from '@/ui/fonts';
 export default function DealLogo() {
   return (
     <div
-      className={`${notoSansKR.className} flex flex-col items-start leading-none text-primary-400`}
+      className={`${notoSansKR.className} flex flex-col items-start leading-none text-primary-400 md:pr-[64px]`}
     >
       <p className="text-[80px]">:Deal</p>
     </div>

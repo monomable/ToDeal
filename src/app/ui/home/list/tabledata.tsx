@@ -54,7 +54,7 @@ export default function TableData({ currentPage }: TableDataProps) {
                         <td className="md:py-3 md:px-6">
                             <a className="block aspect-square w-full relative" href={rs.link} rel="noopener noreferrer" target="_blank">
                                 <img 
-                                    className="inset-0 w-full h-full object-cover rounded-lg cursor-pointer"
+                                    className="inset-0 w-full h-full object-cover rounded-lg cursor-pointer border-[1px]"
                                     src={`data:image/jpeg;base64,${rs.image_base64}`}
                                     alt={`핫딜 이미지 ${index + 1}`}
                                 />

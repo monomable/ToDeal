@@ -33,7 +33,7 @@ export default function Page() {
             <div key={index} className="aspect-square w-full relative">
               <a href={deal.link} target="_blank" rel="noopener noreferrer">
                 <img 
-                className="absolute inset-0 w-full h-full object-cover rounded-lg cursor-pointer"
+                className="absolute inset-0 w-full h-full object-cover rounded-lg cursor-pointer border-[1px]"
                 src={`data:image/jpeg;base64,${deal.image_base64}`}
                 alt={`핫딜 이미지 ${index + 1}`}
                 />

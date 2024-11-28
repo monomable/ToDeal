@@ -13,7 +13,9 @@ export default function Page() {
             </button>
           </Link>
         </div>
-        <PostData/>
+        <div className=''>
+          <PostData/>
+        </div>
       </div>
     )
   }
