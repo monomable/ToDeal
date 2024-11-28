@@ -4,7 +4,7 @@ import {PencilIcon} from '@heroicons/react/24/outline'
 
 export default function Page() {
     return (
-      <div>
+      <div className='p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'>
         <div className="mb-0 w-full text-right">
           <Link href="/post/create">
             <button className='white-btn px-3 py-2 inline-flex items-center'>

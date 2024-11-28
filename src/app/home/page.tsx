@@ -48,11 +48,6 @@ export default function Page() {
           <h4 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">최신 핫딜</h4>
         </div>    
         <div className="">
-          <div className="mb-2 w-full text-right hidden">
-            <Link href="/post/create" className="white-btn"> {/* 버튼 링크 연결 */}
-              글쓰기
-            </Link>
-          </div>
           <Suspense fallback={<Spinner />}>
             <TableData currentPage={1} />
           </Suspense>

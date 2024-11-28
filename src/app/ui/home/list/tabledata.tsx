@@ -45,7 +45,7 @@ export default function TableData({ currentPage }: TableDataProps) {
             <thead className="text-sm text-gray-700 bg-gray-100">
                 <tr>
                     <th className="py-3 text-xs md:px-0 md:text-sm">이미지</th>
-                    <th className="py-3 text-xs md:px-64 md:text-sm">제목</th>
+                    <th className="py-3 text-xs px-24 md:px-4 md:w-[560px] md:text-sm">제목</th>
                 </tr>
             </thead>
             <tbody>
