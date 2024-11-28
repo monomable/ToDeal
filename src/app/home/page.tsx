@@ -1,9 +1,9 @@
 'use client';
 
 import Link from "next/link";
-import TableData from "@/ui/home/list/tabledata";
+import TableData from "@/src/app/ui/home/list/tabledata";
 import { Suspense } from "react";
-import { Spinner } from "@/ui/home/list/spinner";
+import { Spinner } from "@/src/app/ui/home/list/spinner";
 import { useEffect, useState } from "react";
 import "../globals.css";
 
@@ -54,7 +54,7 @@ export default function Page() {
             </Link>
           </div>
           <Suspense fallback={<Spinner />}>
-            <TableData/>
+            <TableData currentPage={1} />
           </Suspense>
         </div>  
       </div>

@@ -97,10 +97,31 @@ nextApp
     /* CRUD api 구현 공간 */
     
     app.get('/api/list', (req, res) => {
-      hotdealConnection.query('SELECT * FROM hotdeals ORDER BY id DESC LIMIT 15', function (err, result, fields) {
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 15;
+      const offset = (page - 1) * limit;
+
+      // 전체 아이템 수를 가져오는 쿼리
+      hotdealConnection.query('SELECT COUNT(*) as total FROM hotdeals', (err, countResult) => {
         if (err) throw err;
-        res.send(result);
-      })
+        
+        const total = countResult[0].total;
+
+        // 페이지네이션된 데이터를 가져오는 쿼리
+        hotdealConnection.query(
+          'SELECT * FROM hotdeals ORDER BY id DESC LIMIT ? OFFSET ?', 
+          [limit, offset], 
+          (err, result) => {
+            if (err) throw err;
+            res.send({
+              items: result,
+              total: total,
+              currentPage: page,
+              totalPages: Math.ceil(total / limit)
+            });
+          }
+        );
+      });
     });
 
     app.get('/api/post/list', (req, res) => {
