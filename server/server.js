@@ -103,7 +103,11 @@ nextApp
 
       // 전체 아이템 수를 가져오는 쿼리
       hotdealConnection.query('SELECT COUNT(*) as total FROM hotdeals', (err, countResult) => {
-        if (err) throw err;
+        if (err) {
+          console.error(err);
+          res.status(500).send('서버 오류');
+          return;
+        }
         
         const total = countResult[0].total;
 
@@ -112,7 +116,11 @@ nextApp
           'SELECT * FROM hotdeals ORDER BY id DESC LIMIT ? OFFSET ?', 
           [limit, offset], 
           (err, result) => {
-            if (err) throw err;
+            if (err) {
+              console.error(err);
+              res.status(500).send('서버 오류');
+              return;
+            }
             res.send({
               items: result,
               total: total,
@@ -265,5 +273,15 @@ nextApp
     console.error(ex.stack);
     process.exit(1);
   });
+
+// 에러 핸들링 미들웨어 (모든 라우터 아래에 추가)
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  if (!res.headersSent) {
+    res.status(500).send('서버 오류');
+  } else {
+    next(err);
+  }
+});
 
 module.exports = app;

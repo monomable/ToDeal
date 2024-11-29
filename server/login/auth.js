@@ -23,16 +23,24 @@ const saltRounds = 10; // 비밀번호 해싱 라운드 수
 
 // 로그인 프로세스
 router.post('/login_process', function (request, response) {
-    var username = request.body.username;
-    var password = request.body.pwd;
+    const username = request.body.username;
+    const password = request.body.pwd;
 
     if (username && password) {             
         db.query('SELECT * FROM users WHERE email = ?', [username], function(error, results) {
-            if (error) throw error;
+            if (error) {
+                console.error(error);
+                response.status(500).send('서버 오류');
+                return;
+            }
             if (results.length > 0) {
                 // 비밀번호 검증
                 bcrypt.compare(password, results[0].password_hash, function(err, isMatch) {
-                    if (err) throw err;
+                    if (err) {
+                        console.error(err);
+                        response.status(500).send('서버 오류');
+                        return;
+                    }
                     
                     if (isMatch) {
                         // 세션 설정
@@ -49,16 +57,19 @@ router.post('/login_process', function (request, response) {
                     } else {
                         response.send(`<script type="text/javascript">alert("비밀번호가 일치하지 않습니다."); 
                         document.location.href="/";</script>`);
+                        return;
                     }
                 });
             } else {              
                 response.send(`<script type="text/javascript">alert("존재하지 않는 아이디입니다."); 
-                document.location.href="/";</script>`);    
+                document.location.href="/";</script>`);
+                return;
             }            
         });
     } else {
         response.send(`<script type="text/javascript">alert("아이디와 비밀번호를 입력하세요!"); 
         document.location.href="/";</script>`);    
+        return;
     }
     /**
      * 기존 로그인 프로세스
@@ -91,6 +102,11 @@ router.post('/login_process', function (request, response) {
 // 로그아웃 프로세스 (/auth/logout)
 router.get('/logout', function (request, response) {
     request.session.destroy(function (err) {
+        if (err) {
+            console.error('세션 삭제 오류:', err);
+            response.status(500).send('서버 오류');
+            return;
+        }
         response.redirect('/');
     });
 });
