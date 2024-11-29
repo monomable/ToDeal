@@ -125,10 +125,37 @@ nextApp
     });
 
     app.get('/api/post/list', (req, res) => {
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 15;
+      const offset = (page - 1) * limit;
+
+      // 전체 아이템 수를 가져오는 쿼리
+      connection.query('SELECT COUNT(*) as total FROM Post', (err, countResult) => {
+        if (err) throw err;
+        
+        const total = countResult[0].total;
+
+        // 페이지네이션된 데이터를 가져오는 쿼리
+        connection.query(
+          'SELECT * FROM Post ORDER BY board_id DESC LIMIT ? OFFSET ?', 
+          [limit, offset], 
+          (err, result) => {
+            if (err) throw err;
+            res.send({
+              items: result,
+              total: total,
+              currentPage: page,
+              totalPages: Math.ceil(total / limit)
+            });
+          }
+        );
+      });
+      /* 기존 게시판 코드
       connection.query('SELECT * FROM Post ORDER BY board_id DESC LIMIT 15', function (err, result, fields) {
         if (err) throw err;
         res.send(result);
       })
+      */
     });
 
     app.get('/api/post/sidelist', (req, res) => {

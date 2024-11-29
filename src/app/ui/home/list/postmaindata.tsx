@@ -12,45 +12,44 @@ interface table {
     title : string
     content : string
 }
+
+interface PostMainDataProps {
+    currentPage: number;
+    onTotalPagesChange: (total: number) => void;
+}
  
-export default function Users() {
+export default function Users({ currentPage, onTotalPagesChange }: PostMainDataProps) {
     const [userData, setUSerData] = useState<table[]>([]);
-    
+    const [totalPages, setTotalPages] = useState(0);
+    const itemsPerPage = 15;
+
     useEffect(() => {
         fetchData();
-    }, [])
+    }, [currentPage])
   
     const fetchData = async () => {
         try {
-            const result = await axios(process.env.NEXT_PUBLIC_BASE_URL+"/api/post/list");
-            console.log(result.data);
-            setUSerData(result.data);
+            const result = await axios(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post/list?page=${currentPage}&limit=${itemsPerPage}`);
+            setUSerData(result.data.items);
+            const total = Math.ceil(result.data.total / itemsPerPage);
+            setTotalPages(total);
+            onTotalPagesChange(total);
         } catch (err) {
-            console.log("somthing Wrong");
+            console.log("에러 발생:", err);
         }
     }
- 
-    
-    const handleDelete=async(id: number)=>{
-        console.log(id);
-        await axios.delete(process.env.NEXT_PUBLIC_BASE_URL+"/deletepost/"+id);
-        const newUserData=userData.filter((item)=>{
-            return(
-                item._id !==id
-            )
-        })
-        setUSerData(newUserData);
+
+    // userData가 없을 때 로딩 표시
+    if (!userData) {
+        return <div>로딩 중...</div>;
     }
-  return (
+    
+    return (
         <table className="table table-zebra max-w-[730px] border-[1px]">
             <thead className="text-sm text-gray-700 uppercase bg-gray-100">
-                {/*<tr>
-                    <th className="py-1 px-16">작성자</th>
-                    <th className="py-1 px-16">제목</th>
-                </tr>*/}
             </thead>
             
-                {userData.map((rs, index) => (
+            {userData.map((rs, index) => (
                 <tbody key={rs.board_id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <tr className="" onClick={() => window.open(`/post/view/${rs.board_id}`, '_self')}>
                         <td className="py-3 px-6 font-bold">
@@ -66,8 +65,7 @@ export default function Users() {
                         </td>
                     </tr>
                 </tbody>
-                ))}
-            
+            ))}
         </table>
-  );
+    );
 }
