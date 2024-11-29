@@ -190,7 +190,7 @@ nextApp
         if (err) {
           throw err;
         } else {
-          res.redirect('/home') // create 완료후 /home으로 리다이렉트
+          res.redirect('/home/post') // create 완료후 /home으로 리다이렉트
         }
       })
     }) 
@@ -198,7 +198,7 @@ nextApp
     // Delete API
     app.get('/api/post/delete/:id', function (req, res) {
       connection.query('delete from Post where board_id=?', [req.params.id], function () {
-        res.redirect('/home') // delete 완료후 /home으로 리다이렉트
+        res.redirect('/home/post') // delete 완료후 /home으로 리다이렉트
       })
     })
 
@@ -222,7 +222,7 @@ nextApp
         body.content,
         req.params.id
       ], function () {
-        res.redirect('/home') // /home으로 리다이렉트
+        res.redirect('/home/post') // /home으로 리다이렉트
       })
     })
 
