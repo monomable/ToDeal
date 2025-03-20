@@ -1,4 +1,5 @@
 //import SideNav from '@/app/ui/home/sidenav';
+import Image from 'next/image'
 import TopNav from '@/ui/home/topnav';
 import DealLogo from '../ui/deal-logo';
 import SidePost from '../ui/home/side-post';
@@ -12,7 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       <div className='hidden md:my-8 md:block md:w-fit md:justify-self-end' >
         <Link className="" href="/home">
-          <DealLogo/>
+          <Image src='/todeal-logo.png' alt='logo' width={100} height={1}/>
         </Link>
         <div className='py-16 space-y-0'>
           <div className='hidden'><LoginInfo/></div>
