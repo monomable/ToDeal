@@ -142,7 +142,7 @@ export default function Navbar() {
             </div>
           </form>
 
-          <Link href="/login" className="ml-10 relative top-10">
+          <Link href="/login" className="hidden md:block ml-10 relative top-10">
             <UserIcon className="w-6 h-6 text-gray-700 dark:text-white cursor-pointer hover:text-blue-700 dark:hover:text-blue-500" />
           </Link>
 
