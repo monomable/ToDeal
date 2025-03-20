@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 import { UserIcon } from "@heroicons/react/24/outline";
+import { HeartIcon } from "@heroicons/react/24/outline";
 
 export default function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -143,7 +144,11 @@ export default function Navbar() {
           </form>
 
           <Link href="/login" className="hidden md:block ml-10 relative top-10">
-            <UserIcon className="w-6 h-6 text-gray-700 dark:text-white cursor-pointer hover:text-blue-700 dark:hover:text-blue-500" />
+            <UserIcon className="w-8 h-8 text-gray-700 dark:text-white cursor-pointer hover:text-blue-700 dark:hover:text-blue-500" />
+          </Link>
+
+          <Link href="/" className="hidden md:block ml-4 relative top-10">
+            <HeartIcon className="w-8 h-8 text-gray-700 dark:text-white cursor-pointer hover:text-blue-700 dark:hover:text-blue-500" />
           </Link>
 
       </div>
