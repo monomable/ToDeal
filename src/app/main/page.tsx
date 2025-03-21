@@ -5,6 +5,8 @@ import TableData from "@/ui/home/list/tabledata";
 import { Suspense } from "react";
 import { Spinner } from "@/ui/home/list/spinner";
 import { useEffect, useState } from "react";
+import FlashSaleHeader from "../components/FlashSaleHeader"
+import FlashSaleProducts from "../components/FlashSaleProducts"
 import "../globals.css";
 
 interface HotDeal {
@@ -24,8 +26,14 @@ export default function Page() {
   }, []);
 
     return (
-    <div className="space-y-10 md:space-y-4 md:p-2">
+      <div className="">
+        <div className="w-full">
+          <FlashSaleHeader/>
+        </div>
 
-    </div>
+        <FlashSaleProducts/>
+
+
+      </div>
     );
   }

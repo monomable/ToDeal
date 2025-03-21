@@ -1,0 +1,90 @@
+'use client';
+
+import Image from 'next/image';
+
+const products = [
+  {
+    id: 1,
+    name: 'HAVIT HV-G92 Gamepad',
+    price: 120,
+    oldPrice: 160,
+    discount: 40,
+    image: '/todeal-logo.png',
+    rating: 4.5,
+    reviews: 88,
+  },
+  {
+    id: 2,
+    name: 'AK-900 Wired Keyboard',
+    price: 960,
+    oldPrice: 1160,
+    discount: 35,
+    image: '/keyboard.png',
+    rating: 3.5,
+    reviews: 75,
+    showButton: true, // "Add to Cart" 버튼 표시
+  },
+  {
+    id: 3,
+    name: 'IPS LCD Gaming Monitor',
+    price: 370,
+    oldPrice: 400,
+    discount: 30,
+    image: '/monitor.png',
+    rating: 5.0,
+    reviews: 99,
+  },
+  {
+    id: 4,
+    name: 'S-Series Comfort Chair',
+    price: 375,
+    oldPrice: 400,
+    discount: 25,
+    image: '/chair.png',
+    rating: 4.5,
+    reviews: 99,
+  },
+];
+
+export default function FlashSaleProducts() {
+  return (
+    <div className="grid grid-cols-4 gap-6 w-full">
+      {products.map((product) => (
+        <div key={product.id} className="p-4 border rounded-lg shadow-sm relative">
+          {/* 할인율 배지 */}
+          <span className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 text-sm rounded">
+            -{product.discount}%
+          </span>
+
+          {/* 관심 & 조회 아이콘 */}
+          <div className="absolute top-2 right-2 flex space-x-2">
+            <button className="bg-white p-1 rounded-full shadow"><span>❤️</span></button>
+            <button className="bg-white p-1 rounded-full shadow"><span>👁️</span></button>
+          </div>
+
+          {/* 상품 이미지 */}
+          <Image src={product.image} alt={product.name} width={300} height={300} className="mx-auto bg-gray-100 rounded-md" />
+
+          {/* 상품명 */}
+          <h3 className="mt-4 text-lg font-medium">{product.name}</h3>
+
+          {/* 가격 정보 */}
+          <p className="text-red-500 text-xl">
+            ${product.price} <span className="text-gray-500 line-through">${product.oldPrice}</span>
+          </p>
+
+          {/* 별점 및 리뷰 */}
+          <div className="flex items-center space-x-1">
+            {'⭐'.repeat(Math.floor(product.rating))}
+            <span className="text-gray-500">({product.reviews})</span>
+          </div>
+
+          {/* "Add to Cart" 버튼 (특정 상품만) */}
+          {product.showButton && (
+            <button className="w-full mt-3 bg-black text-white">Add To Cart</button>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}

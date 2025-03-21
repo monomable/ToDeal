@@ -6,7 +6,7 @@ import Link from "next/link";
 import { UserIcon } from "@heroicons/react/24/outline";
 import { HeartIcon } from "@heroicons/react/24/outline";
 
-export default function Navbar() {
+export default function Layout({ children }: { children: React.ReactNode }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -155,6 +155,10 @@ export default function Navbar() {
 
       <hr className="border-gray-200 dark:border-gray-700" />
 
+      <div className="max-w-screen-xl flex-grow p-6 h-dvh md:p-4 md:mx-auto md:w-4/5">{children}</div>
+
     </nav>
+
+    
   );
 }

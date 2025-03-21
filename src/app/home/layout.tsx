@@ -21,10 +21,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </div>
       </div>
 
+      {/* 모바일 화면 */}
       <div className='flex flex-col md:p-4'>
         <div className='flex justify-center basis-1/4 md:hidden'>
           <Link className="" href="/home">
-            <DealLogo/>
+            <Image src='/todeal-logo.png' alt='logo' width={100} height={1}/>
           </Link>
         </div>
         <div className="flex-grow p-6 md:p-4 md:mx-auto">
