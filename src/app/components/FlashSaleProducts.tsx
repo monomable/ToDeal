@@ -2,6 +2,8 @@
 
 import Image from 'next/image';
 
+import { StarIcon } from "@heroicons/react/24/solid";
+
 const products = [
   {
     id: 1,
@@ -70,12 +72,14 @@ export default function FlashSaleProducts() {
 
           {/* 가격 정보 */}
           <p className="text-red-500 text-xl">
-            ${product.price} <span className="text-gray-500 line-through">${product.oldPrice}</span>
+            {product.price}원 <span className="text-md text-gray-500 line-through ml-2">{product.oldPrice}원</span>
           </p>
 
           {/* 별점 및 리뷰 */}
           <div className="flex items-center space-x-1">
-            {'⭐'.repeat(Math.floor(product.rating))}
+            {Array.from({ length: Math.floor(product.rating) }).map((_, index) => (
+                <StarIcon key={index} className="w-6 h-6 text-yellow-500" />
+            ))}
             <span className="text-gray-500">({product.reviews})</span>
           </div>
 
