@@ -50,20 +50,20 @@ export default function FlashSaleProducts() {
   return (
     <div className="grid grid-cols-4 gap-6 w-full">
       {products.map((product) => (
-        <div key={product.id} className="p-4 border rounded-lg shadow-sm relative">
+        <div key={product.id} className="p-0 rounded-lg relative">
           {/* 할인율 배지 */}
-          <span className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 text-sm rounded">
+          <span className="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 text-sm rounded">
             -{product.discount}%
           </span>
 
           {/* 관심 & 조회 아이콘 */}
-          <div className="absolute top-2 right-2 flex space-x-2">
+          <div className="absolute top-4 right-4 flex space-x-2">
             <button className="bg-white p-1 rounded-full shadow"><span>❤️</span></button>
             <button className="bg-white p-1 rounded-full shadow"><span>👁️</span></button>
           </div>
 
           {/* 상품 이미지 */}
-          <Image src={product.image} alt={product.name} width={300} height={300} className="mx-auto bg-gray-100 rounded-md" />
+          <Image src={product.image} alt={product.name} width={300} height={300} className="mx-auto bg-gray-100 rounded-md p-10" />
 
           {/* 상품명 */}
           <h3 className="mt-4 text-lg font-medium">{product.name}</h3>

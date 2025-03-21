@@ -31,8 +31,9 @@ export default function Page() {
           <FlashSaleHeader/>
         </div>
 
-        <FlashSaleProducts/>
-
+        <div className="mt-10">
+          <FlashSaleProducts/>
+        </div>
 
       </div>
     );
