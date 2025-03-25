@@ -6,6 +6,8 @@ import axios from 'axios' // https 비동기 통신 라이브러리
 import Link from "next/link";
 import "../../../globals.css"
 
+import PriceTrendChart from "@/components/PriceTrendChart";
+
 const images = [
   "/todeal-logo.png",
   "/test1.webp",
@@ -180,6 +182,8 @@ type Props = {
                 </span>
               </div>
             </div>
+
+            <PriceTrendChart />
           </div>
         </div>
       </div>
