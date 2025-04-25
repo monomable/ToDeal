@@ -3,6 +3,7 @@
 import Image from 'next/image';
 
 import { StarIcon } from "@heroicons/react/24/solid";
+import Link from 'next/link';
 
 const products = [
   {
@@ -50,6 +51,7 @@ const products = [
 
 export default function FlashSaleProducts() {
   return (
+    <Link href="/post/view/22">
     <div className="grid grid-cols-4 gap-6 w-full">
       {products.map((product) => (
         <div key={product.id} className="p-0 rounded-lg relative">
@@ -90,5 +92,6 @@ export default function FlashSaleProducts() {
         </div>
       ))}
     </div>
+    </Link>
   );
 }

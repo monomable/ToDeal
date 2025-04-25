@@ -6,9 +6,9 @@ export default function FlashSaleHeader() {
             <div className="w-5 h-10 bg-red-500 rounded"></div>
             
             {/* 텍스트 */}
-            <span className="text-red-500 font-bold text-lg">Today's</span>
+            <span className="text-red-500 font-bold text-lg">지금 뜨는</span>
         </div>
-        <h1 className="text-3xl font-bold mt-2">Flash Sales</h1>
+        <h1 className="text-3xl font-bold mt-2">식료품</h1>
     </div>
     );
   }
