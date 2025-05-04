@@ -16,6 +16,7 @@
     "express": "^4.19.2",
     "express-session": "^1.18.1",
     "heroicons": "^2.1.5",
+    "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.11.3",
     "next": "^14.2.15",
     "next-auth": "^4.24.11",

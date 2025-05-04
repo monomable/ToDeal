@@ -21,8 +21,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className={`${isMobileMenuOpen ? "block" : "hidden"} absolute top-full left-0 w-full bg-white md:relative md:block md:w-auto md:left-1/3 md:-translate-x-1/2 md:bg-transparent md:top-10`} >
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
-              <Link href="/" className="block py-2 px-3 text-white bg-red-700 rounded-md md:bg-transparent md:text-red-700 md:p-0 md:dark:text-red-500 dark:bg-red-600 md:dark:bg-transparent">
-                Home
+              <Link href="/" className="block font-bold py-2 px-3 text-white bg-red-700 rounded-md md:bg-transparent md:text-red-700 md:p-0 md:dark:text-red-500 dark:bg-red-600 md:dark:bg-transparent">
+                메인
               </Link>
             </li>
 
@@ -78,13 +78,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </li>
 
             <li>
-              <Link href="/services" className="block py-2 px-3 text-gray-900 rounded-md hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                Services
+              <Link href="/home/post" className="block font-bold py-2 px-3 text-gray-900 rounded-md hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                자유시장
               </Link>
             </li>
             <li>
-              <Link href="/pricing" className="block py-2 px-3 text-gray-900 rounded-md hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                Pricing
+              <Link href="/home" className="block font-bold py-2 px-3 text-gray-900 rounded-md hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                핫딜
               </Link>
             </li>
             <li>

@@ -1,22 +1,31 @@
 'use client';
 
-import { useSession } from "next-auth/react";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function UserInfo() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
+  if (status === 'loading') return <p>Loading...</p>;
+
+  if (!session) {
+    return (
+      <button onClick={() => signIn("google")} className="mt-4 px-6 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition">
+        🔑 Google 계정으로 로그인
+      </button>
+    );
+  }
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md w-full max-w-md">
-      {session ? (
-        <>
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">👤 사용자 정보</h2>
-          <p><strong>이름:</strong> {session.user?.name}</p>
-          <p><strong>이메일:</strong> {session.user?.email}</p>
-          <p className="break-all"><strong>Access Token:</strong> {session.accessToken}</p>
-        </>
-      ) : (
-        <p className="text-gray-600">로그인된 사용자가 없습니다.</p>
-      )}
+    <div className="flex items-center gap-4 p-3 bg-white border border-black rounded-md shadow">
+      <img
+        src={session.user?.image ?? ''}
+        alt="프로필"
+        className="w-10 h-10 rounded-full"
+      />
+      <div>
+        <p className="text-sm font-medium">{session.user?.name}</p>
+        <button onClick={() => signOut()} className="text-xs text-red-500">로그아웃</button>
+      </div>
     </div>
   );
 }
