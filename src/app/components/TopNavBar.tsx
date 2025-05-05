@@ -148,7 +148,7 @@ export default function TopNavBar() {
               <HeartIcon className="w-8 h-8 text-gray-700 dark:text-white cursor-pointer hover:text-red-700 dark:hover:text-red-500" />
             </Link>
 
-            <Link href="/" className="hidden md:block ml-4 relative top-10">
+            <Link href="/main/cart" className="hidden md:block ml-4 relative top-10">
               <ShoppingCartIcon className="w-8 h-8 text-gray-700 dark:text-white cursor-pointer hover:text-red-700 dark:hover:text-red-500" />
             </Link>
 
