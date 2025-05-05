@@ -52,8 +52,7 @@ app.use("/auth", authRouter);
 app.use("/deals", dealsRouter);
 
 const protectedRouter = require('./routes/protected');
-app.use('/api/protected', protectedRouter);
-
+app.use('/serverapi/protected', protectedRouter);
 
 nextApp
   .prepare()
@@ -65,10 +64,12 @@ nextApp
     });
 
     app.listen(port, () => {
-      console.log(`✅ Server running at http://localhost:${port}`);
+      console.log(`Server running at http://localhost:${port}`);
     });
   })
   .catch((err) => {
     console.error("❌ Next.js init failed:", err);
     process.exit(1);
   });
+
+

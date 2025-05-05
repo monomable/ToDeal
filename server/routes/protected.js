@@ -1,4 +1,4 @@
-// 예: routes/protected.js
+// routes/protected.js
 const express = require('express');
 const router = express.Router();
 const verifyJWT = require('../middleware/verifyJWT');

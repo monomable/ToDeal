@@ -1,3 +1,4 @@
+// components/LoginGoogle.tsx
 'use client';
 
 import { useSession, signIn, signOut } from "next-auth/react";
@@ -5,12 +6,15 @@ import { useSession, signIn, signOut } from "next-auth/react";
 export default function UserInfo() {
   const { data: session, status } = useSession();
 
-  if (status === 'loading') return <p>Loading...</p>;
-
   if (!session) {
     return (
-      <button onClick={() => signIn("google")} className="mt-4 px-6 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition">
-        🔑 Google 계정으로 로그인
+      <button onClick={() => signIn("google", { callbackUrl: "/main" })} className="w-full py-2 flex items-center justify-center gap-2 border border-gray-300 rounded hover:bg-gray-100">
+        <img
+        src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+        alt="Google"
+        className="w-5 h-5"
+        />
+        <span>Google 계정으로 로그인</span>
       </button>
     );
   }

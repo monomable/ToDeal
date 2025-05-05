@@ -1,7 +1,8 @@
-// app/layout.tsx
+// auth/layout.tsx
 'use client';
 
-import { SessionProvider } from "next-auth/react";
+//import React from "react";
+import { SessionProvider } from 'next-auth/react';
 
 export default function RootLayout({
   children,
@@ -10,7 +11,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="flex items-center justify-center min-h-screen bg-gray-50">
         <SessionProvider>{children}</SessionProvider>
       </body>
     </html>

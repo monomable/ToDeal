@@ -9,6 +9,7 @@ import FlashSaleHeader from "../components/FlashSaleHeader"
 import FlashSaleProducts from "../components/FlashSaleProducts"
 import CategoriesHeader from "../components/CategoriesHeader"
 import CategoriesProducts from "../components/CategoriesProducts"
+import AuthStatusIcon from "../components/AuthStatusIcon";
 import "../globals.css";
 
 interface HotDeal {
@@ -17,15 +18,7 @@ interface HotDeal {
 }
 
 export default function Page() {
-  const [images, setImages] = useState<HotDeal[]>([]);
 
-  useEffect(() => {
-    fetch('/api/images')
-      .then(res => res.json())
-      .then(data => {
-        setImages(data);
-      });
-  }, []);
 
     return (
       <div className="w-full">
