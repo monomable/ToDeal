@@ -1,5 +1,15 @@
+'use client';
+
 import { useState } from "react";
-import { CameraIcon, DeviceTabletIcon, ComputerDesktopIcon, ClockIcon, MusicalNoteIcon, WalletIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
+import { 
+  CameraIcon, 
+  DeviceTabletIcon, 
+  ComputerDesktopIcon, 
+  ClockIcon, 
+  MusicalNoteIcon, 
+  WalletIcon 
+} from "@heroicons/react/24/outline";
 
 const categories = [
   { id: 1, name: "Phones", icon: DeviceTabletIcon },
@@ -11,21 +21,29 @@ const categories = [
 ];
 
 export default function CategorySelector() {
-  const [selected, setSelected] = useState(0); // 초기 선택된 카테고리 (Camera)
+  const [selected, setSelected] = useState(0);  // 선택된 카테고리
+  const router = useRouter();
+
+  const handleClick = (id: number, name: string) => {
+    setSelected(id);
+    router.push(`/categories/${name}`);
+  };
 
   return (
     <div className="flex justify-center space-x-4">
       {categories.map((category) => {
         const Icon = category.icon;
+        const isSelected = selected === category.id;
+
         return (
           <div
             key={category.id}
             className={`w-full aspect-square flex flex-col items-center justify-center border rounded-md cursor-pointer transition ${
-              selected === category.id ? "bg-red-500 text-white" : "bg-white text-black border-gray-300 hover:border-gray-400"
+              isSelected ? "bg-red-500 text-white" : "bg-white text-black border-gray-300 hover:border-gray-400"
             }`}
-            onClick={() => setSelected(category.id)}
+            onClick={() => handleClick(category.id, category.name)}
           >
-            <Icon className={`w-8 h-8 ${selected === category.id ? "text-white" : "text-black"}`} />
+            <Icon className={`w-8 h-8 ${isSelected ? "text-white" : "text-black"}`} />
             <span className="mt-2 text-sm font-medium">{category.name}</span>
           </div>
         );
