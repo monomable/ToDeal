@@ -13,6 +13,7 @@ const authCheck = require("./login/authCheck.js");
 const template = require("./login/template.js");
 const connection = require("./connectDB");
 const hotdealConnection = require("./hotdealDB");
+const productsRouter = require('./routes/products');
 
 // Load .env config
 dotenv.config({ path: ".env" });
@@ -50,6 +51,9 @@ app.use(
 
 app.use("/auth", authRouter);
 app.use("/deals", dealsRouter);
+app.use('/server-api/products', productsRouter);
+
+
 
 const protectedRouter = require('./routes/protected');
 app.use('/serverapi/protected', protectedRouter);
