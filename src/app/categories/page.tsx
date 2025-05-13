@@ -20,19 +20,9 @@ export default function CategoriesPage() {
   };
 
   return (
-    <div>
+    <div className='mt-5 space-y-5'>
       <CategorySelector/>
-      <h1>카테고리</h1>
-      <div style={{ display: 'flex', gap: '10px' }}>
-        {categories.map((cat) => (
-          <div key={cat.name}
-               style={{ border: '1px solid #ccc', padding: '20px', cursor: 'pointer' }}
-               onClick={() => handleClick(cat.name)}>
-            <div style={{ fontSize: '40px' }}>{cat.icon}</div>
-            <div>{cat.name}</div>
-          </div>
-        ))}
-      </div>
+      <CategorySelector/>
     </div>
   );
 }
