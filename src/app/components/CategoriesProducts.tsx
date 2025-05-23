@@ -2,35 +2,42 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { 
-  CameraIcon, 
-  DeviceTabletIcon, 
-  ComputerDesktopIcon, 
-  ClockIcon, 
-  MusicalNoteIcon, 
-  WalletIcon 
-} from "@heroicons/react/24/outline";
+import { LeafIcon, CoffeeIcon, AppleLogoIcon, EggIcon, BreadIcon, BarbellIcon} from "@phosphor-icons/react";
+import type { ForwardRefExoticComponent, RefAttributes, SVGProps } from "react";
 
-const categories = [
-  { id: 1, name: "Phones", icon: DeviceTabletIcon },
-  { id: 2, name: "Computers", icon: ComputerDesktopIcon },
-  { id: 3, name: "SmartWatch", icon: ClockIcon },
-  { id: 4, name: "Camera", icon: CameraIcon },
-  { id: 5, name: "HeadPhones", icon: MusicalNoteIcon },
-  { id: 6, name: "Gaming", icon: WalletIcon },
+interface Category {
+  id: number;
+  name: string;
+  slug: string; // 영문 URL용
+  icon: ForwardRefExoticComponent<
+    Omit<SVGProps<SVGSVGElement>, "ref"> & { title?: string; titleId?: string } & RefAttributes<SVGSVGElement>
+  >;
+}
+
+interface CategorySelectorProps {
+  categories?: Category[];
+}
+
+const defaultCategories: Category[] = [
+  { id: 1, name: "야채", slug: "vagetables", icon: LeafIcon },
+  { id: 2, name: "과일ㆍ견과류ㆍ곡물", slug: "NutandRise", icon: AppleLogoIcon },
+  { id: 3, name: "육류ㆍ닭걀", slug: "meetNegg", icon: EggIcon },
+  { id: 4, name: "커피ㆍ차", slug:"coffeNtea", icon: CoffeeIcon },
+  { id: 5, name: "베이커리", slug:"bakery", icon: BreadIcon },
+  { id: 6, name: "건강", slug:"healthy", icon: BarbellIcon },
 ];
 
-export default function CategorySelector() {
-  const [selected, setSelected] = useState(0);  // 선택된 카테고리
+export default function CategorySelector({ categories = defaultCategories }: CategorySelectorProps) {
+  const [selected, setSelected] = useState(0);
   const router = useRouter();
 
-  const handleClick = (id: number, name: string) => {
+  const handleClick = (id: number, slug: string) => {
     setSelected(id);
-    router.push(`/categories/${name}`);
+    router.push(`/categories/${slug}`);
   };
 
   return (
-    <div className="flex justify-center space-x-4">
+    <div className="grid grid-cols-6 gap-4 w-full mx-auto">
       {categories.map((category) => {
         const Icon = category.icon;
         const isSelected = selected === category.id;
@@ -38,10 +45,10 @@ export default function CategorySelector() {
         return (
           <div
             key={category.id}
-            className={`w-full aspect-square flex flex-col items-center justify-center border rounded-md cursor-pointer transition ${
+            className={`aspect-square flex flex-col items-center justify-center border rounded-md cursor-pointer transition ${
               isSelected ? "bg-red-500 text-white" : "bg-white text-black border-gray-300 hover:border-gray-400"
             }`}
-            onClick={() => handleClick(category.id, category.name)}
+            onClick={() => handleClick(category.id, category.slug)}
           >
             <Icon className={`w-8 h-8 ${isSelected ? "text-white" : "text-black"}`} />
             <span className="mt-2 text-sm font-medium">{category.name}</span>
@@ -50,4 +57,5 @@ export default function CategorySelector() {
       })}
     </div>
   );
+
 }

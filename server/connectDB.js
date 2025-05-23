@@ -23,14 +23,4 @@ const connection = {
   }
 };
 
-/* 기존 db 연결 방법
-connection.getConnect((err) => {
-  if (err) {
-    console.error('Database connection failed: ' + err.stack);
-    return;
-  }
-  console.log('Connected to database.');
-});
-*/
-
 module.exports = connection;

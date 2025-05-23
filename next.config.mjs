@@ -5,4 +5,11 @@ const nextConfig = {
     },
   };
 
-export default nextConfig;
+//export default nextConfig;
+
+export default {
+  nextConfig,
+  experimental: {
+    optimizePackageImports: ['@phosphor-icons/react'],
+  },
+};

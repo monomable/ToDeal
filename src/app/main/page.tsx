@@ -30,9 +30,9 @@ export default function Page() {
           <FlashSaleProducts/>
         </div>
         <div className="flex justify-center mb-10">
-          <button className="bg-red-500 text-white font-medium px-10 py-4 rounded-md hover:bg-red-600 transition">
-            View All Products
-          </button>
+          <Link href="/HotDeal" className="inline-block bg-red-500 text-white font-bold px-10 py-4 rounded-md hover:bg-red-600 transition">
+            핫딜 더보기
+          </Link>
         </div>
 
         <hr className="border-gray-200 dark:border-gray-700" />
@@ -44,6 +44,12 @@ export default function Page() {
 
         <div className="mt-10 mb-20">
           <CategoriesProducts/>
+        </div>
+
+        <div className="flex justify-center mb-10">
+          <Link href="/categories" className="inline-block bg-red-500 text-white font-bold px-10 py-4 rounded-md hover:bg-red-600 transition">
+            모든 카테고리 보기
+          </Link>
         </div>
 
         <hr className="border-gray-200 dark:border-gray-700" />
