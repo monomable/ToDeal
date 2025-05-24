@@ -6,15 +6,14 @@ import { StarIcon } from "@heroicons/react/24/solid";
 
 interface Product {
   id: number;
-  name: string;
-  oldPrice: number;
-  discount: number;
-  price: number;
-  reviews: number;
-  rating: number;
-  imageUrl: string;
-  image : string;
-  showButton : boolean;
+  product_name: string;
+  product_price: number;
+  shop_info: string;
+  category: string;
+  product_link: string;
+  created_at: string;
+  updated_at: string;
+  filename : string;
 }
 
 async function getProducts(category: string): Promise<Product[]> {
@@ -57,22 +56,22 @@ export default async function CategoryProductsPage({ params }: { params: { categ
           </div>
 
           {/* 상품 이미지 */}
-          <Image src={product.image} alt={product.name} width={300} height={300} className="mx-auto bg-gray-100 rounded-md p-10" />
+          <Image src={`https://img.onemable.com/images/${product.filename}`} alt={product.product_name} width={300} height={300} className="mx-auto bg-gray-100 rounded-md p-10" />
 
           {/* 상품명 */}
-          <h3 className="mt-4 text-lg font-medium">{product.name}</h3>
+          <h3 className="mt-4 text-lg font-medium">{product.product_name}</h3>
 
           {/* 가격 정보 */}
           <p className="text-red-500 text-xl">
-            {product.price}원 <span className="text-md text-gray-500 line-through ml-2">{product.oldPrice}원</span>
+            {product.product_price}원 <span className="text-md text-gray-500 line-through ml-2">{product.product_price}원</span>
           </p>
 
           {/* 별점 및 리뷰 */}
           <div className="flex items-center space-x-1">
-            {Array.from({ length: Math.floor(product.rating) }).map((_, index) => (
+            {Array.from({ length: Math.floor(product.id) }).map((_, index) => (
                 <StarIcon key={index} className="w-6 h-6 text-yellow-500" />
             ))}
-            <span className="text-gray-500">({product.reviews})</span>
+            {/* <span className="text-gray-500">({product.reviews})</span> */}
           </div>
 
           {/* "Add to Cart" 버튼 (특정 상품만) */}

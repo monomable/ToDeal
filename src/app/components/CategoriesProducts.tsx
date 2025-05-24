@@ -19,7 +19,7 @@ interface CategorySelectorProps {
 }
 
 const defaultCategories: Category[] = [
-  { id: 1, name: "야채", slug: "vagetables", icon: LeafIcon },
+  { id: 1, name: "야채", slug: "vegetable", icon: LeafIcon },
   { id: 2, name: "과일ㆍ견과류ㆍ곡물", slug: "NutandRise", icon: AppleLogoIcon },
   { id: 3, name: "육류ㆍ닭걀", slug: "meetNegg", icon: EggIcon },
   { id: 4, name: "커피ㆍ차", slug:"coffeNtea", icon: CoffeeIcon },
