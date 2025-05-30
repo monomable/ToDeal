@@ -11,44 +11,15 @@ router.get('/', async (req, res) => {
   }
 
   try {
-    // 최신순 (id 기준 내림차순)
     const [rows] = await db.execute(
       `
-      (
-        SELECT id, product_name, product_price, shop_info, category, product_link, created_at, updated_at, filename
-        FROM kurly_products
-        WHERE category = ?
-        ORDER BY updated_at DESC
-        LIMIT 100
-      )
-      UNION ALL
-      (
-        SELECT id, product_name, product_price, shop_info, category, product_link, created_at, updated_at, filename
-        FROM gmarket_products
-        WHERE category = ?
-        ORDER BY updated_at DESC
-        LIMIT 100
-      )
-      UNION ALL
-      (
-        SELECT id, product_name, product_price, shop_info, category, product_link, created_at, updated_at, filename
-        FROM emart_products
-        WHERE category = ?
-        ORDER BY updated_at DESC
-        LIMIT 100
-      )
-      UNION ALL
-      (
-        SELECT id, product_name, product_price, shop_info, category, product_link, created_at, updated_at, filename
-        FROM coupang_products
-        WHERE category = ?
-        ORDER BY updated_at DESC
-        LIMIT 100
-      )
+      SELECT id, product_name, product_price, shop_info, category, product_link, created_at, updated_at, filename
+      FROM main_products
+      WHERE category = ?
       ORDER BY updated_at DESC
       LIMIT 30
       `,
-      [category, category, category, category]
+      [category]
     );
 
     res.json(rows);
@@ -57,5 +28,20 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+router.get('/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const [rows] = await db.execute('SELECT * FROM main_products WHERE id = ?', [id]);
+    if (rows.length === 0) {
+      return res.status(404).json({ message: '상품을 찾을 수 없습니다.' });
+    }
+    res.json(rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: '서버 오류' });
+  }
+});
+
 
 module.exports = router;

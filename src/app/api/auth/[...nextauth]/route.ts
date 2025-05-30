@@ -1,6 +1,6 @@
-// app/api/auth/[...nextauth]/route.ts
-import NextAuth, { NextAuthOptions } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
+import NextAuth, { NextAuthOptions } from 'next-auth';
+import GoogleProvider from 'next-auth/providers/google';
+const jwt = require('jsonwebtoken');
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -10,24 +10,28 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   session: {
-    strategy: "jwt", // ✅ JWT 전략 사용
+    strategy: "jwt",
   },
   callbacks: {
-    // ✅ access_token을 JWT에 저장
     async jwt({ token, account }) {
       if (account) {
-        token.accessToken = account.access_token;
+        // ✅ 우리가 직접 JWT accessToken 발급
+        token.accessToken = jwt.sign(
+          { sub: token.sub, email: token.email },
+          process.env.JWT_SECRET!,
+          { expiresIn: "12h" }
+        );
       }
       return token;
     },
-    // ✅ JWT에 저장된 accessToken을 session으로 전달
     async session({ session, token }) {
-      session.accessToken = token.accessToken as string;
+      session.accessToken = token.accessToken;
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.JWT_SECRET,
 };
 
+// ✅ App Router용 HTTP Method export
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

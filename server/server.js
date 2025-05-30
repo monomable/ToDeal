@@ -49,14 +49,17 @@ app.use(
   })
 );
 
+app.use(express.json());
 app.use("/auth", authRouter);
 app.use("/deals", dealsRouter);
 app.use('/server-api/products', productsRouter);
-
+app.use('/server-api/wishlist', require('./routes/wishlist'));
 
 
 const protectedRouter = require('./routes/protected');
 app.use('/serverapi/protected', protectedRouter);
+
+
 
 nextApp
   .prepare()
