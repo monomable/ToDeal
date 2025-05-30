@@ -29,6 +29,18 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/latest', async (req, res) => {
+  try {
+    const [rows] = await db.execute(
+      `SELECT * FROM main_products ORDER BY id DESC LIMIT 5`
+    );
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'DB error' });
+  }
+});
+
 router.get('/:id', async (req, res) => {
   const id = req.params.id;
   try {
@@ -39,7 +51,7 @@ router.get('/:id', async (req, res) => {
     res.json(rows[0]);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: '서버 오류' });
+    res.status(500).json({ message: 'DB error' });
   }
 });
 
