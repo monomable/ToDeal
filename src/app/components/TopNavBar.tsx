@@ -13,7 +13,7 @@ export default function TopNavBar() {
 
   return (
       <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 relative">
-        <div className="max-w-screen-xl flex items-center mx-auto p-4 relative">
+        <div className="max-w-screen-xl flex items-center mx-auto p-4 relative z-50">
           <Link href="/main" className="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="/todeal-logo.png" className="h-28" alt="todeal Logo" />
           </Link>
@@ -31,9 +31,9 @@ export default function TopNavBar() {
               <li className="relative">
                 <button
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded-md hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-red-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                  className="flex font-bold items-center justify-between w-full py-2 px-3 text-gray-900 rounded-md hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-red-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
                 >
-                  Dropdown
+                  카테고리
                   <svg
                     className="w-2.5 h-2.5 ms-2.5"
                     aria-hidden="true"
@@ -52,27 +52,32 @@ export default function TopNavBar() {
                 </button>
 
                 {/* 드롭다운 메뉴 리스트 */}
-                <div className={`${isDropdownOpen ? "block" : "hidden"} absolute z-10 mt-2 w-44 bg-white divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-700 dark:divide-gray-600`}>
+                <div className={`${isDropdownOpen ? "block" : "hidden"} absolute z-50 mt-2 w-44 bg-white divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-700 dark:divide-gray-600`}>
                   <ul className="py-2 text-sm text-gray-700 dark:text-gray-400">
                     <li>
-                      <Link href="/dashboard" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                        Dashboard
+                      <Link href="/categories/vegetable" onClick={() => setIsDropdownOpen(false)} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        야채
                       </Link>
                     </li>
                     <li>
-                      <Link href="/settings" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                        Settings
+                      <Link href="/categories/fruit" onClick={() => setIsDropdownOpen(false)} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        과일
                       </Link>
                     </li>
                     <li>
-                      <Link href="/earnings" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                        Earnings
+                      <Link href="/categories/meat" onClick={() => setIsDropdownOpen(false)} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        육류
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/categories/seafood" onClick={() => setIsDropdownOpen(false)} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        해산물
                       </Link>
                     </li>
                   </ul>
                   <div className="py-1">
-                    <Link href="/signout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                      Sign out
+                    <Link href="/categories" onClick={() => setIsDropdownOpen(false)} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                      더보기
                     </Link>
                   </div>
                 </div>
@@ -89,7 +94,7 @@ export default function TopNavBar() {
                 </Link>
               </li>
               <li>
-                <Link href="/categories" className="block py-2 px-3 text-gray-900 rounded-md hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                <Link href="/categories" className="block font-bold py-2 px-3 text-gray-900 rounded-md hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                   카테고리
                 </Link>
               </li>

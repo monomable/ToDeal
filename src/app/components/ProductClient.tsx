@@ -53,7 +53,7 @@ export default function ProductClient({ products }: { products: Product[] }) {
   }, [fetchWishlist]);
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
+    <div className="relative z-0 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
       {products.map((product) => (
         <ProductItem
           key={product.id}
