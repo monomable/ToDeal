@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const db = require('../userDB');
+const maindb = require('../mainDB');
 
 router.post('/', async (req, res) => {
   const token = req.headers.authorization?.split(' ')[1];
@@ -45,6 +46,44 @@ router.get('/my', async (req, res) => {
     res.status(401).json({ error: 'Invalid token' });
   }
 });
+
+router.get('/mylist', async (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) return res.status(401).json({ error: 'No token' });
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.sub || decoded.email;
+
+    const [wishlistRows] = await db.execute(
+      'SELECT item_id FROM user_wishlist WHERE user_id = ?',
+      [userId]
+    );
+
+    const itemIds = wishlistRows.map(row => row.item_id);
+
+    if (itemIds.length === 0) {
+      return res.json({ products: [] }); // 찜한 상품이 없음
+    }
+
+    // itemIds 배열을 IN 쿼리에 사용할 문자열로 변환 (예: "1,2,3")
+    const placeholders = itemIds.map(() => '?').join(', ');
+    const [productRows] = await maindb.execute(
+      `
+      SELECT id, product_name, product_price, shop_info, category, product_link, created_at, updated_at, filename
+      FROM main_products
+      WHERE id IN (${placeholders})
+      `,
+      itemIds
+    );
+
+    res.json({ products: productRows });
+  } catch (err) {
+    console.error('🔴 Error in /wishlist/my:', err);
+    res.status(401).json({ error: 'Invalid token' });
+  }
+});
+
 
 router.delete('/', async (req, res) => {
   const token = req.headers.authorization?.split(' ')[1];
