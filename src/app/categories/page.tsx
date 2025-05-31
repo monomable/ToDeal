@@ -6,10 +6,9 @@ import { RocketLaunchIcon } from "@heroicons/react/24/outline";
 import { BeerBottleIcon, CookieIcon, JarLabelIcon, CookingPotIcon ,FishIcon } from "@phosphor-icons/react";
 
 const customCategories = [
-  { id: 1, name: "음료", slug:"drink", icon: BeerBottleIcon },
   { id: 2, name: "과자", slug:"snack", icon: CookieIcon },
-  { id: 3, name: "조미료ㆍ면", slug:"seasoningnnoodle", icon: JarLabelIcon },
-  { id: 4, name: "밀키트", slug:"readymeal", icon: CookingPotIcon },
+  { id: 3, name: "조미료", slug:"seasoning", icon: JarLabelIcon },
+  { id: 4, name: "밀키트", slug:"ready meal", icon: CookingPotIcon },
   { id: 5, name: "해산물", slug:"seafood", icon: FishIcon },
   { id: 6, name: "로켓", slug:"rocket", icon: RocketLaunchIcon }
 ];

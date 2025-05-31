@@ -4,7 +4,9 @@ const router = express.Router();
 const db = require('../mainDB'); // ✅ 연결된 DB 객체
 
 router.get('/', async (req, res) => {
-  const { category } = req.query;
+  const { category, page = 1 } = req.query;
+  const pageSize = 20;
+  const offset = (Number(page) - 1) * pageSize;
 
   if (!category) {
     return res.status(400).json({ error: 'Category is required' });
@@ -17,12 +19,18 @@ router.get('/', async (req, res) => {
       FROM main_products
       WHERE category = ?
       ORDER BY updated_at DESC
-      LIMIT 30
+      LIMIT ? OFFSET ?
       `,
+      [category, pageSize, offset]
+    );
+
+    // 총 개수도 함께 응답
+    const [[{ total }]] = await db.execute(
+      `SELECT COUNT(*) as total FROM main_products WHERE category = ?`,
       [category]
     );
 
-    res.json(rows);
+    res.json({ products: rows, total });
   } catch (error) {
     console.error('DB query error:', error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -39,6 +47,26 @@ router.get('/latest', async (req, res) => {
     console.error(err);
     res.status(500).json({ message: 'DB error' });
   }
+});
+
+router.get('/trend', async (req, res) => {
+  const { product_link } = req.query;
+
+  const [rows] = await db.query(`
+    SELECT recorded_price, recorded_date
+    FROM main_price_history
+    WHERE TRIM(product_link) = ?
+    ORDER BY recorded_date ASC
+  `, [decodeURIComponent(req.query.product_link).trim()]);
+
+  const data = rows.map(row => ({
+    date: new Date(row.recorded_date).toISOString().slice(5, 10).replace("-", "."),
+    price: row.recorded_price
+  }));
+
+  const avg = Math.round(rows.reduce((acc, cur) => acc + cur.recorded_price, 0) / rows.length);
+
+  res.json({ priceData: data, avgPrice: avg });
 });
 
 router.get('/:id', async (req, res) => {

@@ -110,7 +110,8 @@ export default function ProductPage({ params }: Props) {
         <div className="space-y-4">
 
           {/* 수량 + 구매 버튼 */}
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col items-start gap-4">
+            {/* 수량 조절 */}
             <div className="flex items-center border rounded overflow-hidden">
               <button
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
@@ -126,10 +127,18 @@ export default function ProductPage({ params }: Props) {
                 <PlusIcon className="w-4 h-4" />
               </button>
             </div>
-            <button className="bg-red-500 text-white px-6 py-3 rounded text-sm hover:bg-red-600">
-              지금 구매
-            </button>
+
+            {/* 버튼 2개 수평 정렬 */}
+            <div className="flex gap-4">
+              <button onClick={() => window.open(product.product_link, '_blank')} className="bg-red-500 text-white px-6 py-3 rounded text-sm hover:bg-red-600">
+                지금 구매
+              </button>
+              <button className="bg-white text-black border px-6 py-3 rounded text-sm hover:bg-gray-200">
+                장바구니
+              </button>
+            </div>
           </div>
+
 
           {/* 배송 & 반품 */}
           <div className="space-y-2 text-sm text-gray-700 mt-6">
@@ -151,7 +160,7 @@ export default function ProductPage({ params }: Props) {
             </div>
           </div>
 
-          <PriceTrendChart />
+          <PriceTrendChart productLink={product.product_link} />
         </div>
       </div>
     </div>

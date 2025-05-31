@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { LeafIcon, CoffeeIcon, AppleLogoIcon, EggIcon, BreadIcon, BarbellIcon} from "@phosphor-icons/react";
+import { LeafIcon, BeerBottleIcon, AppleLogoIcon, EggIcon, BreadIcon, BarbellIcon} from "@phosphor-icons/react";
 import type { ForwardRefExoticComponent, RefAttributes, SVGProps } from "react";
 
 interface Category {
@@ -20,9 +20,9 @@ interface CategorySelectorProps {
 
 const defaultCategories: Category[] = [
   { id: 1, name: "야채", slug: "vegetable", icon: LeafIcon },
-  { id: 2, name: "과일ㆍ견과류ㆍ곡물", slug: "NutandRise", icon: AppleLogoIcon },
-  { id: 3, name: "육류ㆍ닭걀", slug: "meetNegg", icon: EggIcon },
-  { id: 4, name: "커피ㆍ차", slug:"coffeNtea", icon: CoffeeIcon },
+  { id: 2, name: "과일ㆍ견과류ㆍ곡물", slug: "fruit", icon: AppleLogoIcon },
+  { id: 3, name: "육류ㆍ닭걀", slug: "meat", icon: EggIcon },
+  { id: 4, name: "음료", slug:"drink", icon: BeerBottleIcon },
   { id: 5, name: "베이커리", slug:"bakery", icon: BreadIcon },
   { id: 6, name: "건강", slug:"healthy", icon: BarbellIcon },
 ];

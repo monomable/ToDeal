@@ -57,7 +57,7 @@ export default function AuthStatusIcon() {
             <li>
               <button
                 onClick={() => {
-                  router.push('/cart');
+                  router.push('/main/cart');
                   setOpen(false);
                 }}
                 className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -68,12 +68,12 @@ export default function AuthStatusIcon() {
             <li>
               <button
                 onClick={() => {
-                  router.push('/profile');
+                  router.push('/main/wishlist');
                   setOpen(false);
                 }}
                 className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
               >
-                내 정보
+                위시리스트
               </button>
             </li>
             <li>

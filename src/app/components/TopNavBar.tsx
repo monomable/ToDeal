@@ -93,11 +93,6 @@ export default function TopNavBar() {
                   핫딜
                 </Link>
               </li>
-              <li>
-                <Link href="/categories" className="block font-bold py-2 px-3 text-gray-900 rounded-md hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                  카테고리
-                </Link>
-              </li>
             </ul>
           </div>
           {/* 모바일 메뉴 버튼 */}

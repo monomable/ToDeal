@@ -1,5 +1,5 @@
 // src/app/categories/[category]/page.tsx
-import ProductClient from '../../components/ProductClient'; // 아래 단계에서 만들 파일
+import ProductClient from '../../components/ProductClient';
 import { notFound } from 'next/navigation';
 
 interface Product {
@@ -27,7 +27,9 @@ async function getProducts(category: string): Promise<Product[]> {
 }
 
 export default async function CategoryProductsPage({ params }: { params: { category: string } }) {
-  const products = await getProducts(params.category).catch(() => notFound());
+  const category = params.category;
 
-  return <ProductClient products={products} />;
+  const products = await getProducts(category).catch(() => notFound());
+
+  return <ProductClient category={category}/>;
 }
