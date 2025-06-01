@@ -1,83 +1,85 @@
 'use client';
 
-import PostData from '@/ui/home/list/postmaindata'
-import Link from 'next/link'
-import {PencilIcon} from '@heroicons/react/24/outline'
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Link from 'next/link'; // ✅ Link 추가
 
-export default function Page() {
-  const router = useRouter();
-    const searchParams = useSearchParams();
-    const currentPage = Number(searchParams.get('page')) || 1;
-    const pageGroupSize = 5; // 한 그룹당 보여줄 페이지 수
-    const [totalPages, setTotalPages] = useState(0);
+interface Post {
+  board_id: number;
+  writer: string;
+  title: string;
+  content: string;
+  regdate: string;
+  update: string | null;
+}
 
-    // 현재 페이지 그룹 계산
-    const currentGroup = Math.floor((currentPage - 1) / pageGroupSize);
-    const startPage = currentGroup * pageGroupSize + 1;
-    const endPage = Math.min(startPage + pageGroupSize - 1, totalPages);
+interface Props {
+  currentPage: number;
+  onTotalPagesChange: (total: number) => void;
+}
 
-    const handlePageChange = (page: number) => {
-        router.push(`/home/post?page=${page}`);
+export default function PostData({ currentPage, onTotalPagesChange }: Props) {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(`http://localhost:5000/server-api/posts?page=${currentPage}`);
+        if (!res.ok) throw new Error('게시글을 불러올 수 없습니다.');
+
+        const data = await res.json();
+        console.log('✅ 서버 응답 데이터:', data);
+
+        if (Array.isArray(data.posts)) {
+          setPosts(data.posts);
+        } else {
+          console.warn('❗ posts가 배열이 아닙니다:', data.posts);
+          setPosts([]);
+        }
+
+        if (typeof onTotalPagesChange === 'function') {
+          onTotalPagesChange(data.totalPages || 0);
+        }
+      } catch (err) {
+        console.error('❌ fetch 실패:', err);
+        setError('데이터를 불러오는 중 오류가 발생했습니다.');
+      } finally {
+        setLoading(false);
+      }
     };
 
-    return (
-      <div className='p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'>
-        <div className="mb-0 w-full text-right">
-          <Link href="/post/create">
-            <button className='white-btn px-3 py-2 inline-flex items-center'>
-              <PencilIcon className='size-4'/>
-              <span>글쓰기</span>
-            </button>
-          </Link>
-        </div>
-        <div className=''>
-          <PostData 
-            currentPage={currentPage}
-            onTotalPagesChange={setTotalPages}
-          />
-        </div>
-        {/* 페이지네이션 UI */}
-        <div className="flex items-center justify-center space-x-1 mt-4">
-            <nav aria-label="페이지 탐색">
-              <ul className="flex items-center -space-x-px h-8 text-sm">
-                <li>
-                  <button 
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white disabled:opacity-50">
-                    이전
-                  </button>
-                </li>
-                {[...Array(Math.min(pageGroupSize, endPage - startPage + 1))].map((_, i) => {
-                  const pageNumber = startPage + i;
-                  return (
-                    <li key={i}>
-                      <button
-                        onClick={() => handlePageChange(pageNumber)}
-                        disabled={pageNumber > totalPages}
-                        className={`flex items-center justify-center px-3 h-8 leading-tight ${
-                          currentPage === pageNumber
-                            ? 'text-blue-600 border border-gray-300 bg-blue-50'
-                            : 'text-gray-500 bg-white border border-gray-300'
-                        } hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50`}>
-                        {pageNumber}
-                      </button>
-                    </li>
-                  );
-                })}
-                <li>
-                  <button
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage >= totalPages}
-                    className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white disabled:opacity-50">
-                    다음
-                  </button>
-                </li>
-              </ul>
-            </nav>
-          </div>
+    fetchPosts();
+  }, [currentPage, onTotalPagesChange]);
+
+  if (loading) return <div className="mt-4 text-gray-500">로딩 중...</div>;
+  if (error) return <div className="mt-4 text-red-500">{error}</div>;
+  if (posts.length === 0) return <div className="mt-4 text-gray-500">표시할 게시글이 없습니다.</div>;
+
+  return (
+    <div className="mt-4 space-y-4">
+
+      {/* ✅ 글쓰기 버튼 추가 */}
+      <div className="text-right mb-4">
+        <Link href="/post/create">
+          <button className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded">
+            글쓰기
+          </button>
+        </Link>
       </div>
-    )
-  }
+
+      {posts.map((post) => (
+        <div key={post.board_id} className="border p-4 rounded shadow-sm bg-white dark:bg-gray-700">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{post.title}</h2>
+          <p className="text-sm text-gray-600 dark:text-gray-300">작성자: {post.writer}</p>
+          <p className="text-sm mt-2 text-gray-800 dark:text-gray-100 line-clamp-2">{post.content}</p>
+          <p className="text-xs text-gray-400 mt-1">
+            등록일: {new Date(post.regdate).toLocaleString('ko-KR')}
+            {post.update && <> / 수정일: {new Date(post.update).toLocaleString('ko-KR')}</>}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+}

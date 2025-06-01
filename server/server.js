@@ -6,14 +6,10 @@ const FileStore = require("session-file-store")(session);
 const dotenv = require("dotenv");
 const path = require("path");
 const next = require("next");
-const { parse } = require("url");
 const dealsRouter = require("./routes/deals");
 const authRouter = require("./login/auth.js");
-const authCheck = require("./login/authCheck.js");
-const template = require("./login/template.js");
-const connection = require("./connectDB");
-const hotdealConnection = require("./hotdealDB");
 const productsRouter = require('./routes/products');
+const postsRouter = require('./routes/posts');
 
 // Load .env config
 dotenv.config({ path: ".env" });
@@ -54,6 +50,7 @@ app.use("/auth", authRouter);
 app.use("/deals", dealsRouter);
 app.use('/server-api/products', productsRouter);
 app.use('/server-api/wishlist', require('./routes/wishlist'));
+app.use('/server-api/posts', require('./routes/posts'));
 
 
 const protectedRouter = require('./routes/protected');
