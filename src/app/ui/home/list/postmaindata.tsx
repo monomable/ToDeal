@@ -20,7 +20,7 @@ interface PostMainDataProps {
  
 export default function Users({ currentPage, onTotalPagesChange }: PostMainDataProps) {
     const [userData, setUSerData] = useState<table[]>([]);
-    const [totalPages, setTotalPages] = useState(0);
+    const [setTotalPages] = useState(0);
     const itemsPerPage = 15;
 
     useEffect(() => {

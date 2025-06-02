@@ -5,7 +5,6 @@ import TableData from "@/ui/home/list/tabledata";
 import { Suspense } from "react";
 import { Spinner } from "@/ui/home/list/spinner";
 import { useEffect, useState } from "react";
-import "../globals.css";
 
 interface HotDeal {
   image_base64: string;

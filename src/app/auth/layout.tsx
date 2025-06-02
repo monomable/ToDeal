@@ -10,10 +10,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="flex items-center justify-center min-h-screen bg-gray-50">
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <SessionProvider>{children}</SessionProvider>
-      </body>
-    </html>
+      </div>
+
   );
 }

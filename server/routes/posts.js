@@ -27,4 +27,26 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const [rows] = await db.execute(
+      `SELECT board_id, writer, title, content, regdate, \`update\` 
+       FROM Post 
+       WHERE board_id = ?`,
+      [id]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ error: '게시글을 찾을 수 없습니다.' });
+    }
+
+    res.json(rows[0]); // 단일 게시글
+  } catch (err) {
+    console.error('게시글 단일 조회 오류:', err);
+    res.status(500).json({ error: '게시글을 불러오지 못했습니다.' });
+  }
+});
+
 module.exports = router;

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link'; // ✅ Link 추가
 
 interface Post {
@@ -21,6 +22,7 @@ export default function PostData({ currentPage, onTotalPagesChange }: Props) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -59,18 +61,21 @@ export default function PostData({ currentPage, onTotalPagesChange }: Props) {
 
   return (
     <div className="mt-4 space-y-4">
-
-      {/* ✅ 글쓰기 버튼 추가 */}
+      {/* 글쓰기 버튼 */}
       <div className="text-right mb-4">
         <Link href="/post/create">
-          <button className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded">
+          <button className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded">
             글쓰기
           </button>
         </Link>
       </div>
 
       {posts.map((post) => (
-        <div key={post.board_id} className="border p-4 rounded shadow-sm bg-white dark:bg-gray-700">
+        <div
+          key={post.board_id}
+          onClick={() => router.push(`/pages/${post.board_id}`)}
+          className="border p-4 rounded shadow-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer transition"
+        >
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{post.title}</h2>
           <p className="text-sm text-gray-600 dark:text-gray-300">작성자: {post.writer}</p>
           <p className="text-sm mt-2 text-gray-800 dark:text-gray-100 line-clamp-2">{post.content}</p>

@@ -9,7 +9,7 @@ import FlashSaleProducts from "../components/FlashSaleProducts"
 import CategoriesProducts from "../components/CategoriesProducts"
 import ItemHeader from "@/components/ItemHeader";
 import AuthStatusIcon from "../components/AuthStatusIcon";
-import "../globals.css";
+//import 'styles/globals.css';
 import RelatedItems from "@/components/RelatedItems";
 
 interface HotDeal {

@@ -1,5 +1,5 @@
 // app/layout.tsx
-import './globals.css' // 스타일이 있다면 여기에 import
+import '../styles/globals.css'; // 스타일이 있다면 여기에 import
 
 export const metadata = {
   title: '메인화면',

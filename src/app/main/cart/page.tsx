@@ -46,7 +46,7 @@ export default function CartPage() {
               <td className="px-4 align-middle">
                 <select className="border border-gray-300 rounded px-2 py-1">
                   <option>01</option>
-                  <option selected>02</option>
+                  <option>02</option>
                 </select>
               </td>
               <td className="px-4 align-middle">$1100</td>

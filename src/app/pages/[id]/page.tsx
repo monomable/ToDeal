@@ -1,70 +1,12 @@
-"use client";
-   
-import React, { useEffect, useState } from "react";
-import axios from 'axios' // https 비동기 통신 라이브러리
-import Link from "next/link";
-import "../../../globals.css"
+// src/app/pages/[id]/page.tsx
 
-interface post {
-  id : number;
-  _id : number;
-  board_id : string
-  writer : string
-  title : string
-  content : string
-  regdate : string
+import PostClient from './PostClient';
+
+interface Props {
+  params: { id: string };
 }
 
-type Props = {
-    params: {
-      id: string;
-    }
-  }
-  
-  export default function Post({params}: Props) {
-
-    const [userData, setUSerData] = useState<post[]>([]);
-
-    useEffect(() => {
-      fetchData();
-    }, [])
-
-    const fetchData = async () => {
-      try {
-            const result = await axios(process.env.NEXT_PUBLIC_BASE_URL+"/api/post/edit/"+params.id); // 추후 edit 에서 view 로 바꿔야함
-            console.log(result.data);
-            setUSerData(result.data);
-      } 
-      catch (err) {
-            console.log("somthing Wrong");
-      }
-    }
-
-    //var postTime = elapsedTime(userData.regdate)
-
-    return (
-      <div>
-        {userData.map((rs, index) => (
-          <div key={rs.board_id} className="w-full bg-white rounded-lg shadow dark:border mb-[700px] md:mt-0 sm:max-w-md md:m-2 md:p-4 dark:bg-gray-800 dark:border-gray-700">
-            <div className="text-xl p-1">{rs.title}</div>
-
-            {/* <div className="title-box">포스트{rs.board_id}</div> */}
-            <div className="grid grid-flow-col p-2">
-              <div className="">작성자 : {rs.writer}</div>
-              <div className="text-right">{rs.regdate.split("T")[0]}</div>
-            </div>
-            
-            <div className="title-box">{rs.content}</div>
-            <div className="my-5">
-              <Link href={`/post/edit/${params.id}`} className="white-btn">
-              수정
-              </Link>
-              <Link href={process.env.NEXT_PUBLIC_BASE_URL+"/api/post/delete/"+params.id} className="white-btn">
-              삭제
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
-    )
-  }
+export default function Page({ params }: Props) {
+  // ✅ 반드시 id를 넘겨야 클라이언트에서 undefined가 되지 않음
+  return <PostClient id={params.id} />;
+}
