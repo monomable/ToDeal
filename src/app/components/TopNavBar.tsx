@@ -10,6 +10,14 @@ import AuthStatusIcon from "../components/AuthStatusIcon";
 export default function TopNavBar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+    router.push(`/search?query=${encodeURIComponent(searchQuery.trim())}`);
+  };
 
   return (
       <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 relative">
@@ -123,26 +131,27 @@ export default function TopNavBar() {
               </svg>
             </button>
           
-          {/* 검색창 */}
-          <form className="hidden md:block max-w-md ml-auto relative top-10">
-              <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-              <div className="relative">
-                <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                  <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                  </svg>
-                </div>
-                <input 
-                  type="search" 
-                  id="default-search" 
-                  className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 
-                            focus:ring-red-500 focus:border-red-500 dark:bg-gray-700 dark:border-gray-600 
-                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
-                  placeholder="Search..."
-                  required 
-                />
+          {/* ✅ 검색창 */}
+          <form onSubmit={handleSearch} className="hidden md:block max-w-md ml-auto relative top-10">
+            <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <div className="relative">
+              <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
               </div>
-            </form>
+              <input 
+                type="search" 
+                id="default-search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)} // ✅ 상태 업데이트
+                className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 
+                          focus:ring-red-500 focus:border-red-500 dark:bg-gray-700 dark:border-gray-600 
+                          dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
+                placeholder="Search..."
+              />
+            </div>
+          </form>
 
             <Link href="/main/wishlist" className="hidden md:block ml-10 relative top-10">
               <HeartIcon className="w-8 h-8 text-gray-700 dark:text-white cursor-pointer hover:text-red-700 dark:hover:text-red-500" />

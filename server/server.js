@@ -51,6 +51,7 @@ app.use("/deals", dealsRouter);
 app.use('/server-api/products', productsRouter);
 app.use('/server-api/wishlist', require('./routes/wishlist'));
 app.use('/server-api/posts', require('./routes/posts'));
+app.use('/server-api/search', require('./routes/search'));
 
 
 const protectedRouter = require('./routes/protected');
