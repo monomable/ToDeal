@@ -4,6 +4,8 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from "next/link";
 import axios from 'axios';
+import ShopBadge from '@/components/ShopBadge';
+import UnitPriceInfo from '@/components/UnitPriceInfo';
 
 interface MainProduct {
   id: number;
@@ -82,9 +84,11 @@ export default function SearchPage() {
                     className="w-full h-full object-cover"
                   />
                 </div>
+                <ShopBadge shop={product.shop_info} />
                 <h3 className="text-lg font-semibold">{product.product_name}</h3>
+                <UnitPriceInfo product_name={product.product_name} product_price={product.product_price}/>
                 <p className="text-red-500 text-xl">{product.product_price.toLocaleString()}원</p>
-                <p className="text-sm text-gray-400">{product.shop_info}</p>
+                
               </Link>
             ))}
           </div>
@@ -101,7 +105,7 @@ export default function SearchPage() {
             {hotdealResults.map((deal) => (
               <div key={deal.id} className="border rounded-lg p-4 shadow hover:shadow-md transition">
                 <h3 className="text-lg font-semibold">{deal.title}</h3>
-                <p className="text-gray-600">가격: {deal.price.toLocaleString()}원</p>
+                <p className="text-gray-600">가격: {deal.price.toLocaleString()}</p>
                 <p className="text-sm text-gray-400">출처: {deal.source_website}</p>
                 <a
                   href={deal.link}

@@ -2,6 +2,9 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import ShopBadge from '@/components/ShopBadge';
+import UnitPriceInfo from '@/components/UnitPriceInfo';
 
 interface CartProduct {
   id: number;
@@ -19,6 +22,7 @@ interface CartProduct {
 export default function CartPage() {
   const { data: session } = useSession();
   const [cartItems, setCartItems] = useState<CartProduct[]>([]);
+  const router = useRouter()
 
   const fetchCart = useCallback(async () => {
     if (!session?.accessToken) return;
@@ -35,6 +39,33 @@ export default function CartPage() {
       console.error('❌ 장바구니 조회 실패:', error);
     }
   }, [session?.accessToken]);
+
+  const updateQuantity = async (item_id: number, newQuantity: number) => {
+    if (!session?.accessToken || newQuantity < 1) return;
+
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/server-api/cart`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session.accessToken}`,
+        },
+        body: JSON.stringify({ item_id, quantity: newQuantity }),
+      });
+
+      if (res.ok) {
+        setCartItems((prev) =>
+          prev.map((item) =>
+            item.id === item_id ? { ...item, quantity: newQuantity } : item
+          )
+        );
+      } else {
+        console.error('❌ 수량 변경 실패:', await res.text());
+      }
+    } catch (error) {
+      console.error('❌ 수량 변경 요청 오류:', error);
+    }
+  };
 
   const handleDelete = async (item_id: number) => {
     if (!session?.accessToken) return;
@@ -68,39 +99,85 @@ export default function CartPage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
+    <div className="max-w-5xl mx-auto p-6">
       <h2 className="text-xl font-semibold mb-6">🛒 장바구니 ({cartItems.length}개)</h2>
 
       {cartItems.length === 0 ? (
         <p className="text-gray-500">장바구니가 비어 있습니다.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="flex flex-col gap-4">
           {cartItems.map((item) => (
-            <div key={item.id} className="border rounded-lg p-4 shadow hover:shadow-md transition">
+            <div
+              key={item.id}
+              onClick={() => router.push(`/post/view/${item.id}`)}
+              className="flex gap-4 items-center border rounded-lg p-4 shadow hover:shadow-md transition"
+            >
+              {/* 이미지 */}
               <img
                 src={`https://img.onemable.com/images/${item.filename}`}
                 alt={item.product_name}
-                className="w-full h-48 object-cover rounded mb-3"
+                className="w-32 h-32 object-cover rounded"
               />
-              <h3 className="text-lg font-bold">{item.product_name}</h3>
-              <p className="text-gray-700">가격: {item.product_price.toLocaleString()}원</p>
-              <p className="text-gray-500">수량: {item.quantity}</p>
-              <p className="text-sm text-gray-400 mt-1">{item.shop_info}</p>
-              <div className="flex justify-between items-center mt-3">
-                <a
-                  href={item.product_link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline text-sm"
-                >
-                  상품 보기 →
-                </a>
-                <button
-                  onClick={() => handleDelete(item.id)}
-                  className="text-red-500 hover:underline text-sm"
-                >
-                  삭제
-                </button>
+
+              {/* 내용 */}
+              <div className="flex-1">
+                <h3 className="text-lg font-bold mb-1">{item.product_name}</h3>
+                <ShopBadge shop={item.shop_info} />
+                <UnitPriceInfo
+                  product_name={item.product_name}
+                  product_price={item.product_price}
+                />
+                <p className="text-gray-700 mb-2">
+                  개당 가격: {item.product_price.toLocaleString()}원
+                </p>
+
+                {/* 수량 조절 */}
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation(); // ✅ 클릭 방지
+                      updateQuantity(item.id, item.quantity - 1);
+                    }}
+                    className="px-2 py-1 text-sm bg-gray-200 rounded hover:bg-gray-300"
+                  >
+                    -
+                  </button>
+                  <span className="min-w-[24px] text-center">{item.quantity}</span>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation(); // ✅ 클릭 방지
+                      updateQuantity(item.id, item.quantity + 1);
+                    }}
+                    className="px-2 py-1 text-sm bg-gray-200 rounded hover:bg-gray-300"
+                  >
+                    +
+                  </button>
+                  <span className="ml-4 text-sm text-gray-700">
+                    총액: {(item.product_price * item.quantity).toLocaleString()}원
+                  </span>
+                </div>
+
+                {/* 버튼 영역 */}
+                <div className="flex justify-end items-center mt-3 gap-2">
+                  <a
+                    href={item.product_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()} // ✅ 클릭 방지
+                    className="bg-blue-500 text-white text-sm px-4 py-1 rounded hover:bg-blue-600 transition"
+                  >
+                    구매 바로가기
+                  </a>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation(); // ✅ 클릭 방지
+                      handleDelete(item.id);
+                    }}
+                    className="bg-red-500 text-white text-sm px-4 py-1 rounded hover:bg-red-600 transition"
+                  >
+                    삭제
+                  </button>
+                </div>
               </div>
             </div>
           ))}

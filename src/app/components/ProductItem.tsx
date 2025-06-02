@@ -3,6 +3,8 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import ShopBadge from '@/components/ShopBadge';
+import UnitPriceInfo from './UnitPriceInfo';
 
 export interface Product {
   id: number;
@@ -36,7 +38,7 @@ export default function ProductItem({
   }, [wishlistItemIds, product.id]);
 
   const handleWishlist = async (e: React.MouseEvent) => {
-    e.stopPropagation(); // 카드 클릭 방지
+    e.stopPropagation();
 
     if (!session?.accessToken) {
       alert('로그인이 필요합니다');
@@ -57,8 +59,8 @@ export default function ProductItem({
     });
 
     if (res.ok) {
-      setIsWishlisted(!isWishlisted);          // ✅ 즉시 UI 반영
-      onWishlistChange();                      // ✅ 외부에서도 최신 상태 반영
+      setIsWishlisted(!isWishlisted);
+      onWishlistChange();
     } else {
       alert('찜 처리에 실패했습니다.');
     }
@@ -71,27 +73,38 @@ export default function ProductItem({
   return (
     <div
       onClick={handleClick}
-      className="relative cursor-pointer hover:shadow-md rounded-lg p-4 transition"
+      className="relative cursor-pointer border hover:shadow-md rounded-lg overflow-hidden transition"
     >
-      <button
-        onClick={handleWishlist}
-        className="absolute top-2 right-2 bg-white p-1 rounded-full shadow z-10"
-      >
-        {isWishlisted ? '❤️' : '🤍'}
-      </button>
-
-      <div className="w-full aspect-[1/1] rounded-md overflow-hidden bg-gray-100">
+      {/* 이미지 영역 */}
+      <div className="relative w-full aspect-[1/1]">
         <img
           src={`https://img.onemable.com/images/${product.filename}`}
           alt={product.product_name}
           className="w-full h-full object-cover"
         />
+
+        {/* 좌상단 ShopBadge */}
+        <div className="absolute top-2 left-2 z-10">
+          <ShopBadge shop={product.shop_info} />
+        </div>
+
+        {/* 우상단 Wishlist 버튼 */}
+        <button
+          onClick={handleWishlist}
+          className="absolute top-2 right-2 bg-white p-1 rounded-full shadow z-10 transition-colors duration-200 hover:bg-red-100"
+        >
+          <span className="text-xl transition-colors duration-200 hover:text-red-500">
+            {isWishlisted ? '❤️' : '🤍'}
+          </span>
+        </button>
       </div>
 
-      <h3 className="mt-4 text-lg font-medium">{product.product_name}</h3>
-      <p className="text-red-500 text-xl">
-        {product.product_price.toLocaleString()}원
-      </p>
+      {/* 상품명 / 가격 */}
+      <div className="mt-2 px-2 pb-2">
+        <h3 className="text-lg font-medium leading-snug line-clamp-2">{product.product_name}</h3>
+        <UnitPriceInfo product_name={product.product_name} product_price={product.product_price}/>
+        <p className="text-red-500 text-xl">{product.product_price.toLocaleString()}원</p>
+      </div>
     </div>
   );
 }

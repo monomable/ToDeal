@@ -102,4 +102,34 @@ router.delete('/', async (req, res) => {
   }
 });
 
+// ✅ 수량 변경 API
+router.patch('/', async (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) return res.status(401).json({ error: 'No token' });
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.sub || decoded.email;
+
+    const { item_id, quantity } = req.body;
+    if (!item_id || typeof quantity !== 'number' || quantity < 1) {
+      return res.status(400).json({ error: 'Valid item_id and quantity are required' });
+    }
+
+    await db.execute(
+      `
+      UPDATE user_cart
+      SET Quantity = ?
+      WHERE user_id = ? AND item_id = ?
+      `,
+      [quantity, userId, item_id]
+    );
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error('❌ 수량 업데이트 실패:', err);
+    res.status(401).json({ error: 'Invalid token' });
+  }
+});
+
 module.exports = router;

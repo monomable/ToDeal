@@ -62,7 +62,7 @@ export default function AllProductsPage() {
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
+    <div className="max-w-8xl mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-6">🛒 전체 상품 보기</h1>
 
       {products.length === 0 ? (
