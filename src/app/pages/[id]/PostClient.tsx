@@ -67,7 +67,7 @@ export default function PostClient({ id }: { id: string }) {
         // ✅ 2. 삭제 요청
         await axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/server-api/posts/${id}`);
         alert("게시글이 삭제되었습니다.");
-        router.push("/home/post");
+        router.push("/community/post");
       }
 
     } catch (error) {

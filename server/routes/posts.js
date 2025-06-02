@@ -69,7 +69,7 @@ router.post('/create', async (req, res) => {
       [title, writer, hashedPassword, content]
     );
 
-    res.redirect('/home/post'); // 성공 시 목록 페이지로 이동
+    res.redirect('/community/post'); // 성공 시 목록 페이지로 이동
   } catch (err) {
     console.error('게시글 작성 오류:', err);
     res.status(500).json({ error: '게시글을 저장하지 못했습니다.' });

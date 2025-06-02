@@ -18,7 +18,7 @@ export default function Page() {
     const endPage = startPage + pageGroupSize - 1;
 
     const handlePageChange = (page: number) => {
-        router.push(`/home/list?page=${page}`);
+        router.push(`/community/list?page=${page}`);
     };
 
     return (
