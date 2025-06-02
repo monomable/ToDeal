@@ -1,13 +1,13 @@
 // auth/page.tsx
-//import React from "react";
 import Link from 'next/link';
+import Image from 'next/image';
 import LoginGoogle from "../components/LoginGoogle";
 
 export default function HomePage() {
   return (
     <main className="w-80">
       <Link href="/main" className="flex flex-col items-center justify-center cursor-pointer">
-        <img src="/todeal-logo.png" className="h-28 mb-4" alt="todeal Logo" />
+        <Image src="/todeal-logo.png" className="h-28 mb-4" alt="todeal Logo" />
         <h2 className="text-2xl font-semibold mt-1 mb-6">로그인</h2>
       </Link>
 

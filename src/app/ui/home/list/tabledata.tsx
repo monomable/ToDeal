@@ -2,7 +2,6 @@
    
 import React, { useEffect, useState } from "react";
 import axios from 'axios' // https 비동기 통신 라이브러리
-import Link from "next/link";
 import WebTag from "./webtag";
 
 interface Table {

@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import CategorySelector from '@/components/CategoriesProducts';
 import { RocketLaunchIcon } from "@heroicons/react/24/outline";
-import { BeerBottleIcon, CookieIcon, JarLabelIcon, CookingPotIcon ,FishIcon } from "@phosphor-icons/react";
+import { CookieIcon, JarLabelIcon, CookingPotIcon ,FishIcon } from "@phosphor-icons/react";
 
 const customCategories = [
   { id: 2, name: "과자", slug:"snack", icon: CookieIcon },

@@ -1,5 +1,3 @@
-import Link from 'next/link';
-import { MagnifyingGlassCircleIcon } from '@heroicons/react/24/outline';
 import { BeakerIcon } from '@heroicons/react/24/outline';
 
 export default function SearchBar() {
@@ -7,7 +5,6 @@ export default function SearchBar() {
     <div>
         <form>
             <input />
-            <img />
             <ul>
                 <li>
                     <BeakerIcon className="object-cover w-10" />

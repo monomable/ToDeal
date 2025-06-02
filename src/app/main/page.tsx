@@ -1,14 +1,9 @@
 'use client';
 
 import Link from "next/link";
-import TableData from "@/ui/home/list/tabledata";
-import { Suspense } from "react";
-import { Spinner } from "@/ui/home/list/spinner";
-import { useEffect, useState } from "react";
 import FlashSaleProducts from "../components/FlashSaleProducts"
 import CategoriesProducts from "../components/CategoriesProducts"
 import ItemHeader from "@/components/ItemHeader";
-import AuthStatusIcon from "../components/AuthStatusIcon";
 //import 'styles/globals.css';
 import RelatedItems from "@/components/RelatedItems";
 

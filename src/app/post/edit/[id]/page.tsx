@@ -42,7 +42,7 @@ type Props = {
 
     return (
       <div>
-        {userData.map((rs, index) => (
+        {userData.map((rs) => (
           <div key={rs.id}>
               <div className="title-box">포스트{+rs.board_id}</div>
               {/*작성일<div className="title-box">{rs.regdate}</div>*/}

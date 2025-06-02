@@ -1,8 +1,5 @@
 import {
-    UserGroupIcon,
     HomeIcon,
-    DocumentDuplicateIcon,
-    HeartIcon,
     MagnifyingGlassIcon,
     FireIcon,
     ChatBubbleBottomCenterTextIcon

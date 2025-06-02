@@ -1,8 +1,4 @@
-import Link from 'next/link';
 import NavLinks2 from '@/ui/home/nav-links2';
-import DealLogo from '@/ui/deal-logo';
-import { PowerIcon } from '@heroicons/react/24/outline';
-import SearchBar from '@/home/search/SearchBar';
 
 export default function TopNav() {
   return (
@@ -13,7 +9,6 @@ export default function TopNav() {
         </div> 
       </Link>*/}
       <div>
-        <SearchBar/>
         <div className="flex justify-between p-2 space-x-2">
           <NavLinks2 />
         </div>

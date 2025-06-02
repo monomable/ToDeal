@@ -1,5 +1,4 @@
 import DealLogo from '@/ui/deal-logo';
-import Link from 'next/link';
 
  
 export default function Page() {

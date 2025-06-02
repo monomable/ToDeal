@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link";
 import PostData from "@/ui/home/list/postdata"
 import { Spinner } from "./list/spinner";
 import { Suspense } from "react";

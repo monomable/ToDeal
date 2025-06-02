@@ -1,14 +1,14 @@
 // components/AuthStatusIcon.tsx
 'use client';
 
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { UserIcon } from "@heroicons/react/24/outline";
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 
 export default function AuthStatusIcon() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
