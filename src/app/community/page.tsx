@@ -1,57 +1,84 @@
 'use client';
 
-import Link from "next/link";
-import TableData from "@/ui/home/list/tabledata";
-import { Suspense } from "react";
-import { Spinner } from "@/ui/home/list/spinner";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
+import HotdealItem from '@/components/HotdealItem';
 
-interface HotDeal {
-  image_base64: string;
+interface Hotdeal {
+  id: number;
+  title: string;
   link: string;
+  category: string;
+  price: number;
+  created_at: string;
+  source_website: string;
+  filepath: string;
 }
 
-export default function Page() {
-  const [images, setImages] = useState<HotDeal[]>([]);
+export default function HotdealsPage() {
+  const [hotdeals, setHotdeals] = useState<Hotdeal[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    fetch('/api/images')
-      .then(res => res.json())
-      .then(data => {
-        setImages(data);
-      });
-  }, []);
+    const fetchHotdeals = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/server-api/hotdeals?page=${page}`);
+        if (!res.ok) throw new Error('핫딜 데이터 로딩 실패');
+        const data = await res.json();
+        setHotdeals(data.hotdeals);
+        setTotalPages(data.totalPages);
+      } catch (err) {
+        setError((err as Error).message);
+      }
+    };
 
-    return (
-    <div className="space-y-10 md:space-y-4 md:p-2">
-      <div className="max-w-screen-md p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <h4 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Best 핫딜</h4>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {/* Best 핫딜 */}
-          {images.map((deal, index) => (
-            <div key={index} className="aspect-square w-full relative">
-              <a href={deal.link} target="_blank" rel="noopener noreferrer">
-                <img 
-                className="absolute inset-0 w-full h-full object-cover rounded-lg cursor-pointer border-[1px]"
-                src={`data:image/jpeg;base64,${deal.image_base64}`}
-                alt={`핫딜 이미지 ${index + 1}`}
-                />
-              </a>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="max-w-screen-md p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    fetchHotdeals();
+  }, [page]);
 
-        <div className="max-w-screen-md items-center justify-between gap-1 mb-4">
-          <h4 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">최신 핫딜</h4>
-        </div>    
-        <div className="">
-          <Suspense fallback={<Spinner />}>
-            <TableData currentPage={1} />
-          </Suspense>
-        </div>  
-      </div>
-    </div>
-    );
+  const handlePrev = () => setPage((prev) => Math.max(prev - 1, 1));
+  const handleNext = () => setPage((prev) => Math.min(prev + 1, totalPages));
+
+  if (error) {
+    return <p className="text-red-500 text-center mt-10">🔥 {error}</p>;
   }
+
+  return (
+    <div className="max-w-6xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-6">🔥 핫딜 모음</h1>
+
+      {hotdeals.length === 0 ? (
+        <p className="text-gray-500 text-center">등록된 핫딜이 없습니다.</p>
+      ) : (
+        <>
+          <div className="space-y-4">
+            {hotdeals.map((deal) => (
+              <HotdealItem key={deal.id} deal={deal} />
+            ))}
+          </div>
+
+          {/* 페이지네이션 */}
+          <div className="flex justify-center items-center gap-4 mt-8">
+            <button
+              onClick={handlePrev}
+              disabled={page === 1}
+              className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+            >
+              이전
+            </button>
+            <span className="text-sm text-gray-700">
+              {page} / {totalPages}
+            </span>
+            <button
+              onClick={handleNext}
+              disabled={page === totalPages}
+              className="px-4 py-2 bg-red-200 rounded disabled:opacity-50"
+            >
+              다음
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}

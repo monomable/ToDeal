@@ -66,9 +66,28 @@ export default function ProductItem({
     }
   };
 
-  const handleClick = () => {
-    router.push(`/post/view/${product.id}`);
-  };
+const handleClick = () => {
+  try {
+    const existing = localStorage.getItem('recent_products');
+    const parsed: Product[] = existing ? JSON.parse(existing) : [];
+
+    // 중복 제거 (같은 id의 상품은 제거)
+    const filtered = parsed.filter((p) => p.id !== product.id);
+
+    // 현재 상품을 맨 앞에 추가
+    const updated = [product, ...filtered];
+
+    // 최대 20개로 제한
+    const limited = updated.slice(0, 20);
+
+    localStorage.setItem('recent_products', JSON.stringify(limited));
+  } catch (err) {
+    console.warn('❌ 최근 본 상품 저장 실패:', err);
+  }
+
+  router.push(`/post/view/${product.id}`);
+};
+
 
   return (
     <div
@@ -102,7 +121,10 @@ export default function ProductItem({
       {/* 상품명 / 가격 */}
       <div className="mt-2 px-2 pb-2">
         <h3 className="text-lg font-medium leading-snug line-clamp-2">{product.product_name}</h3>
-        <UnitPriceInfo product_name={product.product_name} product_price={product.product_price}/>
+        <UnitPriceInfo
+          product_name={product.product_name}
+          product_price={product.product_price}
+        />
         <p className="text-red-500 text-xl">{product.product_price.toLocaleString()}원</p>
       </div>
     </div>

@@ -53,6 +53,7 @@ app.use('/server-api/wishlist', require('./routes/wishlist'));
 app.use('/server-api/cart', require('./routes/cart'));
 app.use('/server-api/posts', require('./routes/posts'));
 app.use('/server-api/search', require('./routes/search'));
+app.use('/server-api/hotdeals', require('./routes/hotdeals'));
 
 
 const protectedRouter = require('./routes/protected');

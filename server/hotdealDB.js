@@ -2,7 +2,7 @@ const path = require('path');
 const dotenv = require('dotenv');
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
@@ -15,16 +15,5 @@ const pool = mysql.createPool({
   queueLimit: 0
 });
 
-// 콜백 스타일 쿼리를 위한 Connection pool 래퍼
-const connection = {
-  query: function(sql, values, callback) {
-    if (typeof values === 'function') {
-      callback = values;
-      values = undefined;
-    }
-    
-    pool.query(sql, values, callback);
-  }
-};
+module.exports = pool;
 
-module.exports = connection;

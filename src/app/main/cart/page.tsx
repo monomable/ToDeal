@@ -22,7 +22,7 @@ interface CartProduct {
 export default function CartPage() {
   const { data: session } = useSession();
   const [cartItems, setCartItems] = useState<CartProduct[]>([]);
-  const router = useRouter()
+  const router = useRouter();
 
   const fetchCart = useCallback(async () => {
     if (!session?.accessToken) return;
@@ -116,7 +116,7 @@ export default function CartPage() {
               <img
                 src={`https://img.onemable.com/images/${item.filename}`}
                 alt={item.product_name}
-                className="w-32 h-32 object-cover rounded"
+                className="w-40 h-40 object-cover rounded"
               />
 
               {/* 내용 */}
@@ -128,55 +128,58 @@ export default function CartPage() {
                   product_price={item.product_price}
                 />
                 <p className="text-gray-700 mb-2">
-                  개당 가격: {item.product_price.toLocaleString()}원
+                  제품 가격: {item.product_price.toLocaleString()}원
                 </p>
 
-                {/* 수량 조절 */}
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation(); // ✅ 클릭 방지
-                      updateQuantity(item.id, item.quantity - 1);
-                    }}
-                    className="px-2 py-1 text-sm bg-gray-200 rounded hover:bg-gray-300"
-                  >
-                    -
-                  </button>
-                  <span className="min-w-[24px] text-center">{item.quantity}</span>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation(); // ✅ 클릭 방지
-                      updateQuantity(item.id, item.quantity + 1);
-                    }}
-                    className="px-2 py-1 text-sm bg-gray-200 rounded hover:bg-gray-300"
-                  >
-                    +
-                  </button>
-                  <span className="ml-4 text-sm text-gray-700">
-                    총액: {(item.product_price * item.quantity).toLocaleString()}원
-                  </span>
-                </div>
+                {/* 수량, 총액, 버튼들 포함 줄 */}
+                <div className="flex justify-between items-center mt-3 flex-wrap gap-2">
+                  {/* 수량 & 총액 */}
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        updateQuantity(item.id, item.quantity - 1);
+                      }}
+                      className="px-2 py-1 text-sm bg-gray-200 rounded hover:bg-gray-300"
+                    >
+                      -
+                    </button>
+                    <span className="min-w-[24px] text-center">{item.quantity}</span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        updateQuantity(item.id, item.quantity + 1);
+                      }}
+                      className="px-2 py-1 text-sm bg-gray-200 rounded hover:bg-gray-300"
+                    >
+                      +
+                    </button>
+                    <span className="ml-4 text-sm text-gray-700">
+                      총액: {(item.product_price * item.quantity).toLocaleString()}원
+                    </span>
+                  </div>
 
-                {/* 버튼 영역 */}
-                <div className="flex justify-end items-center mt-3 gap-2">
-                  <a
-                    href={item.product_link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()} // ✅ 클릭 방지
-                    className="bg-blue-500 text-white text-sm px-4 py-1 rounded hover:bg-blue-600 transition"
-                  >
-                    구매 바로가기
-                  </a>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation(); // ✅ 클릭 방지
-                      handleDelete(item.id);
-                    }}
-                    className="bg-red-500 text-white text-sm px-4 py-1 rounded hover:bg-red-600 transition"
-                  >
-                    삭제
-                  </button>
+                  {/* 버튼 영역 */}
+                  <div className="flex gap-2">
+                    <a
+                      href={item.product_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="bg-blue-500 text-white text-sm px-4 py-1 rounded hover:bg-blue-600 transition"
+                    >
+                      구매 바로가기
+                    </a>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(item.id);
+                      }}
+                      className="bg-red-500 text-white text-sm px-4 py-1 rounded hover:bg-red-600 transition"
+                    >
+                      삭제
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

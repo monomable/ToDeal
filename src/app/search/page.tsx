@@ -27,6 +27,7 @@ interface Hotdeal {
   price: number;
   created_at: string;
   source_website: string;
+  filepath: string;
 }
 
 export default function SearchPage() {
@@ -103,7 +104,17 @@ export default function SearchPage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {hotdealResults.map((deal) => (
-              <div key={deal.id} className="border rounded-lg p-4 shadow hover:shadow-md transition">
+              <div
+                key={deal.id}
+                className="border rounded-lg p-4 shadow hover:shadow-md transition"
+              >
+                <div className="w-full aspect-square overflow-hidden rounded mb-2">
+                  <img
+                    src={`https://img.onemable.com/images/${deal.filepath}`}
+                    alt={deal.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
                 <h3 className="text-lg font-semibold">{deal.title}</h3>
                 <p className="text-gray-600">가격: {deal.price.toLocaleString()}</p>
                 <p className="text-sm text-gray-400">출처: {deal.source_website}</p>

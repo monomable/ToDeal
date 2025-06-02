@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
     // 🔥 hotdeals 검색
     const [hotdealResults] = await db.execute(
       `SELECT 
-         id, title, link, category, price, created_at, source_website
+         id, title, link, category, price, created_at, source_website, filepath
        FROM hotdeals_db.hotdeals 
        WHERE title LIKE ? 
        ORDER BY id DESC 
