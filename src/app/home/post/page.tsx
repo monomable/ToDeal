@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link'; // ✅ Link 추가
+import Link from 'next/link';
 
 interface Post {
   board_id: number;
@@ -13,13 +13,10 @@ interface Post {
   update: string | null;
 }
 
-interface Props {
-  currentPage: number;
-  onTotalPagesChange: (total: number) => void;
-}
-
-export default function PostData({ currentPage, onTotalPagesChange }: Props) {
+export default function PostData() {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -32,18 +29,8 @@ export default function PostData({ currentPage, onTotalPagesChange }: Props) {
         if (!res.ok) throw new Error('게시글을 불러올 수 없습니다.');
 
         const data = await res.json();
-        console.log('✅ 서버 응답 데이터:', data);
-
-        if (Array.isArray(data.posts)) {
-          setPosts(data.posts);
-        } else {
-          console.warn('❗ posts가 배열이 아닙니다:', data.posts);
-          setPosts([]);
-        }
-
-        if (typeof onTotalPagesChange === 'function') {
-          onTotalPagesChange(data.totalPages || 0);
-        }
+        setPosts(Array.isArray(data.posts) ? data.posts : []);
+        setTotalPages(data.totalPages || 1);
       } catch (err) {
         console.error('❌ fetch 실패:', err);
         setError('데이터를 불러오는 중 오류가 발생했습니다.');
@@ -53,7 +40,11 @@ export default function PostData({ currentPage, onTotalPagesChange }: Props) {
     };
 
     fetchPosts();
-  }, [currentPage, onTotalPagesChange]);
+  }, [currentPage]);
+
+  const handlePageClick = (page: number) => {
+    if (page !== currentPage) setCurrentPage(page);
+  };
 
   if (loading) return <div className="mt-4 text-gray-500">로딩 중...</div>;
   if (error) return <div className="mt-4 text-red-500">{error}</div>;
@@ -70,6 +61,7 @@ export default function PostData({ currentPage, onTotalPagesChange }: Props) {
         </Link>
       </div>
 
+      {/* 게시글 목록 */}
       {posts.map((post) => (
         <div
           key={post.board_id}
@@ -85,6 +77,25 @@ export default function PostData({ currentPage, onTotalPagesChange }: Props) {
           </p>
         </div>
       ))}
+
+      {/* ✅ 페이지네이션 */}
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-6 gap-2">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              onClick={() => handlePageClick(page)}
+              className={`px-3 py-1 rounded ${
+                page === currentPage
+                  ? 'bg-red-500 text-white font-bold'
+                  : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+              }`}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -99,7 +99,7 @@ export default function ProductClient({ category }: Props) {
         <button
           onClick={() => setPage((p) => (p * pageSize < total ? p + 1 : p))}
           disabled={page * pageSize >= total}
-          className="px-4 py-2 text-sm border rounded disabled:opacity-50"
+          className="px-4 py-2 text-sm border rounded bg-red-400 text-white disabled:opacity-50"
         >
           다음
         </button>
