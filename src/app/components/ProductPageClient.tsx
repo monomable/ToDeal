@@ -6,6 +6,7 @@ import ShopBadge from "@/components/ShopBadge";
 import PriceTrendChart from "@/components/PriceTrendChart";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import UnitPriceInfo from "./UnitPriceInfo";
 
 interface Product {
   id: number;
@@ -90,6 +91,7 @@ export default function ProductPageClient({ product }: { product: Product }) {
         </div>
 
         <div className="text-2xl font-semibold">
+          <UnitPriceInfo product_name={product.product_name} product_price={product.product_price}/>
           {product.product_price.toLocaleString()}원
         </div>
 

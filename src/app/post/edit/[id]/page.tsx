@@ -55,12 +55,17 @@ export default function EditPage() {
     }
   };
 
+  const handleCancel = () => {
+    router.push(`/pages/${id}`);
+  };
+
   const handleChange = (field: keyof Post, value: string) => {
     setPost((prev) => (prev ? { ...prev, [field]: value } : prev));
   };
 
   return (
     <>
+      {/* 비밀번호 확인 모달 */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-80">
@@ -75,6 +80,12 @@ export default function EditPage() {
             {error && <p className="text-sm text-red-500 mb-2">{error}</p>}
             <div className="flex justify-end gap-2">
               <button
+                onClick={handleCancel}
+                className="px-3 py-1 rounded bg-gray-400 hover:bg-gray-500 text-white"
+              >
+                취소
+              </button>
+              <button
                 onClick={verifyPassword}
                 className="px-3 py-1 rounded bg-red-600 hover:bg-red-700 text-white"
               >
@@ -85,6 +96,7 @@ export default function EditPage() {
         </div>
       )}
 
+      {/* 게시글 수정 폼 */}
       {!showModal && post && (
         <div className="max-w-2xl mx-auto p-6 bg-white dark:bg-gray-800 shadow-md rounded-lg mt-10">
           <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">게시글 수정</h1>
@@ -105,12 +117,21 @@ export default function EditPage() {
               className="w-full border rounded p-2 h-40 resize-none dark:bg-gray-700 dark:text-white"
             />
             <input type="hidden" value={password} />
-            <button
-              type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
-            >
-              수정 완료
-            </button>
+            <div className="flex justify-end gap-2">
+              <button
+                type="button"
+                onClick={handleCancel}
+                className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded"
+              >
+                취소
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+              >
+                수정 완료
+              </button>
+            </div>
           </form>
         </div>
       )}

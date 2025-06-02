@@ -14,50 +14,70 @@ const UNIT_CONVERSIONS: Record<string, number> = {
   ml: 1,
 };
 
-const QUANTITY_UNITS = ['팩', '개', '개입', '입', '포', '박스', '캔', '병'];
+const QUANTITY_UNITS = ['팩', '개', '개입', '입', '포', '박스', '캔', '병', '정', '캡슐'];
 
 function extractUnitInfo(title: string) {
-  let totalWeightInG = 0;
-  let totalQuantity = 1; // 기본 1로 설정 (묶음 없을 경우)
+  let totalWeightG = 0;
+  let totalQuantity = 0;
+  let quantityUnitUsed = '';
+  let weightUnitForDisplay = 'g';
+  let quantityUnitFound = false;
 
-  const regex = /([\d,.]+)(~|-)?([\d,.]+)?\s?(kg|g|ml|l)(?:\s*x\s*(\d+))?/gi;
-  let match;
-
-  while ((match = regex.exec(title)) !== null) {
-    const min = parseFloat(match[1].replace(',', ''));
-    const max = match[3] ? parseFloat(match[3].replace(',', '')) : null;
-    const avg = max ? (min + max) / 2 : min;
-    const unit = match[4].toLowerCase();
-    const count = match[5] ? parseInt(match[5], 10) : 1;
-
-    const weight = avg * (UNIT_CONVERSIONS[unit] ?? 1);
-    totalWeightInG += weight * count;
+  const weightRegex = /([\d,.]+)(?:\s*[xX×]\s*(\d+))?\s*(kg|g|ml|l)/gi;
+  const weightMatches = [...title.matchAll(weightRegex)];
+  for (const match of weightMatches) {
+    const base = parseFloat(match[1].replace(/,/g, ''));
+    const count = match[2] ? parseInt(match[2], 10) : 1;
+    const unit = match[3].toLowerCase();
+    const inGrams = base * (UNIT_CONVERSIONS[unit] || 1);
+    totalWeightG += inGrams * count;
+    if (unit === 'ml' || unit === 'l') weightUnitForDisplay = 'ml';
   }
 
-  // 수량 단위 (예: 10팩, 3개입 등)
-  const qtyMatch = title.match(new RegExp(`(\\d+)(?:\\s*)(${QUANTITY_UNITS.join('|')})`));
-  if (qtyMatch) {
-    totalQuantity = parseInt(qtyMatch[1], 10);
+  const quantityRegex = new RegExp(`(\\d+)\\s*(${QUANTITY_UNITS.join('|')})`, 'gi');
+  const quantityMatches = [...title.matchAll(quantityRegex)];
+  for (const match of quantityMatches) {
+    totalQuantity += parseInt(match[1], 10);
+    if (!quantityUnitUsed) quantityUnitUsed = match[2];
+    quantityUnitFound = true;
   }
 
   return {
-    totalWeightInG: totalWeightInG || undefined,
+    totalWeightG: totalWeightG || undefined,
     totalQuantity: totalQuantity || undefined,
+    quantityUnitUsed: quantityUnitUsed || undefined,
+    weightUnitForDisplay,
+    quantityUnitFound,
   };
 }
 
 function formatUnitPrice(product_name: string, product_price: number): string | null {
-  const { totalWeightInG, totalQuantity } = extractUnitInfo(product_name);
+  const { totalWeightG, totalQuantity, quantityUnitUsed, weightUnitForDisplay, quantityUnitFound } = extractUnitInfo(product_name);
   const results: string[] = [];
 
-  if (totalQuantity && totalQuantity > 1) {
+  // 예외 단위가 있으면 무게 단가는 생략
+  if (totalQuantity && quantityUnitUsed) {
     const perUnit = Math.round(product_price / totalQuantity).toLocaleString();
-    results.push(`1개당 ${perUnit}원`);
+    results.push(`1${quantityUnitUsed}당 ${perUnit}원`);
   }
 
-  if (totalWeightInG && totalWeightInG > 0) {
-    const per100g = Math.round((product_price / totalWeightInG) * 100);
-    results.push(`100g당 ${per100g.toLocaleString()}원`);
+  if (!quantityUnitFound && totalWeightG && totalWeightG > 0) {
+    let base = 1000;
+    let label = '';
+
+    if (totalWeightG <= 100) {
+      base = 10;
+      label = weightUnitForDisplay === 'ml' ? '10ml당' : '10g당';
+    } else if (totalWeightG <= 1000) {
+      base = 100;
+      label = weightUnitForDisplay === 'ml' ? '100ml당' : '100g당';
+    } else {
+      base = 1000;
+      label = weightUnitForDisplay === 'ml' ? '1L당' : '1kg당';
+    }
+
+    const perWeight = Math.round((product_price / totalWeightG) * base).toLocaleString();
+    results.push(`${label} ${perWeight}원`);
   }
 
   return results.length ? results.join(', ') : null;
