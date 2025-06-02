@@ -25,8 +25,8 @@ export default function Page() {
           <FlashSaleProducts/>
         </div>
         <div className="flex justify-center mb-10">
-          <Link href="/HotDeal" className="inline-block bg-red-500 text-white font-bold px-10 py-4 rounded-md hover:bg-red-600 transition">
-            핫딜 더보기
+          <Link href="/products" className="inline-block bg-red-500 text-white font-bold px-10 py-4 rounded-md hover:bg-red-600 transition">
+            더보기
           </Link>
         </div>
 

@@ -8,28 +8,44 @@ router.get('/', async (req, res) => {
   const pageSize = 20;
   const offset = (Number(page) - 1) * pageSize;
 
-  if (!category) {
-    return res.status(400).json({ error: 'Category is required' });
-  }
-
   try {
-    const [rows] = await db.execute(
-      `
-      SELECT id, product_name, product_price, shop_info, category, product_link, created_at, updated_at, filename
-      FROM main_products
-      WHERE category = ?
-      ORDER BY updated_at DESC
-      LIMIT ? OFFSET ?
-      `,
-      [category, pageSize, offset]
-    );
+    let rows, total;
 
-    // 총 개수도 함께 응답
-    const [[{ total }]] = await db.execute(
-      `SELECT COUNT(*) as total FROM main_products WHERE category = ?`,
-      [category]
-    );
+    if (category) {
+      // ✅ 카테고리별 상품 조회
+      [rows] = await db.execute(
+        `
+        SELECT id, product_name, product_price, shop_info, category, product_link, created_at, updated_at, filename
+        FROM main_products
+        WHERE category = ?
+        ORDER BY updated_at DESC
+        LIMIT ? OFFSET ?
+        `,
+        [category, pageSize, offset]
+      );
 
+      [[{ total }]] = await db.execute(
+        `SELECT COUNT(*) as total FROM main_products WHERE category = ?`,
+        [category]
+      );
+    } else {
+      // ✅ 전체 상품 조회
+      [rows] = await db.execute(
+        `
+        SELECT id, product_name, product_price, shop_info, category, product_link, created_at, updated_at, filename
+        FROM main_products
+        ORDER BY id DESC
+        LIMIT ? OFFSET ?
+        `,
+        [pageSize, offset]
+      );
+
+      [[{ total }]] = await db.execute(
+        `SELECT COUNT(*) as total FROM main_products`
+      );
+    }
+
+    // ✅ 프론트엔드에서 totalPages 계산하도록 total만 응답
     res.json({ products: rows, total });
   } catch (error) {
     console.error('DB query error:', error);
