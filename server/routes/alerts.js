@@ -68,4 +68,22 @@ router.patch('/:id/read', async (req, res) => {
   }
 });
 
+router.delete('/:id', async (req, res) => {
+  const userId = req.user?.sub || req.user?.userId || req.user?.email;
+  const alertId = req.params.id;
+
+  if (!userId || !alertId) return res.status(400).json({ error: '잘못된 요청입니다.' });
+
+  try {
+    const [result] = await db.execute(
+      `DELETE FROM user_alerts WHERE id = ? AND user_id = ?`,
+      [alertId, userId]
+    );
+    res.json({ success: true });
+  } catch (err) {
+    console.error('❌ 알림 삭제 오류:', err);
+    res.status(500).json({ error: '삭제 실패' });
+  }
+});
+
 module.exports = router;

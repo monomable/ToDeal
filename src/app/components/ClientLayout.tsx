@@ -8,7 +8,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   return (
     <SessionProvider>
       <NotificationButtonWrapper />
-      <div className="max-w-screen-xl flex-grow p-6 h-dvh md:p-4 md:mx-auto md:w-4/5">
+      <div>
         {children}
       </div>
     </SessionProvider>
