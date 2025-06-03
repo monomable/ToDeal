@@ -11,8 +11,8 @@ const getShopInfo = (shop: string) => {
       return { label: "쿠팡", style: "bg-blue-500 text-white" };
     case "kurly":
       return { label: "마켓컬리", style: "bg-purple-500 text-white" };
-    case "emart":
-      return { label: "이마트", style: "bg-yellow-300 text-black" };
+    case "emartmall":
+      return { label: "이마트몰", style: "bg-yellow-300 text-black" };
     case "gmarket":
       return { label: "지마켓", style: "bg-green-500 text-white" };
     default:

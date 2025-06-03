@@ -3,52 +3,64 @@ const express = require('express');
 const router = express.Router();
 const db = require('../mainDB'); // ✅ 연결된 DB 객체
 
+const categoryMap = {
+  drink: ['drink', 'tea', 'beverage', 'water'],
+  healthy: ['health', 'healthy'],
+};
+
 router.get('/', async (req, res) => {
-  const { category, page = 1 } = req.query;
+  let { category, page = 1 } = req.query;
   const pageSize = 20;
   const offset = (Number(page) - 1) * pageSize;
 
   try {
-    let rows, total;
+    let rows, count;
 
-    if (category) {
-      // ✅ 카테고리별 상품 조회
+    // ✅ category가 없으면 전체 조회
+    if (!category) {
       [rows] = await db.execute(
         `
         SELECT id, product_name, product_price, shop_info, category, product_link, created_at, updated_at, filename
         FROM main_products
-        WHERE category = ?
         ORDER BY updated_at DESC
-        LIMIT ? OFFSET ?
-        `,
-        [category, pageSize, offset]
-      );
-
-      [[{ total }]] = await db.execute(
-        `SELECT COUNT(*) as total FROM main_products WHERE category = ?`,
-        [category]
-      );
-    } else {
-      // ✅ 전체 상품 조회
-      [rows] = await db.execute(
-        `
-        SELECT id, product_name, product_price, shop_info, category, product_link, created_at, updated_at, filename
-        FROM main_products
-        ORDER BY id DESC
         LIMIT ? OFFSET ?
         `,
         [pageSize, offset]
       );
 
-      [[{ total }]] = await db.execute(
-        `SELECT COUNT(*) as total FROM main_products`
+      [count] = await db.execute(`SELECT COUNT(*) as total FROM main_products`);
+    } else {
+      // ✅ category가 있을 경우 like 검색
+      let searchTerms = [];
+
+      if (typeof category === 'string') {
+        const baseCategory = category.toLowerCase();
+        searchTerms = categoryMap[baseCategory] || [baseCategory];
+      }
+
+      const likeConditions = searchTerms.map(() => `category LIKE ?`).join(' OR ');
+      const likeValues = searchTerms.map(term => `%${term}%`);
+
+      [rows] = await db.execute(
+        `
+        SELECT id, product_name, product_price, shop_info, category, product_link, created_at, updated_at, filename
+        FROM main_products
+        WHERE ${likeConditions}
+        ORDER BY updated_at DESC
+        LIMIT ? OFFSET ?
+        `,
+        [...likeValues, pageSize, offset]
+      );
+
+      [count] = await db.execute(
+        `SELECT COUNT(*) as total FROM main_products WHERE ${likeConditions}`,
+        likeValues
       );
     }
 
-    // ✅ 프론트엔드에서 totalPages 계산하도록 total만 응답
-    res.json({ products: rows, total });
-  } catch (error) {
-    console.error('DB query error:', error);
+    res.json({ products: rows, total: count[0].total });
+  } catch (err) {
+    console.error('❌ DB query error:', err);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
