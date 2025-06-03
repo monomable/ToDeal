@@ -1,7 +1,7 @@
 // routes/products.js
 const express = require('express');
 const router = express.Router();
-const db = require('../mainDB'); // ✅ 연결된 DB 객체
+const db = require('../DB/mainDB'); // ✅ 연결된 DB 객체
 
 const categoryMap = {
   drink: ['drink', 'tea', 'beverage', 'water'],

@@ -6,12 +6,14 @@ import { useRouter } from 'next/navigation';
 import { UserIcon } from "@heroicons/react/24/outline";
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
+import KeywordModal from './KeywordModal';
 
 export default function AuthStatusIcon() {
   const { data: session } = useSession();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [showKeywordModal, setShowKeywordModal] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -78,6 +80,17 @@ export default function AuthStatusIcon() {
             </li>
             <li>
               <button
+                onClick={() => {
+                  setShowKeywordModal(true);
+                  setOpen(false);
+                }}
+                className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                키워드 설정
+              </button>
+            </li>
+            <li>
+              <button
                 onClick={() => signOut({ callbackUrl: '/' })}
                 className="block w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700"
               >
@@ -87,6 +100,11 @@ export default function AuthStatusIcon() {
           </ul>
         </div>
       )}
+
+      {showKeywordModal && (
+        <KeywordModal onClose={() => setShowKeywordModal(false)} />
+      )}
     </div>
   );
+
 }

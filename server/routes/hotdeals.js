@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../hotdealDB'); // 위에서 만든 pool 가져오기
+const db = require('../DB/hotdealDB'); // 위에서 만든 pool 가져오기
 
 router.get('/', async (req, res) => {
   try {

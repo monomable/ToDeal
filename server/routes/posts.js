@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
-const db = require('../userDB'); // MariaDB 커넥션을 불러온다고 가정
+const db = require('../DB/userDB'); // MariaDB 커넥션을 불러온다고 가정
 
 const POSTS_PER_PAGE = 10;
 const SALT_ROUNDS = 10;

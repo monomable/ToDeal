@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const db = require('../userDB');
-const maindb = require('../mainDB');
+const db = require('../DB/userDB');
+const maindb = require('../DB/mainDB');
 
 // 장바구니에 상품 추가
 router.post('/', async (req, res) => {

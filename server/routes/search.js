@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../searchDB'); // 하나의 MariaDB 커넥션이 여러 DB 접근 가능해야 함
+const db = require('../DB/searchDB'); // 하나의 MariaDB 커넥션이 여러 DB 접근 가능해야 함
 
 router.get('/', async (req, res) => {
   const search = req.query.search || '';

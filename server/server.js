@@ -54,6 +54,8 @@ app.use('/server-api/cart', require('./routes/cart'));
 app.use('/server-api/posts', require('./routes/posts'));
 app.use('/server-api/search', require('./routes/search'));
 app.use('/server-api/hotdeals', require('./routes/hotdeals'));
+app.use('/server-api/alerts', require('./routes/alerts'));
+app.use('/server-api/user-keywords', require('./routes/userkeyword'));
 
 
 const protectedRouter = require('./routes/protected');

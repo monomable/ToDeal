@@ -2,8 +2,8 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const db = require('../userDB');
-const maindb = require('../mainDB');
+const db = require('../DB/userDB');
+const maindb = require('../DB/mainDB');
 
 router.post('/', async (req, res) => {
   const token = req.headers.authorization?.split(' ')[1];
