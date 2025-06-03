@@ -107,7 +107,9 @@ export default function NotificationPopup({ onClose }: { onClose: () => void }) 
       </div>
 
       {showKeywordModal && (
-        <KeywordModal onClose={() => setShowKeywordModal(false)} />
+        <div className="fixed inset-0 bg-black bg-opacity-20 z-[100] flex items-center justify-center">
+          <KeywordModal onClose={() => setShowKeywordModal(false)} />
+        </div>
       )}
     </>
   );

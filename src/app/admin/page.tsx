@@ -9,6 +9,7 @@ export default function AdminPage() {
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [productId, setProductId] = useState('');
+  const [matchedKeyword, setMatchedKeyword] = useState('');
 
   const router = useRouter();
 
@@ -86,26 +87,33 @@ export default function AdminPage() {
         </form>
       </section>
 
-      {/* ✅ 특정 상품 알림 */}
+      {/* ✅ 상품 ID 및 키워드 알림 발송 */}
       <section className="bg-white p-6 rounded shadow border">
-        <h2 className="text-xl font-semibold mb-2">📦 상품 ID로 알림 전송</h2>
+        <h2 className="text-xl font-semibold mb-2">📦 상품 ID + 키워드로 알림 전송</h2>
         <form
           onSubmit={async (e) => {
             e.preventDefault();
             const res = await fetch('/server-api/admin/notify-product', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ productId }),
+              body: JSON.stringify({ productId, matchedKeyword }),
             });
             const data = await res.json();
             alert(data.success ? '✅ 상품 알림 전송 완료' : `❌ 실패: ${data.error}`);
             setProductId('');
+            setMatchedKeyword('');
           }}
         >
           <input
             value={productId}
             onChange={(e) => setProductId(e.target.value)}
             placeholder="상품 ID 입력"
+            className="w-full border px-3 py-2 rounded mb-3"
+          />
+          <input
+            value={matchedKeyword}
+            onChange={(e) => setMatchedKeyword(e.target.value)}
+            placeholder="매칭 키워드 입력"
             className="w-full border px-3 py-2 rounded mb-3"
           />
           <button

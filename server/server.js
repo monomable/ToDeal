@@ -7,9 +7,9 @@ const dotenv = require("dotenv");
 const path = require("path");
 const next = require("next");
 const dealsRouter = require("./routes/deals");
-const authRouter = require("./login/auth.js");
+//const authRouter = require("./login/auth.js");
 const productsRouter = require('./routes/products');
-const postsRouter = require('./routes/posts');
+//const postsRouter = require('./routes/posts');
 
 // Load .env config
 dotenv.config({ path: ".env" });
@@ -46,9 +46,9 @@ app.use(
 );
 
 app.use(express.json());
-app.use("/auth", authRouter);
 app.use("/deals", dealsRouter);
 app.use('/server-api/products', productsRouter);
+app.use('/server-api/auth', require('./routes/auth'));
 app.use('/server-api/wishlist', require('./routes/wishlist'));
 app.use('/server-api/cart', require('./routes/cart'));
 app.use('/server-api/posts', require('./routes/posts'));

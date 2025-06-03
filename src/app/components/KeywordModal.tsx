@@ -109,7 +109,7 @@ export default function KeywordModal({ onClose }: KeywordModalProps) {
             <p className="text-gray-500">등록된 키워드가 없습니다.</p>
           ) : (
             keywords.map((k) => (
-              <div key={k.id} className="flex justify-between items-center bg-gray-100 px-3 py-2 rounded">
+              <div key={String(k.id)} className="flex justify-between items-center bg-gray-100 px-3 py-2 rounded">
                 <span>{k.keyword}</span>
                 <button onClick={() => removeKeyword(k.id)} className="text-red-500 hover:text-red-700">삭제</button>
               </div>
