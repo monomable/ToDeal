@@ -24,14 +24,14 @@ export default function TopNavBar() {
       <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 relative">
         <div className="max-w-screen-xl flex items-center mx-auto p-4 relative z-50">
           <Link href="/main" className="flex items-center space-x-3 rtl:space-x-reverse">
-            <Image src="/todeal-logo.png" width={1000} height={1000} className="h-28 w-28" alt="todeal Logo" />
+            <Image src="/todeal-logo.png" width={1000} height={1000} className="h-28 w-28" alt="todeal Logo" priority />
           </Link>
 
           {/* 내비게이션 메뉴 */}
           <div className={`${isMobileMenuOpen ? "block" : "hidden"} absolute top-full left-0 w-full bg-white md:relative md:block md:w-auto md:left-1/3 md:-translate-x-1/2 md:bg-transparent md:top-10`} >
             <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
-                <Link href="/" className="block font-bold py-2 px-3 text-white bg-red-700 rounded-md md:bg-transparent md:text-red-700 md:p-0 md:dark:text-red-500 dark:bg-red-600 md:dark:bg-transparent">
+                <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="block font-bold py-2 px-3 text-white bg-red-700 rounded-md md:bg-transparent md:text-red-700 md:p-0 md:dark:text-red-500 dark:bg-red-600 md:dark:bg-transparent">
                   메인
                 </Link>
               </li>
@@ -98,10 +98,48 @@ export default function TopNavBar() {
                 </Link>
               </li>
               <li>
-                <Link href="/community" className="block font-bold py-2 px-3 text-gray-900 rounded-md hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                <Link href="/community" onClick={() => setIsMobileMenuOpen(false)} className="block font-bold py-2 px-3 text-gray-900 rounded-md hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                   핫딜
                 </Link>
               </li>
+            
+              {isMobileMenuOpen && (
+                <div className="block md:hidden px-0 pb-0">
+                  <div className="p-0 bg-white dark:bg-gray-900 space-y-4">
+                    {/* 🔍 검색창 */}
+                    <form onSubmit={handleSearch}>
+                      <div className="relative">
+                        <input
+                          type="search"
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white
+                            focus:ring-red-500 focus:border-red-500 dark:bg-gray-700 dark:border-gray-600 
+                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
+                          placeholder="검색어를 입력하세요"
+                        />
+                        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                          <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                          </svg>
+                        </div>
+                      </div>
+                    </form>
+
+                    {/* ❤️ 🛒 👤 아이콘들 */}
+                    <div className="flex items-center justify-start gap-4">
+                      <AuthStatusIcon />
+                      <Link href="/main/wishlist" onClick={() => setIsMobileMenuOpen(false)}>
+                        <HeartIcon className="w-7 h-7 text-gray-700 dark:text-white hover:text-red-600" />
+                      </Link>
+                      <Link href="/main/cart" onClick={() => setIsMobileMenuOpen(false)}>
+                        <ShoppingCartIcon className="w-7 h-7 text-gray-700 dark:text-white hover:text-red-600" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              )}
+
             </ul>
           </div>
           {/* 모바일 메뉴 버튼 */}

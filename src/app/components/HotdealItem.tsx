@@ -25,7 +25,7 @@ const HotdealItem: React.FC<Props> = ({ deal }) => {
       href={deal.link}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center gap-4 p-4 border rounded-lg bg-white hover:shadow-md transition cursor-pointer"
+      className="flex items-center gap-4 p-4 border rounded-lg bg-white hover:shadow-md transition cursor-pointer w-full"
     >
       {/* 이미지 */}
       <Image
@@ -37,9 +37,16 @@ const HotdealItem: React.FC<Props> = ({ deal }) => {
       />
 
       {/* 내용 */}
-      <div className="flex-1">
+      <div className="flex-1 min-w-0">
+        {/* 모바일 전용 뱃지 (제목 위에 표시) */}
+        <span className="block md:hidden text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full font-semibold mb-1 w-fit">
+          진행중
+        </span>
+
         {/* 제목 */}
-        <h3 className="text-md font-semibold text-gray-800 line-clamp-2">{deal.title}</h3>
+        <h3 className="text-md font-semibold text-gray-800 truncate md:line-clamp-2 w-full">
+          {deal.title}
+        </h3>
 
         {/* 메타 정보 */}
         <div className="text-sm text-gray-500 mt-1 flex flex-wrap gap-x-4">
@@ -53,8 +60,8 @@ const HotdealItem: React.FC<Props> = ({ deal }) => {
         </div>
       </div>
 
-      {/* 태그 or 뱃지 */}
-      <span className="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full font-semibold whitespace-nowrap">
+      {/* PC 전용 뱃지 (기존 오른쪽 위치 유지) */}
+      <span className="hidden md:inline-block text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full font-semibold whitespace-nowrap">
         진행중
       </span>
     </Link>

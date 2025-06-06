@@ -9,10 +9,26 @@ interface WishlistItem {
   item_id: number;
 }
 
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkWidth = () => {
+      setIsMobile(window.innerWidth < breakpoint);
+    };
+    checkWidth(); // mount 시 바로 실행
+    window.addEventListener('resize', checkWidth);
+    return () => window.removeEventListener('resize', checkWidth);
+  }, [breakpoint]);
+
+  return isMobile;
+}
+
 export default function LatestProducts() {
   const [products, setProducts] = useState<Product[]>([]);
   const [wishlistItemIds, setWishlistItemIds] = useState<number[]>([]);
   const { data: session } = useSession();
+  const isMobile = useIsMobile(); // 👈 모바일 여부 확인
 
   const fetchWishlist = useCallback(async () => {
     if (!session?.accessToken) return;
@@ -23,10 +39,10 @@ export default function LatestProducts() {
           Authorization: `Bearer ${session.accessToken}`,
         },
       });
-      
+
       if (res.status === 401) {
         console.warn('🔴 토큰 만료, 로그아웃 처리');
-        signOut(); // NextAuth 세션 종료 → 로그인 페이지로 이동
+        signOut();
         return;
       }
 
@@ -64,9 +80,12 @@ export default function LatestProducts() {
     return <p className="text-center text-gray-500 mt-10">상품을 불러오는 중입니다...</p>;
   }
 
+  // 👇 모바일이면 4개로 제한
+  const displayedProducts = isMobile ? products.slice(0, 4) : products;
+
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-      {products.map((product) => (
+      {displayedProducts.map((product) => (
         <ProductItem
           key={product.id}
           product={product}

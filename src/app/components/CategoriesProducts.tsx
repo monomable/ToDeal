@@ -37,7 +37,7 @@ export default function CategorySelector({ categories = defaultCategories }: Cat
   };
 
   return (
-    <div className="grid grid-cols-6 gap-4 w-full mx-auto">
+    <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-4 w-full mx-auto">
       {categories.map((category) => {
         const Icon = category.icon;
         const isSelected = selected === category.id;

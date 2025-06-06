@@ -57,7 +57,7 @@ export default function NotificationButtonWrapper() {
     };
 
     fetchAlerts();
-    const interval = setInterval(fetchAlerts, 600);
+    const interval = setInterval(fetchAlerts, 6000);
     return () => clearInterval(interval);
     }, [session?.accessToken, latestAlertId]);
 

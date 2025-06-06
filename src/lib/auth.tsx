@@ -1,11 +1,10 @@
-// src/lib/auth.ts
 import { AuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { RowDataPacket } from 'mysql2/promise';
-import userDB from '../../server/DB/userDB'; // 경로는 위치에 따라 조정하세요
+import userDB from '../../server/DB/userDB';
 
 interface UserRow extends RowDataPacket {
   id: number;
@@ -44,7 +43,9 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
-  session: { strategy: 'jwt' },
+  session: {
+    strategy: 'jwt',
+  },
   callbacks: {
     async jwt({ token, user, account }) {
       if (account || user) {
@@ -64,5 +65,21 @@ export const authOptions: AuthOptions = {
       return session;
     },
   },
+  cookies: {
+    sessionToken: {
+      name:
+        process.env.NODE_ENV === 'production'
+          ? '__Secure-next-auth.session-token'
+          : 'next-auth.session-token',
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production', // ✅ HTTPS 적용 시 필수
+      },
+    },
+  },
+  useSecureCookies: process.env.NODE_ENV === 'production',
   secret: process.env.JWT_SECRET,
+  debug: process.env.NODE_ENV !== 'production', // 개발 중 debug 로그 보기
 };

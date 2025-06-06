@@ -21,7 +21,7 @@ export default function CategoriesPage() {
   };*/
 
   return (
-    <div className='mt-5 space-y-5'>
+    <div className='mt-5 space-y-2 md:space-y-5 '>
       <CategorySelector/>
       <CategorySelector categories={customCategories} />
     </div>

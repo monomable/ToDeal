@@ -44,7 +44,7 @@ export default function HotdealsPage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
+    <div className="max-w-6xl mx-auto p-0 md:p-6">
       <h1 className="text-2xl font-bold mb-6">🔥 핫딜 모음</h1>
 
       {hotdeals.length === 0 ? (
