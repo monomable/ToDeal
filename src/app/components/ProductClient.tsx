@@ -25,6 +25,11 @@ interface Props {
   category: string;
 }
 
+interface WishlistItem {
+  item_id: number;
+}
+
+
 export default function ProductClient({ category }: Props) {
   const { data: session } = useSession();
   const [products, setProducts] = useState<Product[]>([]);
@@ -61,13 +66,13 @@ export default function ProductClient({ category }: Props) {
 
       const data = await res.json();
       const ids = Array.isArray(data)
-        ? data.map((item: any) => item.item_id)
+        ? data.map((item: WishlistItem) => item.item_id)
         : data.wishlistItemIds || [];
       setWishlistItemIds(ids);
     } catch (error) {
       console.error('❌ 찜 목록 로딩 실패:', error);
     }
-  }, [session?.accessToken]);
+  }, [session]);
 
   useEffect(() => {
     fetchProducts();

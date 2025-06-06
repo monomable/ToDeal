@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+//import { useRouter } from 'next/navigation';
 
 export default function AdminPage() {
   const [authorized, setAuthorized] = useState(false);
@@ -11,7 +11,7 @@ export default function AdminPage() {
   const [productId, setProductId] = useState('');
   const [matchedKeyword, setMatchedKeyword] = useState('');
 
-  const router = useRouter();
+  //const router = useRouter();
 
   const handleVerify = async () => {
     const res = await fetch('/server-api/admin/verify', {

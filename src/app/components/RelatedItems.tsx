@@ -62,7 +62,7 @@ export default function RelatedItems() {
               <HeartIcon className="w-5 h-5 text-gray-500 hover:text-red-500 cursor-pointer" />
               <EyeIcon className="w-5 h-5 text-gray-500 hover:text-blue-500 cursor-pointer" />
             </div>
-            <img src={item.image} alt={item.name} className="mx-auto h-32 object-contain mb-4" />
+            <Image src={item.image} alt={item.name} width={800} height={800} className="mx-auto h-32 object-contain mb-4" />
             <h3 className="text-sm font-semibold text-gray-700 mb-1">{item.name}</h3>
             <div className="text-red-500 text-sm font-bold">
               {item.price}{' '}

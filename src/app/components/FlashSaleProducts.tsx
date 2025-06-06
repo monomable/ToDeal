@@ -3,6 +3,11 @@
 import { useEffect, useState, useCallback } from 'react';
 import ProductItem, { Product } from './ProductItem';
 import { useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
+
+interface WishlistItem {
+  item_id: number;
+}
 
 export default function LatestProducts() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -18,11 +23,17 @@ export default function LatestProducts() {
           Authorization: `Bearer ${session.accessToken}`,
         },
       });
+      
+      if (res.status === 401) {
+        console.warn('🔴 토큰 만료, 로그아웃 처리');
+        signOut(); // NextAuth 세션 종료 → 로그인 페이지로 이동
+        return;
+      }
 
       if (res.ok) {
         const data = await res.json();
         const ids = Array.isArray(data)
-          ? data.map((item: any) => item.item_id)
+          ? data.map((item: WishlistItem) => item.item_id)
           : data.wishlistItemIds || [];
         setWishlistItemIds(ids);
       } else {

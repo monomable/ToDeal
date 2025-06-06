@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 'use client';
 
 import { useSession } from 'next-auth/react';
@@ -14,7 +15,7 @@ export default function NotificationButtonWrapper() {
   const { data: session } = useSession();
   const [showPopup, setShowPopup] = useState(false);
   const [hasUnread, setHasUnread] = useState(false);
-  const [alerts, setAlerts] = useState<Alert[]>([]);
+  const [, setAlerts] = useState<Alert[]>([]);
   const [newAlert, setNewAlert] = useState<Alert | null>(null);
   const [showNewAlert, setShowNewAlert] = useState(false);
   const [latestAlertId, setLatestAlertId] = useState<number | null>(null);

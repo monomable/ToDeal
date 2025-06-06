@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import ShopBadge from '@/components/ShopBadge';
 import UnitPriceInfo from '@/components/UnitPriceInfo';
+import Image from 'next/image';
 
 interface CartProduct {
   id: number;
@@ -113,9 +114,11 @@ export default function CartPage() {
               className="flex gap-4 items-center border rounded-lg p-4 shadow hover:shadow-md transition"
             >
               {/* 이미지 */}
-              <img
+              <Image
                 src={`https://img.onemable.com/images/${item.filename}`}
                 alt={item.product_name}
+                width={1000}
+                height={1000}
                 className="w-40 h-40 object-cover rounded"
               />
 

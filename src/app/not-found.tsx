@@ -5,7 +5,7 @@ import Link from "next/link";
 import TopNavBar from "./components/TopNavBar";
 import { SessionProvider } from "next-auth/react";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function NotFoundLayout() {
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 relative">

@@ -4,7 +4,8 @@
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import Link from "next/link";
-import { UserIcon, HeartIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
+import { HeartIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import AuthStatusIcon from "../components/AuthStatusIcon";
 
 export default function TopNavBar() {
@@ -23,7 +24,7 @@ export default function TopNavBar() {
       <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 relative">
         <div className="max-w-screen-xl flex items-center mx-auto p-4 relative z-50">
           <Link href="/main" className="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="/todeal-logo.png" className="h-28" alt="todeal Logo" />
+            <Image src="/todeal-logo.png" width={1000} height={1000} className="h-28 w-28" alt="todeal Logo" />
           </Link>
 
           {/* 내비게이션 메뉴 */}

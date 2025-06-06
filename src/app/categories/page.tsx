@@ -1,6 +1,6 @@
 // categories/page.tsx
 'use client';
-import { useRouter } from 'next/navigation';
+//import { useRouter } from 'next/navigation';
 import CategorySelector from '@/components/CategoriesProducts';
 import { RocketLaunchIcon } from "@heroicons/react/24/outline";
 import { CookieIcon, JarLabelIcon, CookingPotIcon ,FishIcon } from "@phosphor-icons/react";
@@ -14,11 +14,11 @@ const customCategories = [
 ];
 
 export default function CategoriesPage() {
-  const router = useRouter();
+  //const router = useRouter();
 
-  const handleClick = (category: string) => {
+  /*const handleClick = (category: string) => {
     router.push(`/categories/${category}`);
-  };
+  };*/
 
   return (
     <div className='mt-5 space-y-5'>

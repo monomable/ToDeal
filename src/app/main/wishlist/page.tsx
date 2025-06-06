@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import ProductItem from '../../components/ProductItem';
 
@@ -21,7 +21,7 @@ export default function WishlistPage() {
   const [wishlistProducts, setWishlistProducts] = useState<Product[]>([]);
   const [wishlistItemIds, setWishlistItemIds] = useState<number[]>([]);
 
-  const fetchWishlist = async () => {
+  const fetchWishlist = useCallback(async () => {
     if (!session?.accessToken) return;
 
     try {
@@ -43,11 +43,11 @@ export default function WishlistPage() {
     } catch (error) {
       console.error('찜 목록 가져오기 실패:', error);
     }
-  };
+  }, [session?.accessToken]);
 
   useEffect(() => {
     fetchWishlist();
-  }, [session]);
+  }, [fetchWishlist]);
 
   if (!session) {
     return <p className="text-center text-gray-500 mt-10">로그인이 필요합니다.</p>;

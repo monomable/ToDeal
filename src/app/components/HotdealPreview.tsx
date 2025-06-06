@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import HotdealItem from '@/components/HotdealItem'; // 이미 구현한 아이템
-import Link from 'next/link';
 
 interface Hotdeal {
   id: number;

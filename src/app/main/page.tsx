@@ -8,11 +8,6 @@ import ItemHeader from "@/components/ItemHeader";
 import RecentlyViewedProducts from '@/components/RecentlyViewedProducts';
 import HotdealPreview from "@/components/HotdealPreview";
 
-interface HotDeal {
-  image_base64: string;
-  link: string;
-}
-
 export default function Page() {
 
 

@@ -4,6 +4,10 @@ import { useEffect, useState, useCallback } from 'react';
 import ProductItem, { Product } from '@/components/ProductItem';
 import { useSession } from 'next-auth/react';
 
+interface WishlistItem {
+  item_id: number;
+}
+
 export default function AllProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [wishlistItemIds, setWishlistItemIds] = useState<number[]>([]);
@@ -26,7 +30,7 @@ export default function AllProductsPage() {
       if (res.ok) {
         const data = await res.json();
         const ids = Array.isArray(data)
-          ? data.map((item: any) => item.item_id)
+          ? data.map((item: WishlistItem) => item.item_id)
           : data.wishlistItemIds || [];
         setWishlistItemIds(ids);
       } else {

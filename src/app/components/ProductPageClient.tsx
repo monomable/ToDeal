@@ -7,6 +7,7 @@ import PriceTrendChart from "@/components/PriceTrendChart";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import UnitPriceInfo from "./UnitPriceInfo";
+import Image from "next/image";
 
 interface Product {
   id: number;
@@ -63,9 +64,11 @@ export default function ProductPageClient({ product }: { product: Product }) {
         <div className="flex flex-col gap-4">
           {imageList.map((img, i) => (
             <div key={i} className="w-20 h-20 rounded border cursor-pointer overflow-hidden hover:border-red-500">
-              <img
+              <Image
                 src={img}
                 alt="thumb"
+                width={1000}
+                height={1000}
                 className="w-full h-full object-cover"
                 onClick={() => setSelectedImage(img)}
               />
@@ -74,7 +77,7 @@ export default function ProductPageClient({ product }: { product: Product }) {
         </div>
         <div className="flex-1">
           <div className="w-96 h-96 bg-gray-100 rounded overflow-hidden">
-            <img src={selectedImage} alt="selected" className="w-full h-full object-cover" />
+            <Image src={selectedImage} alt="selected" width={1000} height={1000} className="w-full h-full object-cover" />
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import ShopBadge from '@/components/ShopBadge';
 import UnitPriceInfo from './UnitPriceInfo';
+import Image from 'next/image';
 
 export interface Product {
   id: number;
@@ -96,9 +97,11 @@ const handleClick = () => {
     >
       {/* 이미지 영역 */}
       <div className="relative w-full aspect-[1/1]">
-        <img
+        <Image
           src={`https://img.onemable.com/images/${product.filename}`}
           alt={product.product_name}
+          width={1000}
+          height={1000}
           className="w-full h-full object-cover"
         />
 

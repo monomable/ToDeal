@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import ProductItem, { Product } from '@/components/ProductItem';
 import ItemHeader from './ItemHeader';
 
@@ -32,6 +32,11 @@ const RecentlyViewedProducts = () => {
           },
         });
         const data = await res.json();
+        if (res.status === 401) {
+          console.warn('🔴 토큰 만료, 로그아웃 처리');
+          signOut(); // NextAuth 세션 종료 → 로그인 페이지로 이동
+          return;
+        }
         if (Array.isArray(data.products)) {
           setWishlistItemIds(data.products.map((item: Product) => item.id));
         }

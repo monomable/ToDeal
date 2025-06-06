@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface Hotdeal {
   id: number;
@@ -27,9 +28,11 @@ const HotdealItem: React.FC<Props> = ({ deal }) => {
       className="flex items-center gap-4 p-4 border rounded-lg bg-white hover:shadow-md transition cursor-pointer"
     >
       {/* 이미지 */}
-      <img
+      <Image
         src={`https://img.onemable.com/images/${deal.filepath}`}
         alt={deal.title}
+        width={112}
+        height={112}
         className="w-28 h-28 object-cover rounded-md border"
       />
 
