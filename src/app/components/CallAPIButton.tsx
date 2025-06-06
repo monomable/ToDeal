@@ -6,7 +6,7 @@ export default function CallAPIButton() {
 
   const callAPI = async () => {
     try {
-      const res = await fetch('http://localhost:5000/serverapi/protected/profile', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/serverapi/protected/profile`, {
         headers: {
           Authorization: `Bearer ${session?.accessToken}`,
         },

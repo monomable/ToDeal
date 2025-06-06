@@ -25,7 +25,7 @@ export default function WishlistPage() {
     if (!session?.accessToken) return;
 
     try {
-      const res = await fetch('http://localhost:5000/server-api/wishlist/mylist', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/server-api/wishlist/mylist`, {
         headers: {
           Authorization: `Bearer ${session.accessToken}`,
         },

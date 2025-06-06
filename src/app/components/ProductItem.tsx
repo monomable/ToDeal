@@ -47,7 +47,7 @@ export default function ProductItem({
       return;
     }
 
-    const url = 'http://localhost:5000/server-api/wishlist';
+    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/server-api/wishlist`;
     const method = isWishlisted ? 'DELETE' : 'POST';
 
     const res = await fetch(url, {

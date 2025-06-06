@@ -23,7 +23,7 @@ export default function PriceTrendChart({ productLink }: { productLink: string }
 useEffect(() => {
   const fetchChartData = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/server-api/products/trend?product_link=${encodeURIComponent(productLink)}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/server-api/products/trend?product_link=${encodeURIComponent(productLink)}`);
       const data = await res.json();
       console.log("📦 서버 응답:", data);
 

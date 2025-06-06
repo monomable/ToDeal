@@ -25,7 +25,7 @@ export default function PostData() {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`http://localhost:5000/server-api/posts?page=${currentPage}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/server-api/posts?page=${currentPage}`);
         if (!res.ok) throw new Error('게시글을 불러올 수 없습니다.');
 
         const data = await res.json();
