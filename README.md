@@ -25,3 +25,6 @@ pnpm dev
 # or
 bun dev
 ```
+
+## 시연 영상
+https://drive.google.com/file/d/1JQy7-s7qRRxftpQ6k_haXeKCRohtVFwJ/view?usp=sharing
