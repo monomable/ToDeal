@@ -1,6 +1,6 @@
 # TODEAL - 온라인 식료품 최저가 검색 사이트
 
-![logo](/readme_data/logo1.png)
+![logo](/readme_data/logo.png)
 
 ## 캡스톤 웹/앱 프로젝트
 
