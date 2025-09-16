@@ -14,7 +14,7 @@
 
 <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=next.js&logoColor=white">
 <img src="https://img.shields.io/badge/Express-f7df1d?style=for-the-badge&logo=express&logoColor=black"/>
-<img src="https://img.shields.io/badge/FastAPI-009688?&style=for-the-badge&logo=fastapi&logoColor=white)"/>
+<img src="https://img.shields.io/badge/FastAPI-009688?&style=for-the-badge&logo=fastapi&logoColor=white"/>
 
 ### DB</br>
 
