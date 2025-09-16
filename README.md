@@ -1,20 +1,29 @@
-# TODEAL - 온라인 식료품 최저가 검색 사이트
+# TODEAL
 
 ![logo](/readme_data/logo.png)
 
-## 캡스톤 웹/앱 프로젝트
+## 세명대 캡스톤 프로젝트
 
-### 사용한 프레임워크
+## 🛠 기술 스택
 
-FrontEnd
-- Next.js
+### FrontEnd
 
-BackEnd
-- Next.js
-- express
+<img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=next.js&logoColor=white"><p>
 
-DB</br>
-- MariaDB
+### BackEnd
+
+<img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=next.js&logoColor=white">
+<img src="https://img.shields.io/badge/Express-f7df1d?style=for-the-badge&logo=express&logoColor=black"/>
+<img src="https://img.shields.io/badge/FastAPI-009688?&style=for-the-badge&logo=fastapi&logoColor=white)"/>
+
+### DB</br>
+
+<img src="https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white"/>
+
+### DevOps
+
+
+
 
 
 ## 실행 방법
