@@ -24,7 +24,8 @@
 <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"/>
 
 
-
+### 개발 기간
+2024.09.06 ~ 2025.06.09
 
 ## 실행 방법
 ```bash
